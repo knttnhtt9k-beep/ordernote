@@ -35,25 +35,34 @@
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
   }
-  #intro { text-align: center; padding-top: 32px; }
+  #intro { text-align: center; padding-top: 0; }
+
+  /* ヒーロー画像（あしらい） */
+  .hero-wrap {
+    position: relative;
+    margin: 0 -20px 0;
+    border-radius: 0 0 32px 32px;
+    overflow: hidden;
+    box-shadow: 0 14px 30px rgba(124, 92, 255, .22);
+  }
+  .hero-wrap img {
+    width: 100%;
+    display: block;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+  }
+  .hero-fade {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(255,247,250,0) 55%, var(--bg) 96%);
+    pointer-events: none;
+  }
 
   /* ヘッドコピー装飾 */
   .head-wrap {
     position: relative;
-    padding-top: 12px;
-    margin-bottom: 6px;
-  }
-  .head-glow {
-    position: absolute;
-    top: -60px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 320px;
-    height: 220px;
-    background: radial-gradient(circle, rgba(255,142,196,.38), rgba(124,92,255,.18) 55%, transparent 75%);
-    filter: blur(6px);
-    pointer-events: none;
-    z-index: 0;
+    padding-top: 0;
+    margin: -38px 0 6px;
   }
   .head-badge {
     position: relative;
@@ -63,9 +72,9 @@
     gap: 6px;
     padding: 6px 16px;
     border-radius: 999px;
-    background: rgba(255,255,255,.7);
+    background: rgba(255,255,255,.9);
     border: 1px solid #f3cfe0;
-    box-shadow: 0 4px 14px rgba(255,107,157,.18);
+    box-shadow: 0 4px 14px rgba(255,107,157,.22);
     font-size: .72rem;
     font-weight: 800;
     letter-spacing: .1em;
@@ -185,8 +194,11 @@
 <div class="app">
 
   <section id="intro" class="screen active">
+    <div class="hero-wrap">
+      <img src="images/head-hero.png" alt="愛されない周波数タイプ診断">
+      <div class="hero-fade"></div>
+    </div>
     <div class="head-wrap">
-      <div class="head-glow"></div>
       <div class="head-badge"><span class="spark">✦</span>2分でわかる 無料診断<span class="spark">✦</span></div>
       <div class="head-title-row">
         <span class="spark-deco">✧</span>
@@ -196,8 +208,8 @@
       <div class="head-underline"></div>
     </div>
     <p class="lead">
-      恋がうまくいかない本当の理由を可視化する、<br>
-      あなたの“愛されない周波数”自己分析テスト。
+      恋がうまくいかない本当の理由が見えてくる、<br>
+      あなたの“愛されない周波数”チェックテスト。
     </p>
     <ul class="reason-list">
       <li class="reason-item">
@@ -244,7 +256,7 @@
   </section>
 </div>
 
-<script src="types-data.js"></script>
+<script src="types-data.js?v=3"></script>
 <script>
 const PAGE_SIZE = 5;
 const QUESTIONS = [

@@ -6,7 +6,7 @@
 <title>愛されない周波数タイプ</title>
 <meta property="og:title" content="愛されない周波数タイプ診断">
 <meta property="og:type" content="website">
-<link rel="stylesheet" href="result.css">
+<link rel="stylesheet" href="result.css?v=3">
 </head>
 <body>
 <div class="page" id="page">
@@ -30,7 +30,9 @@
 
   <div class="cta-box">
     <h3 id="ctaTitle"></h3>
+    <p class="watch-note">セミナーでは「恋がうまくいかない5つの共通点」を解説していきます。ここを聞き流さずに、自分の話として受け取ってみてください。</p>
     <p class="why" id="ctaWhy"></p>
+    <p class="benefits-label">当日、こんな話が出てきたら要注目です</p>
     <ul id="ctaBenefits"></ul>
 
     <div class="action-box">
@@ -55,7 +57,7 @@
   </div>
 </div>
 
-<script src="types-data.js"></script>
+<script src="types-data.js?v=3"></script>
 <script>
 (function () {
   const params = new URLSearchParams(location.search);
@@ -77,7 +79,7 @@
   document.getElementById("typeCode").textContent = result.code;
   document.getElementById("typeLead").textContent = result.lead;
   document.getElementById("typeDesc").textContent = result.desc;
-  document.getElementById("ctaTitle").textContent = `「${result.name}」のあなたが、当日いちばん刺さるところ`;
+  document.getElementById("ctaTitle").textContent = `セミナー当日、「${result.name}」のあなたが見るべきポイント`;
   document.getElementById("ctaWhy").textContent = result.why;
 
   const ul = document.getElementById("ctaBenefits");

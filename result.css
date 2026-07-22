@@ -131,11 +131,27 @@ body {
   line-height: 1.5;
   color: #5b3d8a;
 }
+.cta-box .watch-note {
+  font-size: .88rem;
+  line-height: 1.8;
+  margin: 0 0 14px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(255,255,255,.55);
+  color: #6a4a7a;
+}
 .cta-box .why {
   font-size: .92rem;
   line-height: 1.85;
   margin: 0 0 14px;
   color: #4a4050;
+}
+.cta-box .benefits-label {
+  font-size: .8rem;
+  font-weight: 800;
+  letter-spacing: .03em;
+  color: #b5487a;
+  margin: 0 0 8px;
 }
 .cta-box ul {
   margin: 0 0 18px;
