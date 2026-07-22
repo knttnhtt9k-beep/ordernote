@@ -21,14 +21,15 @@ body {
 .cover {
   position: relative;
   width: 100%;
-  aspect-ratio: 16 / 9;
+  /* 生成画像の実寸（1536×1024=3:2）に合わせる。16:9にすると下部の文字が欠ける */
+  aspect-ratio: 3 / 2;
   overflow: hidden;
   background: #2a1a45;
 }
 .cover img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   display: block;
 }
 .cover-shade {
@@ -81,7 +82,7 @@ body {
   font-weight: 700;
   line-height: 1.7;
   margin: 0 0 16px;
-  color: #3a2a4a;
+  color: #e0294f;
 }
 .desc {
   font-size: .95rem;
@@ -145,6 +146,51 @@ body {
   line-height: 1.7;
   margin-bottom: 8px;
   color: #4a4050;
+}
+.action-box {
+  margin-top: 6px;
+  padding-top: 18px;
+  border-top: 1px dashed rgba(90, 60, 120, .2);
+}
+.action-lead {
+  margin: 0 0 8px;
+  font-size: .82rem;
+  font-weight: 800;
+  letter-spacing: .04em;
+  color: #8a3d6b;
+}
+.action-text {
+  margin: 0 0 14px;
+  font-size: .92rem;
+  line-height: 1.8;
+  color: #4a4050;
+}
+.copy-btn {
+  display: block;
+  width: 100%;
+  border: 1.5px solid #d9a9c4;
+  background: #fff;
+  color: #8a3d6b;
+  border-radius: 999px;
+  padding: 14px;
+  font-size: .95rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+.action-note {
+  margin: 8px 0 16px;
+  font-size: .8rem;
+  color: var(--muted);
+  text-align: center;
+}
+.action-warn {
+  margin: 0;
+  font-size: .85rem;
+  line-height: 1.8;
+  color: #6a4a5a;
+  background: #fff5f8;
+  border-radius: 12px;
+  padding: 12px 14px;
 }
 .primary-btn {
   display: block;

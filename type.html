@@ -32,7 +32,22 @@
     <h3 id="ctaTitle"></h3>
     <p class="why" id="ctaWhy"></p>
     <ul id="ctaBenefits"></ul>
-    <a class="primary-btn" id="ctaBtn" href="#">無料セミナーで周波数の直し方を知る</a>
+
+    <div class="action-box">
+      <p class="action-lead">今すぐできること</p>
+      <p class="action-text">
+        この診断結果を、LINEのトーク画面に一言送ってください。<br>
+        「当てはまってた」だけでも大丈夫です。
+      </p>
+      <button class="copy-btn" id="copyBtn" type="button">タイプ名をコピーする</button>
+      <p class="action-note" id="copyNote">コピーしたら、そのままLINEに貼って送ってください。</p>
+      <p class="action-warn">
+        当日、「うまくいかない共通点」を解説する場面で、<br>
+        あなたのタイプが呼ばれたときにいちばん深く刺さります。<br>
+        今日の"当てはまった"気づきを、当日まで持っていってください。
+      </p>
+    </div>
+
     <a class="ghost-btn" href="index.html">診断トップへ戻る</a>
     <div class="nav-links">
       <a href="gallery.html">全タイプ一覧を見る</a>
@@ -62,16 +77,36 @@
   document.getElementById("typeCode").textContent = result.code;
   document.getElementById("typeLead").textContent = result.lead;
   document.getElementById("typeDesc").textContent = result.desc;
-  document.getElementById("ctaTitle").textContent = `「${result.name}」のあなたへ。次に受け取れること`;
+  document.getElementById("ctaTitle").textContent = `「${result.name}」のあなたが、当日いちばん刺さるところ`;
   document.getElementById("ctaWhy").textContent = result.why;
-  document.getElementById("ctaBtn").href = window.SEMINAR_URL;
-  document.getElementById("ctaBtn").textContent = "このタイプの直し方をセミナーで聞く";
 
   const ul = document.getElementById("ctaBenefits");
   result.benefits.forEach((b) => {
     const li = document.createElement("li");
     li.textContent = b;
     ul.appendChild(li);
+  });
+
+  // タイプ名をコピー→LINEに貼ってもらう（着席前のコミットメント作り）
+  const copyBtn = document.getElementById("copyBtn");
+  const copyNote = document.getElementById("copyNote");
+  const copyText = `診断結果：${result.name}（${result.code}）`;
+  copyBtn.addEventListener("click", async () => {
+    try {
+      await navigator.clipboard.writeText(copyText);
+    } catch (e) {
+      const ta = document.createElement("textarea");
+      ta.value = copyText;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand("copy");
+      document.body.removeChild(ta);
+    }
+    copyBtn.textContent = "コピーしました";
+    copyNote.textContent = "LINEのトーク画面を開いて、貼って送ってください。";
+    setTimeout(() => {
+      copyBtn.textContent = "タイプ名をコピーする";
+    }, 2500);
   });
 
   // 診断直後ならスコアを表示
