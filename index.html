@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>愛されない周波数タイプ診断</title>
+<style>
+  :root {
+    --pink: #ff6b9d;
+    --pink-soft: #ffe4ef;
+    --purple: #7c5cff;
+    --bg: #fff7fa;
+    --card: #ffffff;
+    --text: #2b2430;
+    --muted: #8a7f8f;
+    --line: #f0dce6;
+    --shadow: 0 10px 30px rgba(255, 107, 157, 0.12);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+  }
+  .app {
+    min-height: 100vh;
+    max-width: 430px;
+    margin: 0 auto;
+    padding: 0 20px 40px;
+  }
+  .screen { display: none; animation: fadeIn .35s ease; }
+  .screen.active { display: block; }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  #intro { text-align: center; padding-top: 48px; }
+  h1 { font-size: 1.55rem; line-height: 1.45; margin: 0 0 14px; }
+  .lead { color: var(--muted); font-size: .95rem; line-height: 1.8; margin: 0 0 28px; }
+  .reason-list { text-align: left; margin: 0 0 28px; padding: 0; }
+  .reason-item {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 36px 1fr;
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+  .reason-num {
+    width: 36px; height: 36px; border-radius: 50%;
+    display: grid; place-items: center;
+    font-size: .95rem; font-weight: 800; color: #fff;
+  }
+  .reason-item:nth-child(1) .reason-num { background: #8fd39a; }
+  .reason-item:nth-child(2) .reason-num { background: #f5a0c0; }
+  .reason-item:nth-child(3) .reason-num { background: #f0d06a; color: #5a4a20; }
+  .reason-item h3 { margin: 2px 0 4px; font-size: .98rem; line-height: 1.45; }
+  .reason-item p { margin: 0; font-size: .86rem; line-height: 1.7; color: var(--muted); }
+  .primary-btn {
+    width: 100%; border: none; border-radius: 999px;
+    padding: 18px 16px; font-size: 1.05rem; font-weight: 700; color: #fff;
+    background: linear-gradient(90deg, var(--pink), #ff8ec4 55%, var(--purple));
+    box-shadow: 0 10px 24px rgba(255, 107, 157, .35);
+    cursor: pointer;
+  }
+  .primary-btn:disabled { opacity: .45; cursor: not-allowed; box-shadow: none; }
+  .subnote { margin-top: 14px; font-size: .78rem; color: var(--muted); }
+  .link-row { margin-top: 18px; }
+  .link-row a { color: var(--purple); font-size: .85rem; }
+
+  #quiz { padding-top: 24px; }
+  .topbar {
+    display: flex; justify-content: space-between;
+    margin-bottom: 10px; font-size: .8rem; color: var(--muted); font-weight: 600;
+  }
+  .bar { height: 6px; background: #f3e3eb; border-radius: 999px; overflow: hidden; margin-bottom: 28px; }
+  .bar > span {
+    display: block; height: 100%; width: 0%;
+    background: linear-gradient(90deg, var(--pink), var(--purple));
+    transition: width .25s ease;
+  }
+  .q-card {
+    background: var(--card); border-radius: 18px; padding: 18px 16px;
+    box-shadow: var(--shadow); margin-bottom: 12px;
+  }
+  .q-label { color: var(--pink); font-size: .72rem; font-weight: 800; letter-spacing: .08em; margin-bottom: 8px; }
+  .q-text { font-size: .98rem; font-weight: 700; line-height: 1.55; }
+  .choices { margin-top: 12px; display: grid; gap: 8px; }
+  .choice {
+    width: 100%; text-align: left; border: 1.5px solid var(--line);
+    background: #fff; border-radius: 14px; padding: 12px 14px;
+    font-size: .9rem; line-height: 1.45; color: var(--text); cursor: pointer;
+  }
+  .choice.selected { border-color: var(--pink); background: var(--pink-soft); }
+  #nextBtn { margin-top: 8px; }
+
+  #analyze { text-align: center; padding-top: 120px; }
+  .spinner {
+    width: 64px; height: 64px; margin: 0 auto 24px; border-radius: 50%;
+    border: 4px solid #f3d7e4; border-top-color: var(--pink);
+    animation: spin .8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  #analyze h2 { font-size: 1.2rem; margin: 0 0 8px; }
+  #analyze p { color: var(--muted); font-size: .9rem; line-height: 1.7; }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <section id="intro" class="screen active">
+    <h1>愛されない周波数<br>タイプ診断</h1>
+    <p class="lead">
+      恋がうまくいかない本当の理由を可視化する、<br>
+      あなたの“愛されない周波数”自己分析テスト。
+    </p>
+    <ul class="reason-list">
+      <li class="reason-item">
+        <div class="reason-num">1</div>
+        <div>
+          <h3>周波数診断を受ける（完全無料）</h3>
+          <p>全10問の二択に答えて、今のあなたが出している「愛されない周波数」のクセを見つけます。約2分・5問ずつ進みます。</p>
+        </div>
+      </li>
+      <li class="reason-item">
+        <div class="reason-num">2</div>
+        <div>
+          <h3>自分の周波数タイプを知る</h3>
+          <p>結果はタイプ専用ページで表示。画像にタイプ名が入り、「当てはまる」と思える説明と直し方まで読めます。</p>
+        </div>
+      </li>
+      <li class="reason-item">
+        <div class="reason-num">3</div>
+        <div>
+          <h3>直し方をセミナーで深める</h3>
+          <p>タイプがわかったら終わりではありません。セミナー本編で、その周波数を「愛される周波数」に書き換える具体的な方法をお伝えします。</p>
+        </div>
+      </li>
+    </ul>
+    <button class="primary-btn" id="startBtn">診断をはじめる</button>
+    <p class="subnote">正解・不正解はありません。直感で選んでください。</p>
+    <div class="link-row"><a href="gallery.html">全タイプ一覧を見る</a></div>
+  </section>
+
+  <section id="quiz" class="screen">
+    <div class="topbar">
+      <span id="qCount">1〜5問目 / 全10問</span>
+      <span id="qPct">50%</span>
+    </div>
+    <div class="bar"><span id="qBar"></span></div>
+    <div id="pageQuestions"></div>
+    <button class="primary-btn" id="nextBtn" disabled>次へ</button>
+  </section>
+
+  <section id="analyze" class="screen">
+    <div class="spinner"></div>
+    <h2>あなたの周波数を解析中…</h2>
+    <p>タイプページを準備しています</p>
+  </section>
+</div>
+
+<script src="types-data.js"></script>
+<script>
+const PAGE_SIZE = 5;
+const QUESTIONS = [
+  {
+    text: "好きな人に頼まれごとをされたとき、本当は忙しいのにどうする？",
+    a: { label: "とりあえず引き受ける", axis: "A" },
+    b: { label: "無理なら正直に伝える", axis: null }
+  },
+  {
+    text: "デートの行き先を決めるとき、あなたの本音に近いのは？",
+    a: { label: "相手が喜びそうな方を優先する", axis: "A" },
+    b: { label: "自分が行きたい場所もちゃんと出す", axis: null }
+  },
+  {
+    text: "連絡の返信がいつもより遅い。あなたは？",
+    a: { label: "嫌われたかも…と悪い方へ考える", axis: "B" },
+    b: { label: "忙しいんだろうな、で一旦置く", axis: null }
+  },
+  {
+    text: "これから始まる恋について、無意識に近いのは？",
+    a: { label: "どうせまた同じパターンになりそう", axis: "B" },
+    b: { label: "今回はうまくいくかもしれない", axis: null }
+  },
+  {
+    text: "褒められたとき、つい出てしまう反応は？",
+    a: { label: "「そんなことないです」と打ち消す", axis: "C" },
+    b: { label: "素直に「ありがとう」と言える", axis: null }
+  },
+  {
+    text: "うまくいかないことが起きたとき、最初に向く矢印は？",
+    a: { label: "自分を責める", axis: "C" },
+    b: { label: "状況や相手側の事情も見る", axis: null }
+  },
+  {
+    text: "相手の表情が少し硬い。あなたの心は？",
+    a: { label: "自分のせいだと感じて落ち込む", axis: "D" },
+    b: { label: "相手の都合かも、と様子を見る", axis: null }
+  },
+  {
+    text: "既読・未読やスタンプひとつで、その日の気分は？",
+    a: { label: "かなり左右される", axis: "D" },
+    b: { label: "そこまで気分は変わらない", axis: null }
+  },
+  {
+    text: "「本当はどうしたい？」と聞かれたら？",
+    a: { label: "すぐには答えが出てこない", axis: "E" },
+    b: { label: "だいたいすぐに言える", axis: null }
+  },
+  {
+    text: "自分を大切にする方法は？",
+    a: { label: "言われても、具体的に何をすればいいかわからない", axis: "E" },
+    b: { label: "ある程度、自分なりのやり方がある", axis: null }
+  }
+];
+
+const answers = new Array(QUESTIONS.length).fill(null);
+let page = 0;
+
+const screens = {
+  intro: document.getElementById("intro"),
+  quiz: document.getElementById("quiz"),
+  analyze: document.getElementById("analyze")
+};
+
+function show(name) {
+  Object.values(screens).forEach((el) => el.classList.remove("active"));
+  screens[name].classList.add("active");
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+document.getElementById("startBtn").addEventListener("click", () => {
+  page = 0;
+  answers.fill(null);
+  show("quiz");
+  renderPage();
+});
+
+function pageRange() {
+  const start = page * PAGE_SIZE;
+  const end = Math.min(start + PAGE_SIZE, QUESTIONS.length);
+  return { start, end };
+}
+
+function renderPage() {
+  const { start, end } = pageRange();
+  const total = QUESTIONS.length;
+  document.getElementById("qCount").textContent = `${start + 1}〜${end}問目 / 全${total}問`;
+  document.getElementById("qPct").textContent = `${Math.round((end / total) * 100)}%`;
+  document.getElementById("qBar").style.width = `${(end / total) * 100}%`;
+
+  const wrap = document.getElementById("pageQuestions");
+  wrap.innerHTML = "";
+  for (let i = start; i < end; i++) {
+    const q = QUESTIONS[i];
+    const card = document.createElement("div");
+    card.className = "q-card";
+    card.innerHTML = `
+      <div class="q-label">Q${i + 1}</div>
+      <div class="q-text">${q.text}</div>
+      <div class="choices"></div>
+    `;
+    const choices = card.querySelector(".choices");
+    ["a", "b"].forEach((key) => {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "choice" + (answers[i] === key ? " selected" : "");
+      btn.textContent = q[key].label;
+      btn.addEventListener("click", () => {
+        answers[i] = key;
+        choices.querySelectorAll(".choice").forEach((b) => b.classList.remove("selected"));
+        btn.classList.add("selected");
+        updateNextBtn();
+      });
+      choices.appendChild(btn);
+    });
+    wrap.appendChild(card);
+  }
+  document.getElementById("nextBtn").textContent =
+    end >= total ? "結果をみる" : "次へ（残り5問）";
+  updateNextBtn();
+}
+
+function updateNextBtn() {
+  const { start, end } = pageRange();
+  document.getElementById("nextBtn").disabled = !answers.slice(start, end).every((v) => v !== null);
+}
+
+document.getElementById("nextBtn").addEventListener("click", () => {
+  const { end } = pageRange();
+  if (end >= QUESTIONS.length) {
+    show("analyze");
+    setTimeout(goToTypePage, 1400);
+  } else {
+    page += 1;
+    renderPage();
+  }
+});
+
+function goToTypePage() {
+  const scores = { A: 0, B: 0, C: 0, D: 0, E: 0 };
+  QUESTIONS.forEach((q, i) => {
+    const axis = q[answers[i]] && q[answers[i]].axis;
+    if (axis) scores[axis] += 1;
+  });
+  const order = ["A", "B", "C", "D", "E"];
+  const sorted = order
+    .map((axis) => ({ axis, score: scores[axis] }))
+    .sort((a, b) => b.score - a.score || order.indexOf(a.axis) - order.indexOf(b.axis));
+  const top2 = [sorted[0].axis, sorted[1].axis].sort();
+  const key = top2.join("");
+
+  try {
+    sessionStorage.setItem("freqScores", JSON.stringify(scores));
+    sessionStorage.setItem("freqType", key);
+  } catch (e) {}
+
+  // タイプ専用ページへ（画像＋名称入り）
+  location.href = "type.html?id=" + key;
+  // きれいなURLが必要な場合は types/AB.html も使える
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>愛されない周波数タイプ</title>
+<meta property="og:title" content="愛されない周波数タイプ診断">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="result.css">
+</head>
+<body>
+<div class="page" id="page">
+  <div class="cover">
+    <!-- タイプ名は画像に焼き込み済み -->
+    <img id="typeImage" alt="" width="960" height="540">
+    <h1 id="typeName" class="sr-only"></h1>
+    <span id="typeCode" class="sr-only"></span>
+  </div>
+  <style>.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}</style>
+
+  <div class="body">
+    <p class="lead-line" id="typeLead"></p>
+    <p class="desc" id="typeDesc"></p>
+  </div>
+
+  <div class="scores" id="scoresWrap" style="display:none">
+    <h3>あなたの周波数スコア</h3>
+    <div id="scoreBoard"></div>
+  </div>
+
+  <div class="cta-box">
+    <h3 id="ctaTitle"></h3>
+    <p class="why" id="ctaWhy"></p>
+    <ul id="ctaBenefits"></ul>
+    <a class="primary-btn" id="ctaBtn" href="#">無料セミナーで周波数の直し方を知る</a>
+    <a class="ghost-btn" href="index.html">診断トップへ戻る</a>
+    <div class="nav-links">
+      <a href="gallery.html">全タイプ一覧を見る</a>
+    </div>
+  </div>
+</div>
+
+<script src="types-data.js"></script>
+<script>
+(function () {
+  const params = new URLSearchParams(location.search);
+  const key = (params.get("id") || "").toUpperCase();
+  const result = window.RESULTS[key];
+
+  if (!result) {
+    document.getElementById("page").innerHTML =
+      '<div class="body"><p>タイプが見つかりません。<a href="index.html">診断トップへ</a></p></div>';
+    return;
+  }
+
+  document.title = result.name + "｜愛されない周波数タイプ診断";
+  document.querySelector('meta[property="og:title"]').setAttribute("content", result.name);
+
+  document.getElementById("typeImage").src = result.image;
+  document.getElementById("typeImage").alt = result.name;
+  document.getElementById("typeName").textContent = result.name;
+  document.getElementById("typeCode").textContent = result.code;
+  document.getElementById("typeLead").textContent = result.lead;
+  document.getElementById("typeDesc").textContent = result.desc;
+  document.getElementById("ctaTitle").textContent = `「${result.name}」のあなたへ。次に受け取れること`;
+  document.getElementById("ctaWhy").textContent = result.why;
+  document.getElementById("ctaBtn").href = window.SEMINAR_URL;
+  document.getElementById("ctaBtn").textContent = "このタイプの直し方をセミナーで聞く";
+
+  const ul = document.getElementById("ctaBenefits");
+  result.benefits.forEach((b) => {
+    const li = document.createElement("li");
+    li.textContent = b;
+    ul.appendChild(li);
+  });
+
+  // 診断直後ならスコアを表示
+  try {
+    const raw = sessionStorage.getItem("freqScores");
+    if (raw) {
+      const scores = JSON.parse(raw);
+      const board = document.getElementById("scoreBoard");
+      const order = ["A", "B", "C", "D", "E"];
+      order.forEach((axis) => {
+        const row = document.createElement("div");
+        row.className = "score-row";
+        const val = scores[axis] || 0;
+        row.innerHTML = `
+          <span>${window.AXIS_NAME[axis]}</span>
+          <div class="meter"><i style="width:${(val / 2) * 100}%"></i></div>
+          <span>${val}</span>
+        `;
+        board.appendChild(row);
+      });
+      document.getElementById("scoresWrap").style.display = "block";
+    }
+  } catch (e) {}
+})();
+</script>
+</body>
+</html>
