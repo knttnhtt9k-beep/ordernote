@@ -12,7 +12,7 @@
 <div class="page" id="page">
   <div class="cover">
     <!-- タイプ名は画像に焼き込み済み -->
-    <img id="typeImage" alt="" width="960" height="540">
+    <img id="typeImage" alt="" width="960" height="640">
     <h1 id="typeName" class="sr-only"></h1>
     <span id="typeCode" class="sr-only"></span>
   </div>
@@ -111,13 +111,31 @@
     }, 2500);
   });
 
-  // 診断直後ならスコアを表示
+  // スコアを表示する（URLパラメータ優先→sessionStorageを保険として使用）
+  // URLに埋め込むことで、共有リンクを別タブ・別端末で開いても必ず正しい数値が出るようにしている
   try {
-    const raw = sessionStorage.getItem("freqScores");
-    if (raw) {
-      const scores = JSON.parse(raw);
+    const order = ["A", "B", "C", "D", "E"];
+    let scores = null;
+
+    // URLSearchParams.get() は取得時に自動でデコード済みなので、ここで再度decodeURIComponentはしない
+    const sParam = params.get("s");
+    if (sParam) {
+      const parts = sParam.split(",").map((n) => parseInt(n, 10));
+      if (parts.length === order.length && parts.every((n) => Number.isFinite(n))) {
+        scores = {};
+        order.forEach((axis, i) => { scores[axis] = parts[i]; });
+      }
+    }
+
+    // sessionStorageの値は「直前にこのタイプの診断を受けた」ときだけ使う
+    // （例: gallery.htmlから別タイプを閲覧しただけの場合、無関係な過去スコアが出てしまうのを防ぐ）
+    if (!scores && sessionStorage.getItem("freqType") === key) {
+      const raw = sessionStorage.getItem("freqScores");
+      if (raw) scores = JSON.parse(raw);
+    }
+
+    if (scores) {
       const board = document.getElementById("scoreBoard");
-      const order = ["A", "B", "C", "D", "E"];
       order.forEach((axis) => {
         const row = document.createElement("div");
         row.className = "score-row";
