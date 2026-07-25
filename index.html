@@ -244,7 +244,7 @@
   </section>
 </div>
 
-<script src="types-data.js?v=5"></script>
+<script src="types-data.js?v=6"></script>
 <script>
 const PAGE_SIZE = 5;
 const QUESTIONS = [
@@ -391,9 +391,10 @@ function goToTypePage() {
     if (axis) scores[axis] += 1;
   });
   const order = ["A", "B", "C", "D", "E"];
+  // 同点のときは常にA・Bが選ばれてしまうバグがあったため、同点内はランダムに並べる
   const sorted = order
-    .map((axis) => ({ axis, score: scores[axis] }))
-    .sort((a, b) => b.score - a.score || order.indexOf(a.axis) - order.indexOf(b.axis));
+    .map((axis) => ({ axis, score: scores[axis], rnd: Math.random() }))
+    .sort((a, b) => b.score - a.score || a.rnd - b.rnd);
   const top2 = [sorted[0].axis, sorted[1].axis].sort();
   const key = top2.join("");
 
@@ -402,8 +403,11 @@ function goToTypePage() {
     sessionStorage.setItem("freqType", key);
   } catch (e) {}
 
+  // スコアをURLにも埋め込む（sessionStorageが使えない/別タブ・別端末で開かれても必ず反映されるようにする保険）
+  const scoreParam = order.map((axis) => scores[axis]).join(",");
+
   // タイプ専用ページへ（画像＋名称入り）
-  location.href = "type.html?id=" + key;
+  location.href = "type.html?id=" + key + "&s=" + encodeURIComponent(scoreParam);
   // きれいなURLが必要な場合は types/AB.html も使える
 }
 </script>
