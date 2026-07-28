@@ -44,9 +44,9 @@
       <button class="copy-btn" id="copyBtn" type="button">タイプ名をコピーする</button>
       <p class="action-note" id="copyNote">コピーしたら、そのままLINEに貼って送ってください。</p>
       <p class="action-warn">
-        当日、「なぜ今までの頑張り方が逆効果になるのか」を解説する場面で、<br>
-        あなたのタイプがいちばん深く刺さります。<br>
-        今日の「当てはまった」気づきを、当日まで持っていってください。
+        当日、「なぜ頑張っても愛されない周波数が強くなるのか」を話す場面で、<br>
+        あなたのタイプがいちばん自分ごとになります。<br>
+        今日の診断結果を、当日まで持っていってください。
       </p>
     </div>
 
@@ -57,7 +57,7 @@
   </div>
 </div>
 
-<script src="types-data.js?v=10"></script>
+<script src="types-data.js?v=11"></script>
 <script>
 (function () {
   const params = new URLSearchParams(location.search);
@@ -79,7 +79,7 @@
   document.getElementById("typeCode").textContent = result.code;
   document.getElementById("typeLead").textContent = result.lead;
   document.getElementById("typeDesc").textContent = result.desc;
-  document.getElementById("ctaTitle").textContent = `セミナー当日、「${result.name}」のあなたが見るべきポイント`;
+  document.getElementById("ctaTitle").textContent = `セミナーで、愛される周波数に変えるために`;
   document.getElementById("ctaWatch").textContent = result.watch;
   document.getElementById("ctaWhy").textContent = result.why;
 
