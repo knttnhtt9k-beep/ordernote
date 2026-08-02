@@ -84,12 +84,52 @@ body {
   margin: 0 0 16px;
   color: #e0294f;
 }
+.keywords {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 16px;
+}
+.keyword-chip {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: #fff0f6;
+  border: 1px solid #f0c8dc;
+  color: #8a3d6b;
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .02em;
+}
 .desc {
   font-size: .95rem;
   line-height: 1.95;
   color: #4a4050;
   margin: 0 0 8px;
   white-space: pre-wrap;
+}
+.score-row-3 {
+  grid-template-columns: 64px 1fr 24px;
+}
+.action-consult-bridge {
+  margin: 14px 0 0;
+  font-size: .82rem;
+  line-height: 1.75;
+  color: #5b3d6a;
+  background: #fff;
+  border: 1px solid #f0d0e4;
+  border-radius: 12px;
+  padding: 12px 14px;
+  font-weight: 600;
+}
+.action-consult {
+  margin: 10px 0 0;
+  font-size: .82rem;
+  line-height: 1.75;
+  color: #6a4a7a;
+  background: rgba(255,255,255,.7);
+  border-radius: 12px;
+  padding: 12px 14px;
 }
 
 .scores {
@@ -131,6 +171,28 @@ body {
   line-height: 1.5;
   color: #5b3d8a;
 }
+.cta-box .next-step {
+  font-size: .92rem;
+  line-height: 1.85;
+  margin: 0 0 12px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: #fff;
+  border: 1px solid #f0d0e4;
+  color: #5b3d6a;
+  white-space: pre-wrap;
+  font-weight: 600;
+}
+.cta-box .myth-reframe {
+  font-size: .9rem;
+  line-height: 1.85;
+  margin: 0 0 14px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: rgba(255,255,255,.7);
+  color: #6a4a7a;
+  white-space: pre-wrap;
+}
 .cta-box .watch-note {
   font-size: .88rem;
   line-height: 1.8;
@@ -139,12 +201,14 @@ body {
   border-radius: 12px;
   background: rgba(255,255,255,.55);
   color: #6a4a7a;
+  white-space: pre-wrap;
 }
 .cta-box .why {
   font-size: .92rem;
   line-height: 1.85;
   margin: 0 0 14px;
   color: #4a4050;
+  white-space: pre-wrap;
 }
 .cta-box .benefits-label {
   font-size: .8rem;

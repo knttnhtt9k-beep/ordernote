@@ -205,21 +205,21 @@
         <div class="reason-num">1</div>
         <div>
           <h3>周波数診断を受ける（完全無料）</h3>
-          <p>全10問の二択に答えて、今のあなたが出している「愛されない周波数」のクセを見つけます。約2分・5問ずつ進みます。</p>
+          <p>全15問の二択に答えて、今のあなたが出している周波数を「不安型／依存型／回避型」の3タイプで見つけます。約2分・5問ずつ進みます。</p>
         </div>
       </li>
       <li class="reason-item">
         <div class="reason-num">2</div>
         <div>
           <h3>「うまくいかない理由」が明確になる</h3>
-          <p>結果はタイプ専用ページで表示。あなたの中にある"うまくいかない理由"を、当てはまる言葉と、直し方まで確認できます。</p>
+          <p>結果ページで、つまずきやすい理由・セミナーで分かること・目指せる状態まで確認できます。診断で終わりではありません。</p>
         </div>
       </li>
       <li class="reason-item">
         <div class="reason-num">3</div>
         <div>
           <h3>直し方をセミナーで深める</h3>
-          <p>タイプがわかったら終わりではありません。セミナー本編で、その周波数を「頑張らなくても愛される周波数」へ整えていく具体的な方法をお伝えします。</p>
+          <p>続きはセミナーへ。その周波数を「頑張らなくても愛される周波数」へ整える具体的な方法をお伝えします。さらに細かい傾向は、個別相談で深掘りできます。</p>
         </div>
       </li>
     </ul>
@@ -230,7 +230,7 @@
 
   <section id="quiz" class="screen">
     <div class="topbar">
-      <span id="qCount">1〜5問目 / 全10問</span>
+      <span id="qCount">1〜5問目 / 全15問</span>
       <span id="qPct">50%</span>
     </div>
     <div class="bar"><span id="qBar"></span></div>
@@ -245,59 +245,88 @@
   </section>
 </div>
 
-<script src="types-data.js?v=10"></script>
+<script src="types-data.js?v=14"></script>
 <script>
 const PAGE_SIZE = 5;
+/* T1=不安型 / T2=依存型 / T3=回避型 */
 const QUESTIONS = [
-  {
-    text: "好きな人に頼まれごとをされたとき、本当は忙しいのにどうする？",
-    a: { label: "とりあえず引き受ける", axis: "A" },
-    b: { label: "無理なら正直に伝える", axis: null }
-  },
-  {
-    text: "デートの行き先を決めるとき、あなたの本音に近いのは？",
-    a: { label: "相手が喜びそうな方を優先する", axis: "A" },
-    b: { label: "自分が行きたい場所もちゃんと出す", axis: null }
-  },
+  // —— 不安型（追いかける）——
   {
     text: "連絡の返信がいつもより遅い。あなたは？",
-    a: { label: "嫌われたかも…と悪い方へ考える", axis: "B" },
-    b: { label: "忙しいんだろうな、で一旦置く", axis: null }
-  },
-  {
-    text: "これから始まる恋について、無意識に近いのは？",
-    a: { label: "どうせまた同じパターンになりそう", axis: "B" },
-    b: { label: "今回はうまくいくかもしれない", axis: null }
-  },
-  {
-    text: "褒められたとき、つい出てしまう反応は？",
-    a: { label: "「そんなことないです」と打ち消す", axis: "C" },
-    b: { label: "素直に「ありがとう」と言える", axis: null }
-  },
-  {
-    text: "うまくいかないことが起きたとき、最初に向く矢印は？",
-    a: { label: "自分を責める", axis: "C" },
-    b: { label: "状況や相手側の事情も見る", axis: null }
-  },
-  {
-    text: "相手の表情が少し硬い。あなたの心は？",
-    a: { label: "自分のせいだと感じて落ち込む", axis: "D" },
-    b: { label: "相手の都合かも、と様子を見る", axis: null }
+    a: { label: "嫌われたかも…と悪い方へ考える", type: "T1" },
+    b: { label: "忙しいんだろうな、で一旦置く", type: null }
   },
   {
     text: "既読・未読やスタンプひとつで、その日の気分は？",
-    a: { label: "かなり左右される", axis: "D" },
-    b: { label: "そこまで気分は変わらない", axis: null }
+    a: { label: "かなり左右される", type: "T1" },
+    b: { label: "そこまで気分は変わらない", type: null }
   },
   {
-    text: "「本当はどうしたい？」と聞かれたら？",
-    a: { label: "すぐには答えが出てこない", axis: "E" },
-    b: { label: "だいたいすぐに言える", axis: null }
+    text: "相手の表情が少し硬い。あなたの心は？",
+    a: { label: "自分のせいだと感じて落ち込む", type: "T1" },
+    b: { label: "相手の都合かも、と様子を見る", type: null }
   },
   {
-    text: "自分を大切にする方法は？",
-    a: { label: "言われても、具体的に何をすればいいかわからない", axis: "E" },
-    b: { label: "ある程度、自分なりのやり方がある", axis: null }
+    text: "彼の気持ちが読めないとき、いちばん近いのは？",
+    a: { label: "確認したくて、何度も考えてしまう", type: "T1" },
+    b: { label: "落ち着くまで、少し待つ", type: null }
+  },
+  {
+    text: "嫌われるのが怖いとき、ついやりがちなのは？",
+    a: { label: "相手の反応を先に気にして動く", type: "T1" },
+    b: { label: "自分の気持ちを先に整える", type: null }
+  },
+  // —— 依存型（尽くしすぎ）——
+  {
+    text: "好きな人に頼まれごとをされたとき、本当は忙しいのにどうする？",
+    a: { label: "とりあえず引き受ける", type: "T2" },
+    b: { label: "無理なら正直に伝える", type: null }
+  },
+  {
+    text: "デートの行き先を決めるとき、あなたの本音に近いのは？",
+    a: { label: "相手が喜びそうな方を優先する", type: "T2" },
+    b: { label: "自分が行きたい場所もちゃんと出す", type: null }
+  },
+  {
+    text: "褒められたとき、つい出てしまう反応は？",
+    a: { label: "「そんなことないです」と打ち消す", type: "T2" },
+    b: { label: "素直に「ありがとう」と言える", type: null }
+  },
+  {
+    text: "恋愛で安心しやすいのは、どっち？",
+    a: { label: "自分が頑張っている・尽くしているとき", type: "T2" },
+    b: { label: "相手からも大切にされている実感があるとき", type: null }
+  },
+  {
+    text: "「こんなに頑張っているのに…」と感じることは？",
+    a: { label: "よくある", type: "T2" },
+    b: { label: "あまりない", type: null }
+  },
+  // —— 回避型（幸せ回避）——
+  {
+    text: "これから始まる恋について、無意識に近いのは？",
+    a: { label: "どうせまた同じパターンになりそう", type: "T3" },
+    b: { label: "今回はうまくいくかもしれない", type: null }
+  },
+  {
+    text: "彼が急に優しくしてくれたとき、最初に来る感覚は？",
+    a: { label: "嬉しいけど、「どうせ続かない」もよぎる", type: "T3" },
+    b: { label: "素直に嬉しい", type: null }
+  },
+  {
+    text: "うまくいきそうなときほど、あなたは？",
+    a: { label: "急に不安になって、距離を取りたくなる", type: "T3" },
+    b: { label: "この流れを大切にしたいと思う", type: null }
+  },
+  {
+    text: "幸せな瞬間が続いたとき、心の奥では？",
+    a: { label: "「このあと傷つくかも」と先に守る", type: "T3" },
+    b: { label: "そのまま受け取っていられる", type: null }
+  },
+  {
+    text: "仕事や恋愛でチャンスが来たとき、近いのは？",
+    a: { label: "自分にはまだ早い／受け取れない気がする", type: "T3" },
+    b: { label: "ありがたい、受け取ってみようと思う", type: null }
   }
 ];
 
@@ -386,30 +415,25 @@ document.getElementById("nextBtn").addEventListener("click", () => {
 });
 
 function goToTypePage() {
-  const scores = { A: 0, B: 0, C: 0, D: 0, E: 0 };
+  const scores = { T1: 0, T2: 0, T3: 0 };
   QUESTIONS.forEach((q, i) => {
-    const axis = q[answers[i]] && q[answers[i]].axis;
-    if (axis) scores[axis] += 1;
+    const type = q[answers[i]] && q[answers[i]].type;
+    if (type) scores[type] += 1;
   });
-  const order = ["A", "B", "C", "D", "E"];
-  // 同点のときは常にA・Bが選ばれてしまうバグがあったため、同点内はランダムに並べる
+  const order = ["T1", "T2", "T3"];
+  // 同点のときはランダムで決める（常に同じタイプに偏らないように）
   const sorted = order
-    .map((axis) => ({ axis, score: scores[axis], rnd: Math.random() }))
+    .map((type) => ({ type, score: scores[type], rnd: Math.random() }))
     .sort((a, b) => b.score - a.score || a.rnd - b.rnd);
-  const top2 = [sorted[0].axis, sorted[1].axis].sort();
-  const key = top2.join("");
+  const key = sorted[0].type;
 
   try {
     sessionStorage.setItem("freqScores", JSON.stringify(scores));
     sessionStorage.setItem("freqType", key);
   } catch (e) {}
 
-  // スコアをURLにも埋め込む（sessionStorageが使えない/別タブ・別端末で開かれても必ず反映されるようにする保険）
-  const scoreParam = order.map((axis) => scores[axis]).join(",");
-
-  // タイプ専用ページへ（画像＋名称入り）
+  const scoreParam = order.map((type) => scores[type]).join(",");
   location.href = "type.html?id=" + key + "&s=" + encodeURIComponent(scoreParam);
-  // きれいなURLが必要な場合は types/AB.html も使える
 }
 </script>
 </body>

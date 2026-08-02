@@ -5,8 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>愛される周波数タイプ</title>
 <meta property="og:title" content="愛される周波数タイプ診断">
-<meta property="og:type" content="website">
-<link rel="stylesheet" href="result.css?v=7">
+<link rel="stylesheet" href="result.css?v=10">
 </head>
 <body>
 <div class="page" id="page">
@@ -20,6 +19,7 @@
 
   <div class="body">
     <p class="lead-line" id="typeLead"></p>
+    <div class="keywords" id="typeKeywords"></div>
     <p class="desc" id="typeDesc"></p>
   </div>
 
@@ -30,24 +30,24 @@
 
   <div class="cta-box">
     <h3 id="ctaTitle"></h3>
+    <p class="next-step" id="ctaNextStep"></p>
+    <p class="myth-reframe" id="ctaMyth"></p>
     <p class="watch-note" id="ctaWatch"></p>
     <p class="why" id="ctaWhy"></p>
     <p class="benefits-label">愛される周波数に変わると、こんな変化が現れます</p>
     <ul id="ctaBenefits"></ul>
 
     <div class="action-box">
-      <p class="action-lead">今すぐできること</p>
+      <p class="action-lead">今すぐできること（持参ミッション）</p>
       <p class="action-text">
-        この診断結果を、LINEのトーク画面に一言送ってください。<br>
-        「当てはまってた」だけでも大丈夫です。
+        下の文をコピーして、LINEのトーク画面に送ってください。<br>
+        セミナー当日、この結果を手元に置いて聞きます。
       </p>
-      <button class="copy-btn" id="copyBtn" type="button">タイプ名をコピーする</button>
+      <button class="copy-btn" id="copyBtn" type="button">持参文をコピーする</button>
       <p class="action-note" id="copyNote">コピーしたら、そのままLINEに貼って送ってください。</p>
-      <p class="action-warn">
-        当日、「なぜ頑張っても愛されない周波数が強くなるのか」を話す場面で、<br>
-        あなたのタイプがいちばん自分ごとになります。<br>
-        今日の診断結果を、当日まで持っていってください。
-      </p>
+      <p class="action-warn" id="seminarScene"></p>
+      <p class="action-consult-bridge" id="consultBridge"></p>
+      <p class="action-consult" id="consultHint"></p>
     </div>
 
     <a class="ghost-btn" href="index.html">診断トップへ戻る</a>
@@ -57,7 +57,7 @@
   </div>
 </div>
 
-<script src="types-data.js?v=11"></script>
+<script src="types-data.js?v=14"></script>
 <script>
 (function () {
   const params = new URLSearchParams(location.search);
@@ -79,9 +79,21 @@
   document.getElementById("typeCode").textContent = result.code;
   document.getElementById("typeLead").textContent = result.lead;
   document.getElementById("typeDesc").textContent = result.desc;
-  document.getElementById("ctaTitle").textContent = `セミナーで、愛される周波数に変えるために`;
+  document.getElementById("ctaTitle").textContent = "診断で終わりではありません。続きはセミナーへ";
+  document.getElementById("ctaNextStep").textContent = window.NEXT_STEP || "";
+  document.getElementById("ctaMyth").textContent = result.mythReframe || "";
   document.getElementById("ctaWatch").textContent = result.watch;
   document.getElementById("ctaWhy").textContent = result.why;
+  document.getElementById("seminarScene").textContent = result.seminarScene || "";
+  document.getElementById("consultBridge").textContent = window.CONSULT_BRIDGE || "";
+
+  const kw = document.getElementById("typeKeywords");
+  (result.keywords || []).forEach((k) => {
+    const span = document.createElement("span");
+    span.className = "keyword-chip";
+    span.textContent = k;
+    kw.appendChild(span);
+  });
 
   const ul = document.getElementById("ctaBenefits");
   result.benefits.forEach((b) => {
@@ -90,10 +102,14 @@
     ul.appendChild(li);
   });
 
-  // タイプ名をコピー→LINEに貼ってもらう（着席前のコミットメント作り）
+  const consultHint = document.getElementById("consultHint");
+  if (result.consultHint) {
+    consultHint.textContent = result.consultHint;
+  }
+
   const copyBtn = document.getElementById("copyBtn");
   const copyNote = document.getElementById("copyNote");
-  const copyText = `診断結果：${result.name}（${result.code}）`;
+  const copyText = result.lineCopy || `診断結果：${result.name}\nセミナー当日、この結果を見ながら聞きます。`;
   copyBtn.addEventListener("click", async () => {
     try {
       await navigator.clipboard.writeText(copyText);
@@ -108,28 +124,23 @@
     copyBtn.textContent = "コピーしました";
     copyNote.textContent = "LINEのトーク画面を開いて、貼って送ってください。";
     setTimeout(() => {
-      copyBtn.textContent = "タイプ名をコピーする";
+      copyBtn.textContent = "持参文をコピーする";
     }, 2500);
   });
 
-  // スコアを表示する（URLパラメータ優先→sessionStorageを保険として使用）
-  // URLに埋め込むことで、共有リンクを別タブ・別端末で開いても必ず正しい数値が出るようにしている
   try {
-    const order = ["A", "B", "C", "D", "E"];
+    const order = ["T1", "T2", "T3"];
     let scores = null;
 
-    // URLSearchParams.get() は取得時に自動でデコード済みなので、ここで再度decodeURIComponentはしない
     const sParam = params.get("s");
     if (sParam) {
       const parts = sParam.split(",").map((n) => parseInt(n, 10));
       if (parts.length === order.length && parts.every((n) => Number.isFinite(n))) {
         scores = {};
-        order.forEach((axis, i) => { scores[axis] = parts[i]; });
+        order.forEach((type, i) => { scores[type] = parts[i]; });
       }
     }
 
-    // sessionStorageの値は「直前にこのタイプの診断を受けた」ときだけ使う
-    // （例: gallery.htmlから別タイプを閲覧しただけの場合、無関係な過去スコアが出てしまうのを防ぐ）
     if (!scores && sessionStorage.getItem("freqType") === key) {
       const raw = sessionStorage.getItem("freqScores");
       if (raw) scores = JSON.parse(raw);
@@ -137,13 +148,14 @@
 
     if (scores) {
       const board = document.getElementById("scoreBoard");
-      order.forEach((axis) => {
+      order.forEach((type) => {
         const row = document.createElement("div");
-        row.className = "score-row";
-        const val = scores[axis] || 0;
+        row.className = "score-row score-row-3";
+        const val = scores[type] || 0;
+        const label = (window.TYPE_LABEL && window.TYPE_LABEL[type]) || type;
         row.innerHTML = `
-          <span>${window.AXIS_NAME[axis]}</span>
-          <div class="meter"><i style="width:${(val / 2) * 100}%"></i></div>
+          <span>${label}</span>
+          <div class="meter"><i style="width:${(val / 5) * 100}%"></i></div>
           <span>${val}</span>
         `;
         board.appendChild(row);

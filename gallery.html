@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>全タイプ一覧｜愛される周波数タイプ診断</title>
-<link rel="stylesheet" href="result.css?v=7">
+<link rel="stylesheet" href="result.css?v=10">
 <style>
   .gallery-head {
     padding: 32px 20px 12px;
@@ -40,19 +40,20 @@
 <body>
 <div class="page">
   <div class="gallery-head">
-    <h1>愛されない周波数タイプ一覧</h1>
-    <p>画像をタップすると、各タイプのページが開きます。</p>
+    <h1>愛される周波数タイプ一覧（3タイプ）</h1>
+    <p>商談・診断用の3タイプです。画像をタップすると詳細が開きます。<br>さらに細かい傾向は、個別相談で深掘りします。</p>
   </div>
   <div class="grid" id="grid"></div>
   <div style="padding:0 20px 40px">
     <a class="primary-btn" href="index.html">診断をはじめる</a>
   </div>
 </div>
-<script src="types-data.js?v=10"></script>
+<script src="types-data.js?v=14"></script>
 <script>
 const grid = document.getElementById("grid");
-Object.keys(window.RESULTS).forEach((key) => {
+(window.TYPE_ORDER || Object.keys(window.RESULTS)).forEach((key) => {
   const r = window.RESULTS[key];
+  if (!r) return;
   const a = document.createElement("a");
   a.className = "card-link";
   a.href = "type.html?id=" + key;
