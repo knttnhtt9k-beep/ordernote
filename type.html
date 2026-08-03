@@ -57,7 +57,8 @@
   </div>
 </div>
 
-<script src="types-data.js?v=16"></script>
+<script src="types-data.js?v=17"></script>
+<script src="images-embed.js?v=1"></script>
 <script>
 (function () {
   /** **強調** と改行をHTMLへ（読み飛ばし層向け） */
@@ -89,7 +90,9 @@
   document.title = result.name + "｜愛される周波数タイプ診断";
   document.querySelector('meta[property="og:title"]').setAttribute("content", result.name);
 
-  document.getElementById("typeImage").src = result.image;
+  // 埋め込み画像優先（imagesフォルダ未アップロードでも表示）
+  const embedded = window.TYPE_IMAGES && window.TYPE_IMAGES[key];
+  document.getElementById("typeImage").src = embedded || result.image;
   document.getElementById("typeImage").alt = result.name;
   document.getElementById("typeName").textContent = result.name;
   document.getElementById("typeCode").textContent = result.code;

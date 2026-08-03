@@ -48,18 +48,20 @@
     <a class="primary-btn" href="index.html">診断をはじめる</a>
   </div>
 </div>
-<script src="types-data.js?v=16"></script>
+<script src="types-data.js?v=17"></script>
+<script src="images-embed.js?v=1"></script>
 <script>
 const grid = document.getElementById("grid");
 (window.TYPE_ORDER || Object.keys(window.RESULTS)).forEach((key) => {
   const r = window.RESULTS[key];
   if (!r) return;
+  const src = (window.TYPE_IMAGES && window.TYPE_IMAGES[key]) || r.image;
   const a = document.createElement("a");
   a.className = "card-link";
   a.href = "type.html?id=" + key;
   a.innerHTML = `
     <div class="cover">
-      <img src="${r.image}" alt="${r.name}">
+      <img src="${src}" alt="${r.name}">
     </div>
   `;
   grid.appendChild(a);
