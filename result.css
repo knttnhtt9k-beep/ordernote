@@ -107,11 +107,14 @@ body {
   color: #4a4050;
   margin: 0 0 8px;
 }
+/* 強調：赤文字＋赤マーカーは読みにくいので、本文色のまま太字＋薄いマーカーのみ */
 .hl {
-  color: #d0184a;
+  color: inherit;
   font-weight: 800;
-  background: linear-gradient(transparent 62%, #ffe0ef 62%);
-  padding: 0 2px;
+  background: linear-gradient(transparent 58%, #fff3a8 58%);
+  padding: 0 1px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
 }
 .desc ul.bullet-list {
   margin: 10px 0 14px;
