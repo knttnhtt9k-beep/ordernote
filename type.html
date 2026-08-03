@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>愛される周波数タイプ</title>
 <meta property="og:title" content="愛される周波数タイプ診断">
-<link rel="stylesheet" href="result.css?v=11">
+<link rel="stylesheet" href="result.css?v=12">
 </head>
 <body>
 <div class="page" id="page">
@@ -57,24 +57,31 @@
   </div>
 </div>
 
-<script src="types-data.js?v=17"></script>
+<script src="types-data.js?v=18"></script>
 <script src="images-embed.js?v=1"></script>
 <script>
 (function () {
-  /** **強調** と改行をHTMLへ（読み飛ばし層向け） */
+  /** **強調**・箇条書き・改行をHTMLへ（読み飛ばし層向け） */
   function setRich(el, text) {
     if (!el) return;
     if (!text) {
       el.textContent = "";
       return;
     }
-    const escaped = String(text)
+    let html = String(text)
       .replace(/&/g, "&amp;")
       .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;");
-    el.innerHTML = escaped
-      .replace(/\*\*(.+?)\*\*/g, '<strong class="hl">$1</strong>')
-      .replace(/\n/g, "<br>");
+      .replace(/>/g, "&gt;")
+      .replace(/\*\*(.+?)\*\*/g, '<strong class="hl">$1</strong>');
+    // 連続する「・行」をulにまとめる
+    html = html.replace(/(?:^|\n)((?:・.+(?:\n|$))+)/g, (block) => {
+      const items = block.trim().split("\n").filter((l) => l.startsWith("・"));
+      if (!items.length) return block;
+      return "\n<ul class=\"bullet-list\">" +
+        items.map((l) => "<li>" + l.replace(/^・/, "") + "</li>").join("") +
+        "</ul>\n";
+    });
+    el.innerHTML = html.replace(/\n/g, "<br>");
   }
 
   const params = new URLSearchParams(location.search);
@@ -99,7 +106,14 @@
   setRich(document.getElementById("typeLead"), result.lead);
   setRich(document.getElementById("typeDesc"), result.desc);
   document.getElementById("ctaTitle").textContent = "診断で終わりではありません。続きはセミナーへ";
-  setRich(document.getElementById("ctaNextStep"), window.NEXT_STEP || "");
+  // NEXT_STEPはmythReframeに統合済み（空なら非表示）
+  const nextEl = document.getElementById("ctaNextStep");
+  if (window.NEXT_STEP) {
+    setRich(nextEl, window.NEXT_STEP);
+    nextEl.style.display = "";
+  } else {
+    nextEl.style.display = "none";
+  }
   setRich(document.getElementById("ctaMyth"), result.mythReframe || "");
   setRich(document.getElementById("ctaWatch"), result.watch);
   setRich(document.getElementById("ctaWhy"), result.why);

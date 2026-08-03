@@ -113,6 +113,14 @@ body {
   background: linear-gradient(transparent 62%, #ffe0ef 62%);
   padding: 0 2px;
 }
+.desc ul.bullet-list {
+  margin: 10px 0 14px;
+  padding: 0 0 0 1.1em;
+}
+.desc ul.bullet-list li {
+  margin: 0 0 8px;
+  line-height: 1.7;
+}
 .score-row-3 {
   grid-template-columns: 64px 1fr 24px;
 }
