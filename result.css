@@ -103,11 +103,16 @@ body {
 }
 .desc {
   font-size: .95rem;
-  line-height: 1.95;
+  line-height: 1.85;
   color: #4a4050;
   margin: 0 0 8px;
 }
-/* 強調：赤文字＋赤マーカーは読みにくいので、本文色のまま太字＋薄いマーカーのみ */
+.para {
+  margin: 0 0 14px;
+  line-height: 1.85;
+}
+.para:last-child { margin-bottom: 0; }
+/* 強調：本文色のまま太字＋薄い黄マーカー */
 .hl {
   color: inherit;
   font-weight: 800;
@@ -116,13 +121,16 @@ body {
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
 }
-.desc ul.bullet-list {
-  margin: 10px 0 14px;
-  padding: 0 0 0 1.1em;
+ul.bullet-list {
+  margin: 6px 0 10px;
+  padding: 0 0 0 1.15em;
 }
-.desc ul.bullet-list li {
-  margin: 0 0 8px;
+ul.bullet-list li {
+  margin: 0 0 6px;
   line-height: 1.7;
+}
+ul.bullet-list + .para {
+  margin-top: 4px;
 }
 .score-row-3 {
   grid-template-columns: 64px 1fr 24px;

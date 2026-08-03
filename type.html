@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>愛される周波数タイプ</title>
 <meta property="og:title" content="愛される周波数タイプ診断">
-<link rel="stylesheet" href="result.css?v=13">
+<link rel="stylesheet" href="result.css?v=14">
 </head>
 <body>
 <div class="page" id="page">
@@ -57,31 +57,62 @@
   </div>
 </div>
 
-<script src="types-data.js?v=19"></script>
+<script src="types-data.js?v=20"></script>
 <script src="images-embed.js?v=1"></script>
 <script>
 (function () {
-  /** **強調**・箇条書き・改行をHTMLへ（読み飛ばし層向け） */
+  function escapeHtml(s) {
+    return String(s)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;");
+  }
+  function markBold(s) {
+    return escapeHtml(s).replace(/\*\*(.+?)\*\*/g, '<strong class="hl">$1</strong>');
+  }
+  /** 段落＝空行。箇条書きはul。余計な<br>を増やさない */
   function setRich(el, text) {
     if (!el) return;
     if (!text) {
       el.textContent = "";
+      el.style.display = "none";
       return;
     }
-    let html = String(text)
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/\*\*(.+?)\*\*/g, '<strong class="hl">$1</strong>');
-    // 連続する「・行」をulにまとめる
-    html = html.replace(/(?:^|\n)((?:・.+(?:\n|$))+)/g, (block) => {
-      const items = block.trim().split("\n").filter((l) => l.startsWith("・"));
-      if (!items.length) return block;
-      return "\n<ul class=\"bullet-list\">" +
-        items.map((l) => "<li>" + l.replace(/^・/, "") + "</li>").join("") +
-        "</ul>\n";
-    });
-    el.innerHTML = html.replace(/\n/g, "<br>");
+    el.style.display = "";
+    const blocks = String(text).trim().split(/\n\n+/);
+    const html = blocks.map((block) => {
+      const lines = block.split("\n").map((l) => l.trimEnd());
+      const out = [];
+      let buf = [];
+      let bullets = [];
+      const flushText = () => {
+        if (!buf.length) return;
+        out.push('<p class="para">' + markBold(buf.join("\n")).replace(/\n/g, "<br>") + "</p>");
+        buf = [];
+      };
+      const flushBullets = () => {
+        if (!bullets.length) return;
+        out.push(
+          '<ul class="bullet-list">' +
+            bullets.map((l) => "<li>" + markBold(l.replace(/^・\s*/, "")) + "</li>").join("") +
+            "</ul>"
+        );
+        bullets = [];
+      };
+      lines.forEach((line) => {
+        if (/^・/.test(line)) {
+          flushText();
+          bullets.push(line);
+        } else {
+          flushBullets();
+          if (line.trim()) buf.push(line);
+        }
+      });
+      flushText();
+      flushBullets();
+      return out.join("");
+    }).join("");
+    el.innerHTML = html;
   }
 
   const params = new URLSearchParams(location.search);
@@ -115,7 +146,7 @@
     nextEl.style.display = "none";
   }
   setRich(document.getElementById("ctaMyth"), result.mythReframe || "");
-  setRich(document.getElementById("ctaWatch"), result.watch);
+  setRich(document.getElementById("ctaWatch"), result.watch || "");
   setRich(document.getElementById("ctaWhy"), result.why);
   setRich(document.getElementById("seminarScene"), result.seminarScene || "");
   setRich(document.getElementById("consultBridge"), window.CONSULT_BRIDGE || "");
