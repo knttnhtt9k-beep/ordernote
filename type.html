@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>愛される周波数タイプ</title>
 <meta property="og:title" content="愛される周波数タイプ診断">
-<link rel="stylesheet" href="result.css?v=14">
+<link rel="stylesheet" href="result.css?v=15">
 </head>
 <body>
 <div class="page" id="page">
@@ -30,12 +30,11 @@
 
   <div class="cta-box">
     <h3 id="ctaTitle"></h3>
-    <p class="next-step" id="ctaNextStep"></p>
     <p class="myth-reframe" id="ctaMyth"></p>
-    <p class="watch-note" id="ctaWatch"></p>
-    <p class="why" id="ctaWhy"></p>
-    <p class="benefits-label">愛される周波数に変わると、こんな変化が現れます</p>
+    <p class="benefits-label">愛される周波数へ変えていくと、こんな変化が現れます</p>
     <ul id="ctaBenefits"></ul>
+
+    <div class="worldview" id="worldview"></div>
 
     <div class="action-box">
       <p class="action-lead">今すぐできること（持参ミッション）</p>
@@ -46,8 +45,6 @@
       <button class="copy-btn" id="copyBtn" type="button">持参文をコピーする</button>
       <p class="action-note" id="copyNote">コピーしたら、そのままLINEに貼って送ってください。</p>
       <p class="action-warn" id="seminarScene"></p>
-      <p class="action-consult-bridge" id="consultBridge"></p>
-      <p class="action-consult" id="consultHint"></p>
     </div>
 
     <a class="ghost-btn" href="index.html">診断トップへ戻る</a>
@@ -57,7 +54,7 @@
   </div>
 </div>
 
-<script src="types-data.js?v=20"></script>
+<script src="types-data.js?v=23"></script>
 <script src="images-embed.js?v=1"></script>
 <script>
 (function () {
@@ -136,20 +133,11 @@
   document.getElementById("typeCode").textContent = result.code;
   setRich(document.getElementById("typeLead"), result.lead);
   setRich(document.getElementById("typeDesc"), result.desc);
-  document.getElementById("ctaTitle").textContent = "診断で終わりではありません。続きはセミナーへ";
-  // NEXT_STEPはmythReframeに統合済み（空なら非表示）
-  const nextEl = document.getElementById("ctaNextStep");
-  if (window.NEXT_STEP) {
-    setRich(nextEl, window.NEXT_STEP);
-    nextEl.style.display = "";
-  } else {
-    nextEl.style.display = "none";
-  }
-  setRich(document.getElementById("ctaMyth"), result.mythReframe || "");
-  setRich(document.getElementById("ctaWatch"), result.watch || "");
-  setRich(document.getElementById("ctaWhy"), result.why);
+  document.getElementById("ctaTitle").textContent =
+    window.SEMINAR_CTA_TITLE || "愛される周波数をセミナーで知る";
+  setRich(document.getElementById("ctaMyth"), window.SEMINAR_CTA || "");
+  setRich(document.getElementById("worldview"), window.WORLDVIEW || "");
   setRich(document.getElementById("seminarScene"), result.seminarScene || "");
-  setRich(document.getElementById("consultBridge"), window.CONSULT_BRIDGE || "");
 
   const kw = document.getElementById("typeKeywords");
   (result.keywords || []).forEach((k) => {
@@ -165,8 +153,6 @@
     li.textContent = b;
     ul.appendChild(li);
   });
-
-  setRich(document.getElementById("consultHint"), result.consultHint || "");
 
   const copyBtn = document.getElementById("copyBtn");
   const copyNote = document.getElementById("copyNote");
