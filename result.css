@@ -106,7 +106,12 @@ body {
   line-height: 1.95;
   color: #4a4050;
   margin: 0 0 8px;
-  white-space: pre-wrap;
+}
+.hl {
+  color: #d0184a;
+  font-weight: 800;
+  background: linear-gradient(transparent 62%, #ffe0ef 62%);
+  padding: 0 2px;
 }
 .score-row-3 {
   grid-template-columns: 64px 1fr 24px;
