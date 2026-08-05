@@ -208,14 +208,23 @@ ul.bullet-list + .para {
   font-weight: 600;
 }
 .cta-box .myth-reframe {
-  font-size: .9rem;
+  font-size: .92rem;
   line-height: 1.85;
-  margin: 0 0 14px;
+  margin: 0 0 16px;
   padding: 12px 14px;
   border-radius: 12px;
   background: rgba(255,255,255,.7);
-  color: #6a4a7a;
-  white-space: pre-wrap;
+  color: #4a4050;
+}
+.worldview {
+  margin: 0 0 18px;
+  padding: 14px 14px;
+  border-radius: 12px;
+  background: #fff;
+  border: 1px solid #f0d0e4;
+  color: #5b3d6a;
+  font-size: .9rem;
+  line-height: 1.85;
 }
 .cta-box .watch-note {
   font-size: .88rem;
@@ -299,6 +308,7 @@ ul.bullet-list + .para {
 .primary-btn {
   display: block;
   width: 100%;
+  box-sizing: border-box;
   border: none;
   border-radius: 999px;
   padding: 16px;
@@ -310,6 +320,12 @@ ul.bullet-list + .para {
   background: linear-gradient(90deg, var(--pink), #ff8ec4 55%, var(--purple));
   box-shadow: 0 10px 24px rgba(255, 107, 157, .35);
   cursor: pointer;
+}
+.action-box .primary-btn {
+  margin-bottom: 4px;
+}
+.action-box .copy-btn {
+  margin-top: 4px;
 }
 .ghost-btn {
   display: block;

@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>愛される周波数タイプ</title>
 <meta property="og:title" content="愛される周波数タイプ診断">
-<link rel="stylesheet" href="result.css?v=15">
+<link rel="stylesheet" href="result.css?v=17">
 </head>
 <body>
 <div class="page" id="page">
@@ -37,13 +37,12 @@
     <div class="worldview" id="worldview"></div>
 
     <div class="action-box">
-      <p class="action-lead">今すぐできること（持参ミッション）</p>
-      <p class="action-text">
-        下の文をコピーして、LINEのトーク画面に送ってください。<br>
-        セミナー当日、この結果を手元に置いて聞きます。
-      </p>
-      <button class="copy-btn" id="copyBtn" type="button">持参文をコピーする</button>
-      <p class="action-note" id="copyNote">コピーしたら、そのままLINEに貼って送ってください。</p>
+      <p class="action-lead" id="actionLead">今すぐ申し込む（診断結果つき優先案内）</p>
+      <p class="action-text" id="actionText"></p>
+      <a class="primary-btn" id="seminarBtn" href="#">今すぐ無料セミナーに申し込む</a>
+      <p class="action-note" id="seminarBtnNote">完全無料・約90分・オンライン｜先着枠あり</p>
+      <button class="copy-btn" id="copyBtn" type="button">診断結果をコピーしてLINEへ送る</button>
+      <p class="action-note" id="copyNote">コピーしたら、すぐLINEに貼って送ってください。送った方から優先案内します。</p>
       <p class="action-warn" id="seminarScene"></p>
     </div>
 
@@ -54,7 +53,7 @@
   </div>
 </div>
 
-<script src="types-data.js?v=23"></script>
+<script src="types-data.js?v=31"></script>
 <script src="images-embed.js?v=1"></script>
 <script>
 (function () {
@@ -134,10 +133,26 @@
   setRich(document.getElementById("typeLead"), result.lead);
   setRich(document.getElementById("typeDesc"), result.desc);
   document.getElementById("ctaTitle").textContent =
-    window.SEMINAR_CTA_TITLE || "愛される周波数をセミナーで知る";
+    window.SEMINAR_CTA_TITLE || "次は、無料セミナーへ申し込む";
   setRich(document.getElementById("ctaMyth"), window.SEMINAR_CTA || "");
   setRich(document.getElementById("worldview"), window.WORLDVIEW || "");
   setRich(document.getElementById("seminarScene"), result.seminarScene || "");
+
+  const seminarBtn = document.getElementById("seminarBtn");
+  const seminarBtnNote = document.getElementById("seminarBtnNote");
+  const actionLead = document.getElementById("actionLead");
+  const actionText = document.getElementById("actionText");
+  if (actionLead && window.ACTION_LEAD) {
+    actionLead.textContent = window.ACTION_LEAD;
+  }
+  setRich(actionText, result.actionText || window.ACTION_TEXT || "");
+  if (seminarBtn) {
+    seminarBtn.href = window.SEMINAR_URL || "#";
+    seminarBtn.textContent = window.SEMINAR_CTA_BUTTON || "今すぐ無料セミナーに申し込む";
+  }
+  if (seminarBtnNote && window.SEMINAR_CTA_NOTE) {
+    seminarBtnNote.textContent = window.SEMINAR_CTA_NOTE;
+  }
 
   const kw = document.getElementById("typeKeywords");
   (result.keywords || []).forEach((k) => {
@@ -169,9 +184,9 @@
       document.body.removeChild(ta);
     }
     copyBtn.textContent = "コピーしました";
-    copyNote.textContent = "LINEのトーク画面を開いて、貼って送ってください。";
+    copyNote.textContent = window.ACTION_COPY_NOTE || "すぐLINEに貼って送ってください。送った方から優先案内します。";
     setTimeout(() => {
-      copyBtn.textContent = "持参文をコピーする";
+      copyBtn.textContent = "診断結果をコピーしてLINEへ送る";
     }, 2500);
   });
 
