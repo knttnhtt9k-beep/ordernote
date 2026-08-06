@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>愛される周波数タイプ</title>
 <meta property="og:title" content="愛される周波数タイプ診断">
-<link rel="stylesheet" href="result.css?v=46">
+<link rel="stylesheet" href="result.css?v=48">
 </head>
 <body>
 <div class="page" id="page">
@@ -147,10 +147,20 @@
   <a class="primary-btn js-seminar" href="#">無料セミナーに申し込む</a>
 </div>
 
-<script src="types-data.js?v=46"></script>
+<script src="seminar-embed.js?v=48"></script>
+<script src="types-data.js?v=48"></script>
 <script src="images-embed.js?v=1"></script>
 <script>
 (function () {
+  // セミナーバナー：ファイル未アップロードでも表示
+  try {
+    if (window.SEMINAR_BANNER_SRC) {
+      document.querySelectorAll(".seminar-banner img").forEach(function (img) {
+        img.src = window.SEMINAR_BANNER_SRC;
+      });
+    }
+  } catch (e) {}
+
   function escapeHtml(s) {
     return String(s)
       .replace(/&/g, "&amp;")
@@ -160,7 +170,7 @@
   function markBold(s) {
     return escapeHtml(s).replace(/\*\*(.+?)\*\*/g, '<strong class="hl">$1</strong>');
   }
-  /* note型：空行＝段落。通常文は結合して自然折り返し。引用行だけ改行維持 */
+  /* note型：1行＝1段落（空行は余白）。箇条書きはまとめる */
   function setRich(el, text) {
     if (!el) return;
     if (!text) {
@@ -171,17 +181,7 @@
     el.style.display = "";
     var lines = String(text).trim().split("\n").map(function (l) { return l.trimEnd(); });
     var out = [];
-    var buf = [];
     var bullets = [];
-    function flushText() {
-      if (!buf.length) return;
-      var allQuotes = buf.every(function (l) {
-        return /^[「『]/.test(l.trim()) || /^\*\*[「『]/.test(l.trim());
-      });
-      var joined = allQuotes ? buf.join("\n") : buf.join("");
-      out.push('<p class="para">' + markBold(joined).replace(/\n/g, "<br>") + "</p>");
-      buf = [];
-    }
     function flushBullets() {
       if (!bullets.length) return;
       out.push(
@@ -195,23 +195,20 @@
     }
     lines.forEach(function (line) {
       if (!line.trim()) {
-        flushText();
         flushBullets();
         return;
       }
-      if (/^・/.test(line) || /^※/.test(line)) {
-        flushText();
-        if (/^・/.test(line)) bullets.push(line);
-        else {
-          flushBullets();
-          out.push('<p class="note-line">' + markBold(line) + "</p>");
-        }
+      if (/^・/.test(line)) {
+        bullets.push(line);
+        return;
+      }
+      flushBullets();
+      if (/^※/.test(line)) {
+        out.push('<p class="note-line">' + markBold(line) + "</p>");
       } else {
-        flushBullets();
-        buf.push(line);
+        out.push('<p class="para">' + markBold(line) + "</p>");
       }
     });
-    flushText();
     flushBullets();
     el.innerHTML = out.join("");
   }
