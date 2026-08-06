@@ -136,10 +136,34 @@
     width: 100%; border: none; border-radius: 999px;
     padding: 18px 16px; font-size: 1.05rem; font-weight: 700; color: #fff;
     background: linear-gradient(90deg, var(--pink), #ff8ec4 55%, var(--purple));
+    background-size: 200% 100%;
     box-shadow: 0 10px 24px rgba(255, 107, 157, .35);
     cursor: pointer;
+    transition: transform .2s ease, box-shadow .2s ease;
+    transform-origin: center center;
+    animation: btn-zoom 1.8s ease-in-out infinite, btn-shine 4s ease-in-out infinite;
   }
-  .primary-btn:disabled { opacity: .45; cursor: not-allowed; box-shadow: none; }
+  .primary-btn:hover:not(:disabled) {
+    transform: scale(1.06);
+    box-shadow: 0 14px 30px rgba(255, 107, 157, .45);
+    animation-play-state: paused;
+  }
+  .primary-btn:active:not(:disabled) {
+    transform: scale(.97);
+  }
+  .primary-btn:disabled { opacity: .45; cursor: not-allowed; box-shadow: none; animation: none; }
+  @keyframes btn-zoom {
+    0%, 100% { transform: scale(1); box-shadow: 0 10px 24px rgba(255, 107, 157, .35); }
+    50% { transform: scale(1.05); box-shadow: 0 12px 30px rgba(123, 92, 255, .45), 0 0 0 6px rgba(255, 107, 157, .14); }
+  }
+  @keyframes btn-shine {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .primary-btn { animation: none; transition: none; }
+    .primary-btn:hover:not(:disabled) { transform: none; }
+  }
   .subnote { margin-top: 14px; font-size: .78rem; color: var(--muted); }
   .link-row { margin-top: 18px; }
   .link-row a { color: var(--purple); font-size: .85rem; }
@@ -245,7 +269,7 @@
   </section>
 </div>
 
-<script src="types-data.js?v=34"></script>
+<script src="types-data.js?v=40"></script>
 <script>
 const PAGE_SIZE = 5;
 /* T1=不安型 / T2=依存型 / T3=回避型 */

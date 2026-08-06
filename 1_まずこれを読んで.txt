@@ -1,0 +1,23 @@
+【ターミナルは不要】GitHubのサイトだけでOK
+
+■手順
+1. 下のリンクを開く
+   https://github.com/knttnhtt9k-beep/ordernote/upload/main
+
+2. このフォルダの中身を、全部ドラッグして入れる
+   （type.html / result.css / types-data.js / seminar-embed.js / images など）
+   ※ ZIPにまとめない。フォルダの中のファイルをそのまま入れる
+
+3. 一番下の緑色「Commit changes」を押す
+
+4. 次にこれを開く
+   https://github.com/knttnhtt9k-beep/ordernote/actions
+
+5. 一番上の赤い「pages build and deployment」をクリック
+6. 右上の「Re-run failed jobs」または「Re-run all jobs」を押す
+7. 緑になったら成功
+
+8. 確認（シークレットウィンドウ推奨）
+   https://knttnhtt9k-beep.github.io/ordernote/type.html?id=T2&v=50
+
+※ もしリポジトリに ordernote-gh-update.zip があれば削除してOK
