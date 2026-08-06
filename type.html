@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>愛される周波数タイプ</title>
 <meta property="og:title" content="愛される周波数タイプ診断">
-<link rel="stylesheet" href="result.css?v=41">
+<link rel="stylesheet" href="result.css?v=43">
 </head>
 <body>
 <div class="page" id="page">
@@ -147,7 +147,7 @@
   <a class="primary-btn js-seminar" href="#">無料セミナーに申し込む</a>
 </div>
 
-<script src="types-data.js?v=42"></script>
+<script src="types-data.js?v=43"></script>
 <script src="images-embed.js?v=1"></script>
 <script>
 (function () {
@@ -174,7 +174,12 @@
     var bullets = [];
     function flushText() {
       if (!buf.length) return;
-      out.push('<p class="para">' + markBold(buf.join("\n")).replace(/\n/g, "<br>") + "</p>");
+      // 短い引用行だけ改行維持。通常文は結合して端末幅で自然折り返し
+      var allQuotes = buf.every(function (l) {
+        return /^[「『]/.test(l.trim()) || /^\*\*[「『]/.test(l.trim());
+      });
+      var joined = allQuotes ? buf.join("\n") : buf.join("");
+      out.push('<p class="para">' + markBold(joined).replace(/\n/g, "<br>") + "</p>");
       buf = [];
     }
     function flushBullets() {
