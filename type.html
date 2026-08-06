@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>愛される周波数タイプ</title>
 <meta property="og:title" content="愛される周波数タイプ診断">
-<link rel="stylesheet" href="result.css?v=55">
+<link rel="stylesheet" href="result.css?v=57">
 </head>
 <body>
 <div class="page" id="page">
@@ -110,7 +110,7 @@
       <span class="sec-ico" aria-hidden="true">★</span>
       <div>
         <span class="sec-kicker">PROOF</span>
-        <h2>実際に、現実が動いた方々</h2>
+        <h2>実績者の声</h2>
       </div>
     </div>
     <div class="rich" id="proofText"></div>
@@ -121,10 +121,38 @@
       <span class="sec-ico" aria-hidden="true">✓</span>
       <div>
         <span class="sec-kicker">SAFE</span>
-        <h2>安心して聞いてください</h2>
+        <h2>安心してください</h2>
       </div>
     </div>
     <div class="rich" id="reassureText"></div>
+  </section>
+
+  <section class="sec sec-teachers">
+    <div class="sec-head">
+      <span class="sec-ico" aria-hidden="true">◎</span>
+      <div>
+        <span class="sec-kicker">TEACHERS</span>
+        <h2>講師紹介</h2>
+      </div>
+    </div>
+    <div class="teachers">
+      <article class="teacher">
+        <div class="teacher-photo" aria-hidden="true">
+          <img src="images/teacher-mochizuki.jpg" alt="望月俊亮" width="160" height="160" loading="lazy" onerror="this.remove()">
+        </div>
+        <h3 class="teacher-name">望月俊亮</h3>
+        <p class="teacher-role">講師</p>
+        <div class="rich" id="teacherMochizuki"></div>
+      </article>
+      <article class="teacher">
+        <div class="teacher-photo" aria-hidden="true">
+          <img src="images/teacher-hani.jpg" alt="はにぃさん" width="160" height="160" loading="lazy" onerror="this.remove()">
+        </div>
+        <h3 class="teacher-name">はにぃさん</h3>
+        <p class="teacher-role">進行・ファシリテーター</p>
+        <div class="rich" id="teacherHani"></div>
+      </article>
+    </div>
   </section>
 
   <div class="scores" id="scoresWrap" style="display:none">
@@ -150,8 +178,8 @@
   <a class="primary-btn js-seminar" href="#">無料セミナーに申し込む</a>
 </div>
 
-<script src="seminar-embed.js?v=55"></script>
-<script src="types-data.js?v=55"></script>
+<script src="seminar-embed.js?v=57"></script>
+<script src="types-data.js?v=57"></script>
 <script src="images-embed.js?v=1"></script>
 <script>
 (function () {
@@ -245,6 +273,8 @@
   setRich(document.getElementById("idealText"), result.ideal);
   setRich(document.getElementById("proofText"), window.PROOF_COMMON || "");
   setRich(document.getElementById("reassureText"), window.REASSURE_COMMON || "");
+  setRich(document.getElementById("teacherMochizuki"), window.TEACHER_MOCHIZUKI || "");
+  setRich(document.getElementById("teacherHani"), window.TEACHER_HANI || "");
   setRich(document.getElementById("seminarScene"), result.seminarScene || "");
 
   if (window.SEMINAR_SECTION_TITLE) {
