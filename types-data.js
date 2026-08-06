@@ -13,7 +13,7 @@ window.TYPE_LABEL = {
 };
 
 window.SEMINAR_SECTION_TITLE =
-  "愛される周波数へ整える場<br>診断を受けたあなた限定";
+  "愛される周波数へ変えていく方法を<br>無料で受け取りませんか？";
 
 window.SEMINAR_CTA_BUTTON = "今すぐ無料セミナーに申し込む";
 window.SEMINAR_CTA_NOTE = "完全無料・約90分・オンライン｜先着枠あり";
