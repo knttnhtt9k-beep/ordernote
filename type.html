@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>愛される周波数タイプ</title>
 <meta property="og:title" content="愛される周波数タイプ診断">
-<link rel="stylesheet" href="result.css?v=44">
+<link rel="stylesheet" href="result.css?v=46">
 </head>
 <body>
 <div class="page" id="page">
@@ -16,14 +16,12 @@
   </div>
   <style>.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}</style>
 
-  <!-- ① 診断結果 -->
   <section class="sec sec-result">
     <p class="result-badge"><span class="ico" aria-hidden="true">✦</span>あなたの診断結果</p>
     <div class="lead-line" id="typeLead"></div>
     <div class="keywords" id="typeKeywords"></div>
   </section>
 
-  <!-- ①厚め：問題提起 -->
   <section class="sec">
     <div class="sec-head">
       <span class="sec-ico" aria-hidden="true">①</span>
@@ -32,13 +30,9 @@
         <h2>今、起きていること</h2>
       </div>
     </div>
-    <figure class="sec-visual">
-      <img src="images/illust_phone_worry.jpg" alt="" width="640" height="640" loading="lazy">
-    </figure>
     <div class="rich" id="problemText"></div>
   </section>
 
-  <!-- AFTER 変化 -->
   <section class="sec sec-benefits">
     <div class="sec-head">
       <span class="sec-ico" aria-hidden="true">♡</span>
@@ -47,13 +41,9 @@
         <h2>愛される周波数へ変わると、<br>こんな変化が現れます</h2>
       </div>
     </div>
-    <figure class="sec-visual">
-      <img src="images/illust_after_heart.jpg" alt="" width="640" height="640" loading="lazy">
-    </figure>
     <ul class="benefit-cards" id="ctaBenefits"></ul>
   </section>
 
-  <!-- ② このまま -->
   <section class="sec sec-warn">
     <div class="sec-head">
       <span class="sec-ico ico-warn" aria-hidden="true">!</span>
@@ -62,13 +52,9 @@
         <h2>このまま何も変えなかった場合</h2>
       </div>
     </div>
-    <figure class="sec-visual">
-      <img src="images/illust_loop.jpg" alt="" width="640" height="640" loading="lazy">
-    </figure>
     <div class="rich" id="ifNothingText"></div>
   </section>
 
-  <!-- ③ 書き換え -->
   <section class="sec sec-hope">
     <div class="sec-head">
       <span class="sec-ico" aria-hidden="true">✧</span>
@@ -77,14 +63,11 @@
         <h2>周波数は、書き換えられる</h2>
       </div>
     </div>
-    <figure class="sec-visual">
-      <img src="images/illust_notebook.jpg" alt="" width="640" height="640" loading="lazy">
-    </figure>
     <div class="rich" id="rewriteText"></div>
   </section>
 
-  <!-- ④ セミナー -->
-  <section class="sec sec-seminar">
+  <!-- KPI：セミナー誘導（バナー＋CTA） -->
+  <section class="sec sec-seminar" id="seminarOffer">
     <div class="sec-head">
       <span class="sec-ico" aria-hidden="true">▶</span>
       <div>
@@ -92,16 +75,15 @@
         <h2>恋の引き寄せ完全攻略セミナー</h2>
       </div>
     </div>
-    <figure class="sec-visual sec-visual-sm">
-      <img src="images/illust_notebook.jpg" alt="" width="640" height="640" loading="lazy">
-    </figure>
+    <a class="seminar-banner js-seminar" href="#" aria-label="無料セミナーに申し込む">
+      <img src="images/seminar_banner.jpg" alt="恋の引き寄せ完全攻略セミナー" width="1024" height="576" loading="lazy">
+    </a>
     <div class="rich" id="seminarText"></div>
     <p class="action-warn" id="seminarScene"></p>
     <a class="primary-btn js-seminar" href="#">無料セミナーで、書き換え方を知る</a>
     <p class="btn-note">完全無料・約90分・オンライン｜先着枠あり</p>
   </section>
 
-  <!-- ⑤ 理想の未来 -->
   <section class="sec">
     <div class="sec-head">
       <span class="sec-ico" aria-hidden="true">◎</span>
@@ -110,17 +92,16 @@
         <h2>理想の自分・理想の恋愛</h2>
       </div>
     </div>
-    <figure class="sec-visual">
-      <img src="images/illust_future_light.jpg" alt="" width="640" height="640" loading="lazy">
-    </figure>
     <div class="rich" id="idealText"></div>
   </section>
 
   <div class="cta-mid">
+    <a class="seminar-banner seminar-banner-sm js-seminar" href="#" aria-label="無料セミナーに申し込む">
+      <img src="images/seminar_banner.jpg" alt="恋の引き寄せ完全攻略セミナー" width="1024" height="576" loading="lazy">
+    </a>
     <a class="primary-btn js-seminar" href="#">今すぐ無料セミナーに申し込む</a>
   </div>
 
-  <!-- ⑥ 実績 -->
   <section class="sec">
     <div class="sec-head">
       <span class="sec-ico" aria-hidden="true">★</span>
@@ -129,13 +110,9 @@
         <h2>実際に、現実が動いた方々</h2>
       </div>
     </div>
-    <figure class="sec-visual">
-      <img src="images/illust_ring.jpg" alt="" width="640" height="640" loading="lazy">
-    </figure>
     <div class="rich" id="proofText"></div>
   </section>
 
-  <!-- ⑦ 安心 -->
   <section class="sec sec-safe">
     <div class="sec-head">
       <span class="sec-ico" aria-hidden="true">✓</span>
@@ -152,8 +129,10 @@
     <div id="scoreBoard"></div>
   </div>
 
-  <!-- 最終CTA -->
   <section class="sec sec-final">
+    <a class="seminar-banner seminar-banner-sm js-seminar" href="#" aria-label="無料セミナーに申し込む">
+      <img src="images/seminar_banner.jpg" alt="恋の引き寄せ完全攻略セミナー" width="1024" height="576" loading="lazy">
+    </a>
     <p class="final-line" id="finalLine">タイプが分かった今が、スタートです。</p>
     <a class="primary-btn primary-btn-lg js-seminar" href="#">無料でセミナーに申し込む</a>
     <p class="btn-note" id="finalNote">枠が埋まり次第、受付終了</p>
@@ -168,7 +147,7 @@
   <a class="primary-btn js-seminar" href="#">無料セミナーに申し込む</a>
 </div>
 
-<script src="types-data.js?v=44"></script>
+<script src="types-data.js?v=46"></script>
 <script src="images-embed.js?v=1"></script>
 <script>
 (function () {
@@ -181,6 +160,7 @@
   function markBold(s) {
     return escapeHtml(s).replace(/\*\*(.+?)\*\*/g, '<strong class="hl">$1</strong>');
   }
+  /* note型：空行＝段落。通常文は結合して自然折り返し。引用行だけ改行維持 */
   function setRich(el, text) {
     if (!el) return;
     if (!text) {
@@ -195,7 +175,6 @@
     var bullets = [];
     function flushText() {
       if (!buf.length) return;
-      // 短い引用行だけ改行維持。通常文は結合して端末幅で自然折り返し
       var allQuotes = buf.every(function (l) {
         return /^[「『]/.test(l.trim()) || /^\*\*[「『]/.test(l.trim());
       });
@@ -268,18 +247,15 @@
   setRich(document.getElementById("seminarScene"), result.seminarScene || "");
 
   var seminarUrl = window.SEMINAR_URL || "#";
-  var btnLabel = window.SEMINAR_CTA_BUTTON || "今すぐ無料セミナーに申し込む";
   document.querySelectorAll(".js-seminar").forEach(function (a) {
     a.href = seminarUrl;
   });
-  var mid = document.querySelector(".sec-seminar .js-seminar");
+  var mid = document.querySelector(".sec-seminar .primary-btn.js-seminar");
   if (mid) mid.textContent = window.SEMINAR_CTA_MID || "無料セミナーで、書き換え方を知る";
-  var mid2 = document.querySelector(".cta-mid .js-seminar");
-  if (mid2) mid2.textContent = btnLabel;
-  var finalBtn = document.querySelector(".sec-final .js-seminar");
+  var mid2 = document.querySelector(".cta-mid .primary-btn.js-seminar");
+  if (mid2) mid2.textContent = window.SEMINAR_CTA_BUTTON || "今すぐ無料セミナーに申し込む";
+  var finalBtn = document.querySelector(".sec-final .js-seminar.primary-btn");
   if (finalBtn) finalBtn.textContent = window.FINAL_BTN || "無料でセミナーに申し込む";
-  var stickyBtn = document.querySelector(".sticky-cta .js-seminar");
-  if (stickyBtn) stickyBtn.textContent = "無料セミナーに申し込む";
   if (window.FINAL_LINE) document.getElementById("finalLine").textContent = window.FINAL_LINE;
   if (window.FINAL_NOTE) document.getElementById("finalNote").textContent = window.FINAL_NOTE;
 
