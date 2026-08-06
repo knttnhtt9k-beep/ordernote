@@ -267,17 +267,20 @@ body {
   color: #3f3644;
 }
 .para {
-  margin: 0 0 .55em;
+  margin: 0 0 .35em;
   line-height: 1.8;
   word-break: normal;
   overflow-wrap: anywhere;
   font-size: .94rem;
 }
 .para:last-child { margin-bottom: 0; }
-.rich .para + .para {
-  /* noteの短い段落リズム */
+.para-gap {
+  height: .85em;
 }
-.para:last-child { margin-bottom: 0; }
+.sec-benefits .seminar-banner {
+  margin-top: 4px;
+  margin-bottom: 18px;
+}
 .hl {
   color: inherit;
   font-weight: 800;
