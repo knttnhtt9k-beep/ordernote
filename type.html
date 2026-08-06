@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>愛される周波数タイプ</title>
 <meta property="og:title" content="愛される周波数タイプ診断">
-<link rel="stylesheet" href="result.css?v=53">
+<link rel="stylesheet" href="result.css?v=54">
 </head>
 <body>
 <div class="page" id="page">
@@ -41,8 +41,8 @@
         <h2>愛される周波数へ変わると、<br>こんな変化が現れます</h2>
       </div>
     </div>
-    <a class="seminar-banner js-seminar" href="#" aria-label="無料セミナーに申し込む">
-      <img src="images/seminar_banner.jpg" alt="恋の引き寄せ完全攻略セミナー" width="1024" height="576" loading="lazy">
+    <a class="section-banner js-seminar" href="#" aria-label="無料セミナーに申し込む">
+      <img src="images/banner_after.jpg?v=1" alt="愛される周波数へ変わると、こんな変化が現れます" width="1024" height="576" loading="lazy">
     </a>
     <ul class="benefit-cards" id="ctaBenefits"></ul>
   </section>
@@ -75,11 +75,11 @@
       <span class="sec-ico" aria-hidden="true">▶</span>
       <div>
         <span class="sec-kicker">SEMINAR</span>
-        <h2 id="seminarSectionTitle">愛される周波数へ整える場を、<br>診断を受けた方限定で設けました</h2>
+        <h2 id="seminarSectionTitle">愛される周波数へ整える場<br>診断を受けたあなた限定</h2>
       </div>
     </div>
-    <a class="seminar-banner js-seminar" href="#" aria-label="無料セミナーに申し込む">
-      <img src="images/seminar_banner.jpg" alt="恋の引き寄せ完全攻略セミナー" width="1024" height="576" loading="lazy">
+    <a class="section-banner js-seminar" href="#" aria-label="無料セミナーに申し込む">
+      <img src="images/banner_seminar_invite.jpg?v=1" alt="愛される周波数へ整える場　診断を受けたあなた限定" width="1024" height="576" loading="lazy">
     </a>
     <div class="rich" id="seminarText"></div>
     <p class="action-warn" id="seminarScene"></p>
@@ -99,7 +99,7 @@
   </section>
 
   <div class="cta-mid">
-    <a class="seminar-banner seminar-banner-sm js-seminar" href="#" aria-label="無料セミナーに申し込む">
+    <a class="seminar-banner seminar-banner-sm seminar-banner-cta js-seminar" href="#" aria-label="無料セミナーに申し込む">
       <img src="images/seminar_banner.jpg" alt="恋の引き寄せ完全攻略セミナー" width="1024" height="576" loading="lazy">
     </a>
     <a class="primary-btn js-seminar" href="#">今すぐ無料セミナーに申し込む</a>
@@ -133,7 +133,7 @@
   </div>
 
   <section class="sec sec-final">
-    <a class="seminar-banner seminar-banner-sm js-seminar" href="#" aria-label="無料セミナーに申し込む">
+    <a class="seminar-banner seminar-banner-sm seminar-banner-cta js-seminar" href="#" aria-label="無料セミナーに申し込む">
       <img src="images/seminar_banner.jpg" alt="恋の引き寄せ完全攻略セミナー" width="1024" height="576" loading="lazy">
     </a>
     <p class="final-line" id="finalLine">タイプが分かった今が、スタートです。</p>
@@ -150,15 +150,15 @@
   <a class="primary-btn js-seminar" href="#">無料セミナーに申し込む</a>
 </div>
 
-<script src="seminar-embed.js?v=53"></script>
-<script src="types-data.js?v=53"></script>
+<script src="seminar-embed.js?v=54"></script>
+<script src="types-data.js?v=54"></script>
 <script src="images-embed.js?v=1"></script>
 <script>
 (function () {
   // セミナーバナー：ファイル未アップロードでも表示
   try {
     if (window.SEMINAR_BANNER_SRC) {
-      document.querySelectorAll(".seminar-banner img").forEach(function (img) {
+      document.querySelectorAll(".seminar-banner-cta img").forEach(function (img) {
         img.src = window.SEMINAR_BANNER_SRC;
       });
     }

@@ -168,7 +168,8 @@ body {
   margin-right: 0;
 }
 
-/* KPI：セミナーバナー（横長） */
+/* KPI：セクション見出し用バナー／セミナーCTAバナー */
+.section-banner,
 .seminar-banner {
   display: block;
   margin: 0 0 16px;
@@ -178,6 +179,7 @@ body {
   box-shadow: 0 10px 24px rgba(180, 80, 120, .14);
   text-decoration: none;
 }
+.section-banner img,
 .seminar-banner img {
   display: block;
   width: 100%;
@@ -188,6 +190,14 @@ body {
 .seminar-banner-sm {
   margin-bottom: 12px;
   box-shadow: 0 6px 16px rgba(180, 80, 120, .1);
+}
+.sec-benefits .section-banner {
+  margin-top: 4px;
+  margin-bottom: 18px;
+}
+.sec-seminar .section-banner {
+  margin-top: 4px;
+  margin-bottom: 16px;
 }
 .cta-mid {
   margin: 8px 22px 0;
@@ -276,10 +286,6 @@ body {
 .para:last-child { margin-bottom: 0; }
 .para-gap {
   height: .85em;
-}
-.sec-benefits .seminar-banner {
-  margin-top: 4px;
-  margin-bottom: 18px;
 }
 .hl {
   color: inherit;
