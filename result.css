@@ -147,6 +147,27 @@ body {
   letter-spacing: .02em;
 }
 
+.sec-visual {
+  margin: 0 0 16px;
+  padding: 0;
+  border-radius: 18px;
+  overflow: hidden;
+  background: linear-gradient(145deg, #fff5fa, #f3ebff);
+  border: 1px solid #f0dce6;
+}
+.sec-visual img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+}
+.sec-visual-sm {
+  max-width: 220px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .lead-line {
   font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", sans-serif;
   font-size: 1.02rem;
@@ -220,8 +241,8 @@ body {
   color: #3f3644;
 }
 .para {
-  margin: 0 0 1.05em;
-  line-height: 1.95;
+  margin: 0 0 .85em;
+  line-height: 1.9;
   word-break: normal;
   overflow-wrap: anywhere;
   text-wrap: pretty;
