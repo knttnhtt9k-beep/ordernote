@@ -1,0 +1,24 @@
+【キャッシュ】v=62
+
+■ 入れるファイル（ZIP禁止・全部ルート上書き）
+type.html / types-data.js / result.css / index.html / gallery.html
+seminar-embed.js / images-embed.js / images（フォルダごと）
+
+■ この版の変更内容
+1. はにぃさん肩書き：司会進行
+2. 全タイプのリード改行を2行に統一
+   ・不安型：不安型のあなたへ。／今のあなたは、「安心より不安を信じてしまう」周波数を出しています。
+   ・依存型：依存型のあなたへ。／今のあなたは、「頑張れば愛される」「与え続けないと愛されない」周波数を出しています。
+   ・回避型：回避型のあなたへ。／今のあなたは、「どうせ続かない」「幸せは危ない」周波数を出しています。
+3. 見出し：愛される周波数へ変えていく方法を／無料で受け取りませんか？
+4. 終盤：実績者の声 → 安心してください → 講師紹介（丸枠2名）
+
+■ 反映手順
+1. ActionsのQueuedをCancel
+2. このフォルダの中身をZIPにせずUpload
+3. Actionsが緑になるまで待つ
+4. 確認URL（スーパーリロード）
+   https://knttnhtt9k-beep.github.io/ordernote/type.html?id=T1
+   https://knttnhtt9k-beep.github.io/ordernote/type.html?id=T2
+   https://knttnhtt9k-beep.github.io/ordernote/type.html?id=T3
+5. ソースに types-data.js?v=62 / 「司会進行」があれば成功
