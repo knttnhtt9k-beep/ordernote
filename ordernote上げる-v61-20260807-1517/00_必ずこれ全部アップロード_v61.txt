@@ -1,0 +1,43 @@
+【キャッシュ】v=61（これより古い版は使わない）
+
+■ このフォルダに入っているもの（全部ルートへ上書き）
+1. type.html          … 結果ページ本体（v=61）
+2. types-data.js      … 文言データ（v=61）
+3. result.css         … スタイル（講師丸枠など）
+4. index.html         … 診断トップ
+5. gallery.html       … 一覧
+6. seminar-embed.js   … セミナーバナー埋め込み
+7. images-embed.js    … 画像埋め込み
+8. images/            … jpg一式（ZIPにせずフォルダごと）
+
+■ v=61 で反映される内容（確認用）
+【見出し】
+・愛される周波数へ変えていく方法を
+・無料で受け取りませんか？
+
+【終盤セクション】
+・実績者の声
+・安心してください
+・講師紹介（望月俊亮／はにぃさん＋丸い写真枠）
+
+【依存型リード（改行修正）】
+依存型のあなたへ。
+今のあなたは、「頑張れば愛される」「与え続けないと愛されない」周波数を出しています。
+
+■ アップロード手順（これ以外はしない）
+1. GitHub → ordernote リポジトリ
+2. Actions の Queued「pages build and deployment」があれば Cancel
+3. このフォルダの中身を【ZIPにせず】ルートにドラッグ＆Upload
+4. Commit 後、Actions が success（緑）になるまで待つ
+5. 成功後に開く：
+   https://knttnhtt9k-beep.github.io/ordernote/type.html?id=T2
+6. 表示が古ければスーパーリロード（Cmd+Shift+R）
+
+■ 反映確認チェック（成功条件）
+□ ページソースに types-data.js?v=61 がある
+□ 「講師紹介」見出しがある
+□ 「受け取りませんか？」がある
+□ 依存型リードが2行（改行しすぎていない）
+
+※ ZIPのまま上げると中身が展開されず反映されないので禁止
+※ ordernote-gh-update.zip / 大きな png / images/_raw は上げない
