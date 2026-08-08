@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>全タイプ一覧｜愛される周波数タイプ診断</title>
+<link rel="stylesheet" href="result.css?v=17">
+<style>
+  .gallery-head {
+    padding: 32px 20px 12px;
+    text-align: center;
+  }
+  .gallery-head h1 {
+    font-size: 1.35rem;
+    margin: 0 0 8px;
+  }
+  .gallery-head p {
+    margin: 0;
+    color: var(--muted);
+    font-size: .9rem;
+    line-height: 1.7;
+  }
+  .grid {
+    display: grid;
+    gap: 14px;
+    padding: 16px 16px 32px;
+  }
+  .card-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(90, 60, 120, .12);
+  }
+  .card-link .cover { aspect-ratio: 3 / 2; }
+  .card-link .cover-name { font-size: 1.35rem; }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="gallery-head">
+    <h1>愛される周波数タイプ一覧（3タイプ）</h1>
+    <p>画像をタップすると、各タイプのページが開きます。<br>続きはセミナーで、愛される周波数へ変えていく方法をお伝えします。</p>
+  </div>
+  <div class="grid" id="grid"></div>
+  <div style="padding:0 20px 40px">
+    <a class="primary-btn" href="index.html">診断をはじめる</a>
+  </div>
+</div>
+<script src="types-data.js?v=40"></script>
+<script src="images-embed.js?v=1"></script>
+<script>
+const grid = document.getElementById("grid");
+(window.TYPE_ORDER || Object.keys(window.RESULTS)).forEach((key) => {
+  const r = window.RESULTS[key];
+  if (!r) return;
+  const src = (window.TYPE_IMAGES && window.TYPE_IMAGES[key]) || r.image;
+  const a = document.createElement("a");
+  a.className = "card-link";
+  a.href = "type.html?id=" + key;
+  a.innerHTML = `
+    <div class="cover">
+      <img src="${src}" alt="${r.name}">
+    </div>
+  `;
+  grid.appendChild(a);
+});
+</script>
+</body>
+</html>

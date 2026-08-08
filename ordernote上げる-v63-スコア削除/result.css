@@ -1,0 +1,505 @@
+:root {
+  --pink: #e85a8a;
+  --purple: #7b5cff;
+  --text: #2c2433;
+  --muted: #8a8090;
+  --bg: #faf7f9;
+  --line: #eadde6;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", serif;
+  background: var(--bg);
+  color: var(--text);
+  padding-bottom: 96px;
+  -webkit-font-smoothing: antialiased;
+}
+.page {
+  max-width: 460px;
+  margin: 0 auto;
+  padding-bottom: 36px;
+  background: #fff;
+  min-height: 100vh;
+  box-shadow: 0 0 40px rgba(80, 40, 70, .06);
+}
+
+.cover {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+  background: #2a1a45;
+}
+.cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/* セクション＝枠だらけにせず、余白と区切り線でリズムを作る */
+.sec {
+  margin: 0;
+  padding: 28px 22px 8px;
+  border: none;
+  background: transparent;
+  box-shadow: none;
+  border-radius: 0;
+}
+.sec + .sec {
+  border-top: 1px solid var(--line);
+}
+.sec-result {
+  margin-top: 0;
+  padding-top: 24px;
+  background: linear-gradient(180deg, #fff8fb 0%, #fff 70%);
+}
+.sec-warn {
+  background: linear-gradient(90deg, #fff5f7 0%, #fff 18%);
+  border-left: 3px solid #f0a0b8;
+  padding-left: 19px;
+}
+.sec-hope {
+  background: linear-gradient(90deg, #f7f2ff 0%, #fff 18%);
+  border-left: 3px solid #b8a0f0;
+  padding-left: 19px;
+}
+.sec-seminar {
+  background: linear-gradient(180deg, #fff5fa, #f8f4ff);
+  margin: 8px 0 0;
+  padding: 28px 22px 22px;
+  border-top: none;
+}
+.sec-safe {
+  background: #f8fbf9;
+}
+.sec-teachers {
+  background: linear-gradient(180deg, #fff 0%, #faf6ff 100%);
+}
+.teachers {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+  margin-top: 8px;
+}
+.teacher {
+  text-align: center;
+}
+.teacher-photo {
+  width: 132px;
+  height: 132px;
+  margin: 0 auto 16px;
+  border-radius: 50%;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 35% 30%, #fff8fc 0%, transparent 55%),
+    linear-gradient(145deg, #f3e4f0 0%, #e8d4f5 45%, #f0c8d8 100%);
+  border: 3px solid rgba(232, 160, 184, .55);
+  box-shadow: 0 8px 24px rgba(180, 120, 160, .18);
+}
+.teacher-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.teacher-name {
+  margin: 0 0 4px;
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: .06em;
+  color: #4a3548;
+}
+.teacher-role {
+  margin: 0 0 14px;
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  color: var(--pink);
+}
+.teacher .rich {
+  text-align: left;
+}
+.sec-final {
+  text-align: center;
+  padding: 32px 22px 28px;
+  background: linear-gradient(180deg, #fff, #fff5fa);
+  border-top: 1px solid var(--line);
+}
+.sec-benefits {
+  padding-bottom: 20px;
+}
+
+.result-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0 0 14px;
+  padding: 0;
+  border-radius: 0;
+  background: none;
+  color: var(--pink);
+  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", sans-serif;
+  font-size: .7rem;
+  font-weight: 800;
+  letter-spacing: .18em;
+}
+.result-badge .ico { opacity: .7; }
+
+.sec-head {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  margin: 0 0 16px;
+  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", sans-serif;
+}
+.sec-ico {
+  flex: 0 0 auto;
+  width: 28px;
+  height: 28px;
+  margin-top: 2px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: .72rem;
+  font-weight: 800;
+  color: var(--pink);
+  background: #fff0f5;
+  border: 1.5px solid #f0c8d8;
+  box-shadow: none;
+}
+.sec-ico.ico-warn {
+  color: #d6456a;
+  background: #fff0f3;
+  border-color: #f0b0c0;
+}
+.sec-kicker {
+  display: block;
+  font-size: .62rem;
+  font-weight: 800;
+  letter-spacing: .16em;
+  color: var(--muted);
+  background: none;
+  border-radius: 0;
+  padding: 0;
+  margin-bottom: 4px;
+}
+.sec-head h2 {
+  margin: 0;
+  font-size: 1.12rem;
+  line-height: 1.45;
+  color: #3a2a48;
+  font-weight: 800;
+  letter-spacing: .02em;
+}
+
+.sec-visual {
+  margin: 0 0 16px;
+  padding: 0;
+  border-radius: 16px;
+  overflow: hidden;
+  background: linear-gradient(145deg, #fff5fa, #f3ebff);
+  border: 1px solid #f0dce6;
+}
+.sec-visual img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+.sec-visual-sm {
+  max-width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/* KPI：セクション見出し用バナー／セミナーCTAバナー */
+.section-banner,
+.seminar-banner {
+  display: block;
+  margin: 0 0 16px;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid #f0d0e0;
+  box-shadow: 0 10px 24px rgba(180, 80, 120, .14);
+  text-decoration: none;
+}
+.section-banner img,
+.seminar-banner img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+.seminar-banner-sm {
+  margin-bottom: 12px;
+  box-shadow: 0 6px 16px rgba(180, 80, 120, .1);
+}
+.sec-benefits .section-banner {
+  margin-top: 4px;
+  margin-bottom: 18px;
+}
+.sec-seminar .section-banner {
+  margin-top: 4px;
+  margin-bottom: 16px;
+}
+.cta-mid {
+  margin: 8px 22px 0;
+  padding: 8px 0 16px;
+}
+
+.lead-line {
+  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", sans-serif;
+  font-size: 1.02rem;
+  font-weight: 800;
+  line-height: 1.75;
+  margin: 0 0 16px;
+  color: #c41e4a;
+}
+.keywords {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", sans-serif;
+}
+.keyword-chip {
+  display: inline-block;
+  padding: 5px 11px;
+  border-radius: 999px;
+  background: transparent;
+  border: 1px solid #e8c8d8;
+  color: #8a4a68;
+  font-size: .75rem;
+  font-weight: 650;
+}
+
+/* AFTER：カードではなく番号＋下線のリスト */
+.benefit-cards {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", sans-serif;
+}
+.benefit-cards li {
+  display: grid;
+  grid-template-columns: 22px 1fr;
+  gap: 12px;
+  align-items: start;
+  padding: 12px 0;
+  border-radius: 0;
+  background: none;
+  border: none;
+  border-bottom: 1px solid #f0e4ec;
+}
+.benefit-cards li:last-child { border-bottom: none; }
+.b-num {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: .7rem;
+  font-weight: 800;
+  color: var(--pink);
+  background: #fff0f5;
+  border: 1px solid #f0c8d8;
+}
+.b-text {
+  font-size: .9rem;
+  line-height: 1.65;
+  font-weight: 600;
+  color: #4a4050;
+  padding-top: 1px;
+}
+
+/* 本文：枠なしの読み物 */
+.rich {
+  font-size: .95rem;
+  line-height: 1.95;
+  color: #3f3644;
+}
+.para {
+  margin: 0 0 .35em;
+  line-height: 1.8;
+  word-break: normal;
+  overflow-wrap: anywhere;
+  font-size: .94rem;
+}
+.para:last-child { margin-bottom: 0; }
+.para-gap {
+  height: .85em;
+}
+.hl {
+  color: inherit;
+  font-weight: 800;
+  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", sans-serif;
+  background: linear-gradient(transparent 62%, #ffe9a8 62%);
+  padding: 0 1px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+ul.bullet-list {
+  margin: .2em 0 1em;
+  padding: 0;
+  list-style: none;
+  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", sans-serif;
+}
+ul.bullet-list li {
+  position: relative;
+  margin: 0 0 8px;
+  padding-left: 1.1em;
+  line-height: 1.7;
+  font-size: .9rem;
+}
+ul.bullet-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: .72em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--pink);
+  opacity: .7;
+}
+.note-line {
+  margin: 10px 0 0;
+  font-size: .82rem;
+  color: #8a4a68;
+  font-weight: 650;
+  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", sans-serif;
+}
+.action-warn {
+  margin: 16px 0 18px;
+  font-size: .86rem;
+  line-height: 1.8;
+  color: #5a4050;
+  background: none;
+  border-radius: 0;
+  padding: 0 0 0 12px;
+  border-left: 2px solid #f0a0b8;
+  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", sans-serif;
+}
+
+
+.primary-btn {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  border: none;
+  border-radius: 999px;
+  padding: 15px 14px;
+  font-size: .95rem;
+  font-weight: 800;
+  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", sans-serif;
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
+  background: linear-gradient(90deg, var(--pink), #c86bff);
+  background-size: 200% 100%;
+  box-shadow: 0 8px 20px rgba(232, 90, 138, .25);
+  cursor: pointer;
+  transition: transform .2s ease, box-shadow .2s ease;
+  transform-origin: center center;
+  animation: btn-zoom 1.8s ease-in-out infinite, btn-shine 4s ease-in-out infinite;
+}
+.primary-btn:hover {
+  transform: scale(1.06);
+  box-shadow: 0 14px 32px rgba(232, 90, 138, .42);
+  animation-play-state: paused;
+}
+.primary-btn:active {
+  transform: scale(.97);
+  box-shadow: 0 4px 12px rgba(232, 90, 138, .22);
+}
+@keyframes btn-zoom {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 8px 20px rgba(232, 90, 138, .25);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 12px 30px rgba(200, 107, 255, .45), 0 0 0 6px rgba(232, 90, 138, .14);
+  }
+}
+@keyframes btn-shine {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .primary-btn {
+    animation: none;
+    transition: none;
+  }
+  .primary-btn:hover,
+  .primary-btn:active {
+    transform: none;
+  }
+}
+.primary-btn-lg {
+  padding: 17px 14px;
+  font-size: 1rem;
+}
+.btn-note {
+  margin: 10px 0 0;
+  font-size: .75rem;
+  color: var(--muted);
+  text-align: center;
+  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", sans-serif;
+}
+.final-line {
+  margin: 0 0 16px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #3a2a48;
+  line-height: 1.6;
+}
+.ghost-btn {
+  display: block;
+  width: 100%;
+  margin-top: 16px;
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  text-decoration: underline;
+  font-size: .8rem;
+  cursor: pointer;
+  text-align: center;
+  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", sans-serif;
+}
+.nav-links {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 12px;
+  flex-wrap: wrap;
+  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", sans-serif;
+}
+.nav-links a {
+  color: var(--purple);
+  font-size: .82rem;
+}
+
+.sticky-cta {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 50;
+  padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
+  background: rgba(255, 255, 255, .92);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid rgba(230, 210, 220, .8);
+  transform: translateY(110%);
+  transition: transform .25s ease;
+}
+.sticky-cta.is-on { transform: translateY(0); }
+.sticky-cta .primary-btn {
+  max-width: 460px;
+  margin: 0 auto;
+}
