@@ -104,6 +104,10 @@ body {
   object-fit: cover;
   display: block;
 }
+/* はにぃ：送った正方形をそのまま丸枠。左端の他人が円内に出ないよう少し右寄せ */
+.teacher-photo img.teacher-photo-hani {
+  object-position: 62% 42%;
+}
 .teacher-name {
   margin: 0 0 4px;
   font-size: 1.15rem;
