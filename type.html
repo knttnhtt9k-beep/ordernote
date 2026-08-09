@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>愛される周波数タイプ</title>
 <meta property="og:title" content="愛される周波数タイプ診断">
-<link rel="stylesheet" href="result.css?v=62">
+<link rel="stylesheet" href="result.css?v=63">
 </head>
 <body>
 <div class="page" id="page">
@@ -155,9 +155,6 @@
     </div>
   </section>
 
-  <div class="scores" id="scoresWrap" style="display:none">
-    <h3>あなたの周波数スコア</h3>
-    <div id="scoreBoard"></div>
   </div>
 
   <section class="sec sec-final">
@@ -178,8 +175,8 @@
   <a class="primary-btn js-seminar" href="#">無料セミナーに申し込む</a>
 </div>
 
-<script src="seminar-embed.js?v=62"></script>
-<script src="types-data.js?v=62"></script>
+<script src="seminar-embed.js?v=63"></script>
+<script src="types-data.js?v=63"></script>
 <script src="images-embed.js?v=61"></script>
 <script>
 (function () {
@@ -311,36 +308,6 @@
     ul.appendChild(li);
   });
 
-  try {
-    var order = ["T1", "T2", "T3"];
-    var scores = null;
-    var sParam = params.get("s");
-    if (sParam) {
-      var parts = sParam.split(",").map(function (n) { return parseInt(n, 10); });
-      if (parts.length === order.length && parts.every(function (n) { return Number.isFinite(n); })) {
-        scores = {};
-        order.forEach(function (type, i) { scores[type] = parts[i]; });
-      }
-    }
-    if (!scores && sessionStorage.getItem("freqType") === key) {
-      var raw = sessionStorage.getItem("freqScores");
-      if (raw) scores = JSON.parse(raw);
-    }
-    if (scores) {
-      var board = document.getElementById("scoreBoard");
-      order.forEach(function (type) {
-        var row = document.createElement("div");
-        row.className = "score-row score-row-3";
-        var val = scores[type] || 0;
-        var label = (window.TYPE_LABEL && window.TYPE_LABEL[type]) || type;
-        row.innerHTML =
-          "<span>" + label + '</span><div class="meter"><i style="width:' +
-          (val / 5) * 100 + '%"></i></div><span>' + val + "</span>";
-        board.appendChild(row);
-      });
-      document.getElementById("scoresWrap").style.display = "block";
-    }
-  } catch (e) {}
 
   var sticky = document.getElementById("stickyCta");
   window.addEventListener("scroll", function () {
