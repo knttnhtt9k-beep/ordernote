@@ -1,4 +1,15 @@
-このフォルダの中身を全部、GitHubの Upload files にドラッグ → Commit changes
+【重要】GitHubのルート直下に上書きしてください
 
-確認URL（反映後）:
-https://knttnhtt9k-beep.github.io/ordernote/type.html?id=T2&v=53
+今回「変わらない」原因：
+フォルダごと上げると
+  ordernote上げる-v70-.../type.html
+に入り、公開URL（ルートの type.html）は古いままです。
+
+正しい上げ方：
+1. このフォルダの中身（type.html / types-data.js / result.css / images など）を開く
+2. GitHubリポジトリの一番上（ルート）へドラッグ＆ドロップで上書き
+3. フォルダごと入れない（中のファイルを直接ルートへ）
+
+確認URL：
+https://knttnhtt9k-beep.github.io/ordernote/type.html?id=T1
+ページソースで result.css?v=73 / types-data.js?v=73 なら成功
