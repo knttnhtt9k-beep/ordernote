@@ -104,9 +104,9 @@ body {
   object-fit: cover;
   display: block;
 }
-/* はにぃ：送った正方形をそのまま丸枠。左端の他人が円内に出ないよう少し右寄せ */
+/* はにぃ：宣材を丸枠中央に */
 .teacher-photo img.teacher-photo-hani {
-  object-position: 62% 42%;
+  object-position: center 28%;
 }
 .teacher-name {
   margin: 0 0 4px;

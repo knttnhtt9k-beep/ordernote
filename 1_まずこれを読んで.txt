@@ -1,7 +1,3 @@
 【重要】GitHubのルート直下に上書き
-
-フォルダごと上げない。
-中身の type.html / types-data.js / result.css / images を
-リポジトリ一番上へ直接ドラッグで上書き。
-
-成功確認：ページソースに types-data.js?v=74
+フォルダごと上げない。中身をルートへ直接上書き。
+確認：images/teacher-hani.jpg と type.html の teacher-hani.jpg?v=5
