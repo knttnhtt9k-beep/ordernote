@@ -1,3 +1,3 @@
 【重要】GitHubのルート直下に上書き
 フォルダごと上げない。中身をルートへ直接上書き。
-確認：images/teacher-hani.jpg と type.html の teacher-hani.jpg?v=5
+成功確認：types-data.js?v=76 / ヘッド「愛され周波数」

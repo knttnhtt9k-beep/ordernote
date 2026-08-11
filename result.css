@@ -320,7 +320,12 @@ body {
   margin: 0;
 }
 .proof-body p {
-  margin: 0 0 .55em;
+  margin: 0;
+  line-height: 1.75;
+}
+.proof-body .hl {
+  font-weight: 800;
+  color: #c41e4a;
 }
 @media (max-width: 420px) {
   .proof-card {
