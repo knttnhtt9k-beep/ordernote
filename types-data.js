@@ -2,7 +2,8 @@
    1行最大：26字（基準「あなたが慎重すぎるからでも、愛される資格がないからで」）
    段落のあいだは空行
 */
-window.SEMINAR_URL = "https://example.com/seminar";
+window.SEMINAR_URL =
+  "https://liff.line.me/2000413683-3x5QM1BV?booking_event_id=40392&ts=1788001111";
 
 window.TYPE_ORDER = ["T1", "T2", "T3"];
 
