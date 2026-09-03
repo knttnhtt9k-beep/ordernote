@@ -475,6 +475,7 @@ ul.bullet-list li::before {
   padding: 15px 14px;
   font-size: .95rem;
   font-weight: 800;
+  line-height: 1.35;
   font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", sans-serif;
   color: #fff;
   text-align: center;
