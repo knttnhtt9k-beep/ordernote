@@ -27,10 +27,15 @@
     box.innerHTML = window.PHRASES_DATA.types
       .map(
         (t) => `
-      <button class="pick-card" type="button" data-type="${t.id}">
-        <span class="kicker">愛される周波数タイプ</span>
-        <span class="title">${t.label}</span>
-        <span class="desc">${t.short}</span>
+      <button class="pick-btn type-btn" type="button" data-type="${t.id}">
+        <span class="pick-thumb"><img src="${t.image}" alt=""></span>
+        <span class="pick-body">
+          <span class="kicker">タップして選ぶ</span>
+          <span class="title">${t.label}</span>
+          <span class="sub">${t.sub || ""}</span>
+          <span class="desc">${t.short}</span>
+        </span>
+        <span class="pick-arrow" aria-hidden="true">›</span>
       </button>`
       )
       .join("");
@@ -49,10 +54,14 @@
     box.innerHTML = window.PHRASES_DATA.situations
       .map(
         (s) => `
-      <button class="pick-card" type="button" data-sit="${s.id}">
-        <span class="kicker">状況 ${s.emoji}</span>
-        <span class="title">${s.title}</span>
-        <span class="desc">${s.sub || "今夜の恋の状況を選ぶ"}</span>
+      <button class="pick-btn sit-btn" type="button" data-sit="${s.id}">
+        <span class="sit-num">${s.emoji}</span>
+        <span class="pick-body">
+          <span class="kicker">タップして選ぶ</span>
+          <span class="title">${s.title}</span>
+          <span class="desc">${s.sub || "いまの恋の状況を選ぶ"}</span>
+        </span>
+        <span class="pick-arrow" aria-hidden="true">›</span>
       </button>`
       )
       .join("");
@@ -79,17 +88,17 @@
         <span class="tag purple">${sit.title}</span>
       </div>
       <span class="sec-kicker">TONIGHT</span>
-      <h2>今夜のオーダーと照合</h2>
-      <p class="rich">下の照合を見てから、緑の番号を1つだけノートに書いてください。赤の番号は今夜は避けます。</p>
+      <h2>今夜ノートに書く1行を決める</h2>
+      <p class="rich">下の「タイプ別の番号の目印」を見てから、<strong>「書いていい」</strong>がついた番号の中から、近いものを1つだけノートに書いてください。<strong>「今はやめて」</strong>がついた番号は、今夜は選ばないでください。</p>
     `;
 
     $("#guideBox").innerHTML = `
       <div class="guide-card">
-        <h3>あなたの夜（${typeLabel(state.typeId)}）</h3>
+        <h3>いまの恋で、やりがちなこと（${typeLabel(state.typeId)}）</h3>
         <p>${guide.night}</p>
-        <span class="guide-label">今夜、選んでよい番号</span>
+        <span class="guide-label">書いていい番号</span>
         <p>${guide.good}</p>
-        <span class="guide-label bad">選ぶとズレやすい番号</span>
+        <span class="guide-label bad">今はやめての番号</span>
         <p>${guide.bad}</p>
         <span class="guide-label mute">書いたあと、やらないこと</span>
         <p>${guide.dont}</p>
@@ -105,10 +114,10 @@
         let mark = "";
         if (goodSet.has(n)) {
           cls += " good";
-          mark = `<span class="mark">今夜OK</span>`;
+          mark = `<span class="mark mark-good">書いていい · ${n}番</span>`;
         } else if (badSet.has(n)) {
           cls += " bad";
-          mark = `<span class="mark">今夜は避ける</span>`;
+          mark = `<span class="mark mark-bad">今はやめて · ${n}番</span>`;
         }
         return `
           <div class="${cls}">
