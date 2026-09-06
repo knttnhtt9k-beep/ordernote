@@ -95,9 +95,9 @@
       <div class="guide-card">
         <h3>いまの恋で、やりがちなこと（${typeLabel(state.typeId)}）</h3>
         <p>${guide.night}</p>
-        <span class="guide-label">このタイプなら、合いやすい番号</span>
+        <span class="guide-label">このタイプなら、先に見てほしい番号</span>
         <p>${guide.good}</p>
-        <span class="guide-label mute">書いたあと、やらないこと</span>
+        <span class="guide-label mute">書いたあと、今夜の行動</span>
         <p>${guide.dont}</p>
       </div>
     `;
