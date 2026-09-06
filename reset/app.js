@@ -4,9 +4,17 @@
   const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 
   function show(id) {
-    $$(".screen").forEach((el) => el.classList.remove("active"));
+    $$(".screen").forEach((el) => {
+      el.classList.remove("active");
+      el.style.display = "none";
+      el.style.opacity = "";
+    });
     const target = document.getElementById(id);
-    if (target) target.classList.add("active");
+    if (target) {
+      target.classList.add("active");
+      target.style.display = "block";
+      target.style.opacity = "1";
+    }
     window.scrollTo({ top: 0, behavior: "instant" in window ? "instant" : "auto" });
   }
 

@@ -28,8 +28,8 @@ body {
   background: #fff;
   box-shadow: 0 0 40px rgba(80, 40, 70, .06);
 }
-.screen { display: none; animation: fadeIn .35s ease; }
-.screen.active { display: block; }
+.screen { display: none; opacity: 1; }
+.screen.active { display: block; animation: fadeIn .35s ease both; }
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(8px); }
   to { opacity: 1; transform: translateY(0); }
@@ -77,20 +77,20 @@ body {
 }
 h1 {
   position: relative; z-index: 1;
-  margin: 0; font-size: 1.45rem; line-height: 1.45;
-  background: linear-gradient(90deg, #7c3f6e, #6a4a9a 60%, #7c3f6e);
-  -webkit-background-clip: text; background-clip: text; color: transparent;
+  margin: 0; font-size: 1.38rem; line-height: 1.45;
+  color: #5a3a78;
+  font-weight: 800;
 }
 .head-underline {
   width: 64px; height: 4px; margin: 14px auto 18px; border-radius: 999px;
   background: linear-gradient(90deg, var(--pink), var(--purple));
 }
 .lead p {
-  margin: 0 0 1em; color: var(--muted); font-size: .9rem; line-height: 1.85;
+  margin: 0 0 1em; color: #5a4a5c; font-size: .9rem; line-height: 1.85;
 }
 .lead p:last-child { margin-bottom: 0; }
 .section-title {
-  margin: 24px 0 12px; font-size: .95rem; font-weight: 800; line-height: 1.5;
+  margin: 24px 0 12px; font-size: .95rem; font-weight: 800; line-height: 1.5; color: #3a2a48;
 }
 .step-list {
   margin: 0 0 20px;
