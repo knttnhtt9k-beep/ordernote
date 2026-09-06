@@ -75,7 +75,7 @@
       </div>
       <h2>${page.title}</h2>
       <p class="rich">不安が出た夜に、ノートを開いて1行書いて、スマホを伏せるまでのやり方です。</p>
-      ${visual("images/visual-path.png")}
+      ${visual("images/visual-01.png")}
     `;
 
     $("#nightBox").innerHTML = `
@@ -89,7 +89,7 @@
         </div>`
         )
         .join("")}
-      ${visual("images/visual-phone.png")}
+      ${visual("images/visual-02.png")}
     `;
 
     $("#whyBox").innerHTML = `
@@ -110,7 +110,7 @@
           )
           .join("")}
       </div>
-      ${visual("images/visual-notebook.png")}
+      ${visual("images/visual-03.png")}
     `;
 
     $("#linesBox").innerHTML = `
@@ -136,7 +136,7 @@
       <div class="highlight" style="margin-top:12px;">
         <p>${page.hope}</p>
       </div>
-      ${visual("images/visual-ring.png")}
+      ${visual("images/visual-04.png")}
     `;
   }
 

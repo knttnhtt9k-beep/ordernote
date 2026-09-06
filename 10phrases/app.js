@@ -108,7 +108,7 @@
       <h2>今夜ノートに書く1行を決める</h2>
       <p class="rich">下のフレーズから、いまの自分に近いものを<strong>1つだけ</strong>ノートに書いてください。</p>
       <figure class="sec-visual">
-        <img src="images/visual-notebook.png" alt="" width="1024" height="576" loading="lazy">
+        <img src="images/visual-01.png" alt="" width="1024" height="576" loading="lazy">
       </figure>
     `;
 
@@ -122,7 +122,7 @@
         <p>${guide.dont}</p>
       </div>
       <figure class="sec-visual">
-        <img src="images/visual-phone.png" alt="" width="1024" height="576" loading="lazy">
+        <img src="images/visual-02.png" alt="" width="1024" height="576" loading="lazy">
       </figure>
     `;
 
