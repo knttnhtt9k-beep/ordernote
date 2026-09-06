@@ -89,16 +89,16 @@
       </div>
       <span class="sec-kicker">TONIGHT</span>
       <h2>今夜ノートに書く1行を決める</h2>
-      <p class="rich">ピンクの番号から、近いものを<strong>1つだけ</strong>ノートに書いてください。グレーの番号は、今夜は飛ばしてください。</p>
+      <p class="rich">色がついた文から、近いものを<strong>1つだけ</strong>ノートに書いてください。薄い色の文は、今夜は使いません。</p>
     `;
 
     $("#guideBox").innerHTML = `
       <div class="guide-card">
         <h3>いまの恋で、やりがちなこと（${typeLabel(state.typeId)}）</h3>
         <p>${guide.night}</p>
-        <span class="guide-label">ノートに書く番号（ピンク）</span>
+        <span class="guide-label">選ぶ番号</span>
         <p>${guide.good}</p>
-        <span class="guide-label bad">今夜は飛ばす番号（グレー）</span>
+        <span class="guide-label bad">使わない番号</span>
         <p>${guide.bad}</p>
         <span class="guide-label mute">書いたあと、やらないこと</span>
         <p>${guide.dont}</p>
@@ -109,20 +109,13 @@
       .map((text, i) => {
         const n = i + 1;
         let cls = "phrase";
-        let mark = "";
-        if (goodSet.has(n)) {
-          cls += " good";
-          mark = `<span class="mark mark-good">ノートに書く · ${n}番</span>`;
-        } else if (badSet.has(n)) {
-          cls += " bad";
-          mark = `<span class="mark mark-bad">今夜は飛ばす · ${n}番</span>`;
-        }
+        if (goodSet.has(n)) cls += " good";
+        else if (badSet.has(n)) cls += " bad";
         return `
           <div class="${cls}">
             <div class="num">${n}</div>
             <div>
               <p class="txt">${text}</p>
-              ${mark}
             </div>
           </div>`;
       })

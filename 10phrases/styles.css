@@ -360,21 +360,6 @@ h1 {
   border-color: #ddd2d8;
 }
 .phrase .txt { font-size: .86rem; line-height: 1.7; color: var(--text); margin: 2px 0 0; }
-.phrase .mark {
-  display: inline-block; margin-top: 6px;
-  padding: 4px 10px;
-  border-radius: 999px;
-  font-size: .68rem; font-weight: 800; letter-spacing: .04em;
-}
-.mark-good {
-  color: #fff;
-  background: linear-gradient(90deg, var(--pink), #ff8fb8);
-}
-.mark-bad {
-  color: #6a6070;
-  background: #eee8ec;
-  border: 1px solid #ddd2d8;
-}
 
 .guide-card {
   margin: 0 0 12px; padding: 14px;
