@@ -124,12 +124,13 @@ h1 {
 }
 .step-item p {
   margin: 0;
-  padding-top: 6px;
-  font-size: .9rem;
-  line-height: 1.7;
+  padding-top: 8px;
+  font-size: .82rem;
+  line-height: 1.45;
   color: var(--text);
   text-align: left;
   width: 100%;
+  white-space: nowrap;
 }
 
 .btn {

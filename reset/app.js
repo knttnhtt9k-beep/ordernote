@@ -59,7 +59,14 @@
     $("#detailCrumb").textContent = t.label;
 
     $("#detailHead").innerHTML = `
-      <div class="tag-row">
+      <div class="type-intro">
+        <span class="sec-kicker">YOUR TYPE</span>
+        <h3>${t.introTitle}</h3>
+        <p class="type-intro-scene">${t.introScene}</p>
+        <p class="type-intro-freq">${t.introFreq}</p>
+        <p class="type-intro-use">${t.introUse}</p>
+      </div>
+      <div class="tag-row" style="margin-top:14px;">
         <span class="tag">${t.label}</span>
         <span class="tag purple">${t.sub}</span>
       </div>

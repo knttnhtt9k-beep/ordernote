@@ -124,12 +124,13 @@ h1 {
 }
 .step-item p {
   margin: 0;
-  padding-top: 6px;
-  font-size: .9rem;
-  line-height: 1.7;
+  padding-top: 8px;
+  font-size: .82rem;
+  line-height: 1.45;
   color: var(--text);
   text-align: left;
   width: 100%;
+  white-space: nowrap;
 }
 
 .btn {
@@ -481,4 +482,34 @@ h1 {
 .btn-row .btn-ghost {
   display: block;
   text-decoration: none;
+}
+
+/* type intro (diagnosis-based) */
+.type-intro {
+  margin: 0 0 16px;
+  padding: 14px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #fff5fa, #f3eeff);
+  border: 1.5px solid #e8c8f0;
+}
+.type-intro h3 {
+  margin: 0 0 10px;
+  font-size: .98rem;
+  font-weight: 800;
+  color: #3a2a48;
+  line-height: 1.45;
+}
+.type-intro-scene,
+.type-intro-freq,
+.type-intro-use {
+  margin: 0 0 8px;
+  font-size: .84rem;
+  line-height: 1.75;
+  color: #3a2a48;
+}
+.type-intro-freq { color: #5a4a5c; }
+.type-intro-use {
+  margin-bottom: 0;
+  font-weight: 700;
+  color: #5a3db8;
 }
