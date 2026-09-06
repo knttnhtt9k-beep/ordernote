@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="description" content="状況別・恋愛オーダー10フレーズ集。愛される周波数タイプ診断の結果と合わせて、今夜書く1行を選びます。">
+<title>状況別・恋愛オーダー10フレーズ集</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app">
+
+    <!-- INTRO -->
+    <section id="screen-intro" class="screen active">
+      <div class="cover">
+        <img src="images/cover.png" alt="">
+        <div class="cover-fade"></div>
+      </div>
+      <div class="pad">
+        <div class="head-wrap">
+          <div class="head-glow"></div>
+          <div class="head-badge"><span>✦</span> SEMINAR BENEFIT</div>
+          <h1>状況別・恋愛オーダー<br>10フレーズ集</h1>
+          <div class="head-underline"></div>
+        </div>
+        <div class="lead">
+          <p>今夜ノートを開いて「何て書けばいいかな」で手が止まったときに使う、参考集です。</p>
+          <p>性格診断ではありません。<br>愛される周波数タイプ診断の結果（不安型／依存型／回避型）を手元に置いて使ってください。</p>
+        </div>
+        <h2 class="section-title">使い方（4ステップ）</h2>
+        <ol class="step-list">
+          <li>診断タイプを選ぶ</li>
+          <li>いまの恋の状況を1つ選ぶ</li>
+          <li>照合表で「今夜OK」の番号を確認する</li>
+          <li>緑のフレーズを1つだけノートに書く</li>
+        </ol>
+        <p class="rich" style="font-size:.84rem;color:var(--muted);margin:0 0 8px;">
+          複数の状況が重なるときは、先に優先順位を見てください。今夜書くのはいちばん上の状況の1行だけです。
+        </p>
+      </div>
+      <div class="btn-row">
+        <button class="btn" id="startBtn" type="button">タイプを選んで始める</button>
+        <button class="btn btn-ghost" id="toPriorityFromIntro" type="button">複合の優先順位を見る</button>
+      </div>
+      <p class="note">ロードマップ相談ですでに専用の1行がある方は、そちらを最優先してください。</p>
+    </section>
+
+    <!-- TYPE -->
+    <section id="screen-type" class="screen">
+      <div class="sticky-bar">
+        <button class="back" id="backToIntro" type="button">← 戻る</button>
+        <div class="crumb">STEP1｜タイプ選択</div>
+      </div>
+      <div class="pad">
+        <span class="sec-kicker">TYPE</span>
+        <h2 style="margin:0 0 8px;font-size:1.15rem;">あなたの診断タイプは？</h2>
+        <p class="rich" style="color:var(--muted);">愛される周波数タイプ診断の結果を選んでください。</p>
+        <div class="card-grid" id="typeCards"></div>
+      </div>
+    </section>
+
+    <!-- SITUATION -->
+    <section id="screen-situation" class="screen">
+      <div class="sticky-bar">
+        <button class="back" id="backToType" type="button">← 戻る</button>
+        <div class="crumb" id="situationCrumb">STEP2｜状況選択</div>
+      </div>
+      <div class="pad">
+        <span class="sec-kicker">SITUATION</span>
+        <h2 style="margin:0 0 8px;font-size:1.15rem;">いまの恋の状況は？</h2>
+        <p class="rich" style="color:var(--muted);">いちばん近いものを1つ選んでください。迷ったら優先順位（音信不通が先）を見てください。</p>
+        <div class="card-grid" id="situationCards"></div>
+      </div>
+    </section>
+
+    <!-- DETAIL -->
+    <section id="screen-detail" class="screen">
+      <div class="sticky-bar">
+        <button class="back" id="backToSituation" type="button">← 戻る</button>
+        <div class="crumb" id="detailCrumb">照合</div>
+      </div>
+
+      <div class="sec sec-result" id="detailHead"></div>
+
+      <div class="sec sec-hope" id="guideBox"></div>
+
+      <div class="sec">
+        <span class="sec-kicker">PHRASES</span>
+        <h2>オーダー例（10）</h2>
+        <div class="phrase-list" id="phraseBox"></div>
+      </div>
+
+      <div class="sec sec-warn">
+        <span class="sec-kicker">NG</span>
+        <h2>書きがちなNG</h2>
+        <p class="rich" id="ngBox"></p>
+      </div>
+
+      <div class="sec">
+        <span class="sec-kicker">MEMO</span>
+        <h2>今夜の1行メモ</h2>
+        <div class="memo">
+          <label>診断タイプ</label>
+          <input id="memoType" type="text" readonly>
+          <label>今夜の状況</label>
+          <input id="memoSit" type="text" readonly>
+          <label>いちばんつらい夜の場面（1行）</label>
+          <textarea id="memoScene" placeholder="例：既読だけついて、トークを何度も開いてしまう"></textarea>
+          <label>選ぶ番号</label>
+          <input id="memoNum" type="text" placeholder="例：5">
+          <label>書いたあとやらないこと</label>
+          <textarea id="memoDont" placeholder="例：今夜は彼のトークを開かない"></textarea>
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-ghost" id="toPriorityFromDetail" type="button">複合の優先順位を見る</button>
+      </div>
+
+      <div class="cta-box">
+        <h3>この特典の次へ</h3>
+        <p>
+          近いフレーズは分かったのに、「私の場合どれ？」で止まるときがあります。<br><br>
+          『愛される周波数ロードマップ相談』では、タイプ×状況で今夜の1行を確定し、「書いたあとやらないこと」と半年間の順番までその場で渡します。
+        </p>
+        <!-- 相談導線URLがある場合は下のhrefを差し替え -->
+        <a class="btn" id="consultCta" href="#" onclick="return false;">ロードマップ相談の案内を見る</a>
+      </div>
+      <p class="note">参考集の次が、あなた専用の1行です。</p>
+    </section>
+
+    <!-- PRIORITY -->
+    <section id="screen-priority" class="screen">
+      <div class="sticky-bar">
+        <button class="back" id="backFromPriority" type="button">← 戻る</button>
+        <div class="crumb">複合の優先順位</div>
+      </div>
+      <div class="pad">
+        <span class="sec-kicker">PRIORITY</span>
+        <h2 style="margin:0 0 8px;font-size:1.15rem;">お悩みが重なるとき</h2>
+        <p class="rich" style="color:var(--muted);">当てはまるものを上から見て、いちばん上に残った状況のフレーズを1つだけ書いてください。</p>
+        <ul class="priority-list" id="priorityList"></ul>
+      </div>
+      <div class="btn-row">
+        <button class="btn" id="restartBtn" type="button">最初からタイプを選ぶ</button>
+      </div>
+    </section>
+
+  </div>
+
+  <script src="phrases-data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
