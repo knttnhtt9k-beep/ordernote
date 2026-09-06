@@ -118,28 +118,40 @@ h1 {
   text-decoration: none;
   text-align: center;
 }
-.btn-diagnose {
+.diagnose-card {
   display: block;
   width: 100%;
-  margin-top: 10px;
-  padding: 14px 18px;
-  border-radius: 18px;
+  margin-top: 12px;
+  padding: 16px 16px 14px;
+  border-radius: 16px;
   text-decoration: none;
-  text-align: center;
-  color: #fff;
-  font-weight: 800;
-  font-size: .92rem;
-  line-height: 1.45;
-  background: linear-gradient(135deg, #7c5cff, #ff6b9d);
-  box-shadow: 0 10px 24px rgba(124, 92, 255, .22);
-  border: none;
+  text-align: left;
+  background: #fff;
+  border: 1.5px solid #e0d0f5;
+  box-shadow: 0 6px 18px rgba(124, 92, 255, .1);
 }
-.btn-diagnose span {
+.diagnose-card:active { transform: scale(.985); }
+.diagnose-card-kicker {
   display: block;
-  margin-top: 4px;
+  font-size: .68rem;
+  font-weight: 800;
+  letter-spacing: .08em;
+  color: var(--purple);
+  margin-bottom: 6px;
+}
+.diagnose-card-title {
+  display: block;
+  font-size: 1.02rem;
+  font-weight: 800;
+  color: #3a2a48;
+  line-height: 1.4;
+  margin-bottom: 4px;
+}
+.diagnose-card-sub {
+  display: block;
   font-size: .78rem;
-  font-weight: 700;
-  opacity: .95;
+  color: var(--muted);
+  line-height: 1.5;
 }
 .btn-row { padding: 8px 20px 20px; }
 

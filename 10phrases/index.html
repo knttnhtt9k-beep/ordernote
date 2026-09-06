@@ -29,10 +29,10 @@
         </div>
         <h2 class="section-title">使い方（4ステップ）</h2>
         <ol class="step-list">
-          <li>診断タイプを選ぶ</li>
+          <li>診断タイプ（不安型／依存型／回避型）を選ぶ</li>
           <li>いまの恋の状況を1つ選ぶ</li>
-          <li>「書いていい」「今はやめて」の目印を見て番号を決める</li>
-          <li>「書いていい」のフレーズを1つだけノートに書く</li>
+          <li>ピンクの番号から、近い1行を選ぶ（グレーの番号は飛ばす）</li>
+          <li>選んだ1行だけを、ノートに書く</li>
         </ol>
         <p class="rich" style="font-size:.84rem;color:var(--muted);margin:0 0 8px;">
           複数の状況が重なるときは、先に優先順位を見てください。今夜書くのはいちばん上の状況の1行だけです。
@@ -40,10 +40,13 @@
       </div>
       <div class="btn-row">
         <button class="btn" id="startBtn" type="button">タイプを選んで始める</button>
-        <a class="btn btn-diagnose" id="toDiagnose" href="https://knttnhtt9k-beep.github.io/ordernote/" target="_blank" rel="noopener">まだ診断してない方へ<br><span>愛され周波数タイプ診断を受ける（約2分）</span></a>
+        <a class="diagnose-card" id="toDiagnose" href="https://knttnhtt9k-beep.github.io/ordernote/" target="_blank" rel="noopener">
+          <span class="diagnose-card-kicker">まだ診断していない方</span>
+          <span class="diagnose-card-title">愛され周波数タイプ診断へ</span>
+          <span class="diagnose-card-sub">無料・約2分 ／ 別ページで開きます</span>
+        </a>
         <button class="btn btn-ghost" id="toPriorityFromIntro" type="button">複合の優先順位を見る</button>
       </div>
-      <p class="note">ロードマップ相談ですでに専用の1行がある方は、そちらを最優先してください。</p>
     </section>
 
     <!-- TYPE -->
@@ -79,7 +82,7 @@
     <section id="screen-detail" class="screen">
       <div class="sticky-bar">
         <button class="back" id="backToSituation" type="button">← 戻る</button>
-        <div class="crumb" id="detailCrumb">番号の目印</div>
+        <div class="crumb" id="detailCrumb">1行を決める</div>
       </div>
 
       <div class="sec sec-result" id="detailHead"></div>
@@ -118,16 +121,6 @@
       <div class="btn-row">
         <button class="btn btn-ghost" id="toPriorityFromDetail" type="button">複合の優先順位を見る</button>
       </div>
-
-      <div class="cta-box">
-        <h3>この特典の次へ</h3>
-        <p>
-          近いフレーズは分かったのに、「私の場合どれ？」で止まるときがあります。<br><br>
-          『愛される周波数ロードマップ相談』では、タイプ×状況で今夜の1行を確定し、「書いたあとやらないこと」と半年間の順番までその場で渡します。
-        </p>
-        <a class="btn" id="consultCta" href="#" onclick="return false;">ロードマップ相談の案内を見る</a>
-      </div>
-      <p class="note">参考集の次が、あなた専用の1行です。</p>
     </section>
 
     <!-- PRIORITY -->
