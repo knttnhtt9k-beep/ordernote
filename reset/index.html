@@ -3,51 +3,81 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="description" content="【タイプ別】恋愛不安の周波数リセット法（準備中）">
+<meta name="description" content="【タイプ別】恋愛不安の周波数リセット法。不安型・依存型・回避型ごとに、夜の不安をノートの周波数へ戻す短い手順です。">
 <title>特典③｜【タイプ別】恋愛不安の周波数リセット法</title>
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <div class="app">
-    <div class="cover">
-      <img src="images/cover.png" alt="">
-      <div class="cover-fade"></div>
-    </div>
-    <div class="pad">
-      <div class="head-wrap">
-        <div class="head-glow"></div>
-        <div class="head-badge"><span>✦</span> SEMINAR BENEFIT ③</div>
-        <h1>【タイプ別】恋愛不安の<br>周波数リセット法</h1>
-        <div class="head-underline"></div>
+
+    <section id="screen-intro" class="screen active">
+      <div class="cover">
+        <img src="images/cover.png" alt="">
+        <div class="cover-fade"></div>
       </div>
-      <p class="lead">
-        夜になってまたスマホを開いてしまう。<br>
-        既読だけついて、「嫌われたのかな」と思ってしまう。<br>
-        そんなときに、診断タイプ別にノートの周波数へ戻るやり方をまとめる特典です。
-      </p>
-      <p class="lead" style="color:#b5487a;font-weight:700;">
-        ただいま公開準備中です。完成次第、このページを更新します。
-      </p>
-    </div>
-    <div class="card-list">
-      <a class="benefit-card is-diagnose" href="https://knttnhtt9k-beep.github.io/ordernote/benefits/">
-        <div class="card-body">
-          <span class="card-kicker">HUB</span>
-          <h2 class="card-title">特典一覧に戻る</h2>
-          <p class="card-desc">①10フレーズ・②プロポーズ解説・診断は、一覧から開けます。</p>
-          <span class="card-cta">一覧へ →</span>
+      <div class="pad">
+        <div class="head-wrap">
+          <div class="head-glow"></div>
+          <div class="head-badge"><span>✦</span> SEMINAR BENEFIT ③</div>
+          <h1>【タイプ別】恋愛不安の<br>周波数リセット法</h1>
+          <div class="head-underline"></div>
         </div>
-      </a>
-      <a class="benefit-card" href="https://knttnhtt9k-beep.github.io/ordernote/">
-        <div class="card-body">
-          <span class="card-kicker">DIAGNOSIS</span>
-          <h2 class="card-title">先にタイプ診断を受ける</h2>
-          <p class="card-desc">不安型／依存型／回避型が分かっていると、公開後の使い方がスムーズです。</p>
-          <span class="card-cta">診断する →</span>
+        <div class="lead">
+          <p>夜になってまたスマホを開いてしまう。<br>既読だけ見て、「嫌われたのかな」と思ってしまう。<br>そんなときに、診断タイプ別にノートの周波数へ戻るやり方です。</p>
+          <p>性格診断ではありません。<br>愛される周波数タイプ診断の結果（不安型／依存型／回避型）を手元に置いて使ってください。</p>
         </div>
-      </a>
-    </div>
-    <p class="note">恋の引き寄せ完全攻略セミナー｜申込特典③（準備中）</p>
+        <h2 class="section-title">使い方（3ステップ）</h2>
+        <div class="step-list" role="list">
+          <div class="step-item" role="listitem">
+            <span class="step-num">1</span>
+            <p>診断タイプ（不安型／依存型／回避型）を選ぶ</p>
+          </div>
+          <div class="step-item" role="listitem">
+            <span class="step-num">2</span>
+            <p>不安を3行だけ吐き出す</p>
+          </div>
+          <div class="step-item" role="listitem">
+            <span class="step-num">3</span>
+            <p>受け取る側の1行を書いて、ノートを閉じる</p>
+          </div>
+        </div>
+        <p class="rich" style="font-size:.84rem;color:var(--muted);margin:0 0 8px;">
+          有料の深い設計はここでは扱いません。不安が来た夜に、5分で周波数を戻すための短期ガイドです。
+        </p>
+        <h2 class="section-title">診断の3タイプ</h2>
+        <p class="rich" style="color:var(--muted);margin-bottom:12px;">下のカードをタップして、あなたのタイプのリセットへ進みます。</p>
+        <div class="card-grid" id="typeCards"></div>
+        <a class="diagnose-card" href="https://knttnhtt9k-beep.github.io/ordernote/" target="_blank" rel="noopener">
+          <span class="diagnose-card-kicker">まだ診断していない方</span>
+          <span class="diagnose-card-title">愛され周波数タイプ診断へ</span>
+          <span class="diagnose-card-sub">無料・約2分 ／ 別ページで開きます</span>
+        </a>
+      </div>
+      <div class="btn-row">
+        <button class="btn" id="startBtn" type="button">タイプを選んで始める</button>
+        <a class="btn btn-ghost" href="https://knttnhtt9k-beep.github.io/ordernote/benefits/">特典一覧に戻る</a>
+      </div>
+    </section>
+
+    <section id="screen-detail" class="screen">
+      <div class="sticky-bar">
+        <button class="back" id="backToType" type="button">← 戻る</button>
+        <div class="crumb" id="detailCrumb">リセット</div>
+      </div>
+      <div class="sec sec-result" id="detailHead"></div>
+      <div class="sec" id="nightBox"></div>
+      <div class="sec sec-hope" id="whyBox"></div>
+      <div class="sec" id="stepsBox"></div>
+      <div class="sec" id="linesBox"></div>
+      <div class="sec" id="afterBox"></div>
+      <div class="btn-row">
+        <button class="btn" id="restartBtn" type="button">最初のページに戻る</button>
+        <a class="btn btn-ghost" href="https://knttnhtt9k-beep.github.io/ordernote/10phrases/">特典①｜10フレーズ集へ</a>
+      </div>
+    </section>
+
   </div>
+  <script src="reset-data.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>

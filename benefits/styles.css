@@ -144,7 +144,10 @@ h1 {
   background: #7c5cff;
 }
 .card-body {
-  padding: 14px 14px 16px;
+  padding: 14px 14px 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
 }
 .card-kicker {
   display: block;
@@ -163,36 +166,36 @@ h1 {
   color: #3a2a48;
 }
 .card-desc {
-  margin: 0 0 10px;
+  margin: 0 0 14px;
   font-size: .8rem;
   line-height: 1.7;
   color: var(--muted);
 }
-.card-cta {
+.open-btn {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  margin-top: 4px;
-  padding: 13px 16px;
+  align-self: center;
+  width: 86%;
+  max-width: 280px;
+  margin: 0 auto;
+  padding: 14px 20px;
   border-radius: 999px;
-  font-size: .88rem;
+  font-size: .95rem;
   font-weight: 800;
-  letter-spacing: .04em;
+  letter-spacing: .12em;
   color: #fff;
-  background: linear-gradient(90deg, var(--pink), var(--purple));
-  box-shadow: 0 8px 20px rgba(255, 107, 157, .22);
   text-align: center;
+  background: linear-gradient(90deg, var(--pink), var(--purple));
+  box-shadow: 0 10px 24px rgba(255, 107, 157, .28);
+  border: 1.5px solid rgba(255,255,255,.55);
 }
-.benefit-card.is-diagnose .card-cta {
+.open-btn-purple {
   background: linear-gradient(90deg, #7c5cff, #9b7cff);
-  box-shadow: 0 8px 20px rgba(124, 92, 255, .22);
+  box-shadow: 0 10px 24px rgba(124, 92, 255, .28);
 }
-.benefit-card.is-soon .card-cta {
-  color: #6b5a7a;
-  background: linear-gradient(180deg, #fff, #f4eef8);
-  border: 1.5px solid #dcc8f0;
-  box-shadow: none;
+.benefit-card:active .open-btn {
+  transform: scale(.98);
 }
 
 .note {
