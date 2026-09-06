@@ -60,7 +60,6 @@
 
     $("#detailHead").innerHTML = `
       <div class="type-intro">
-        <span class="sec-kicker">YOUR TYPE</span>
         <h3>${t.introTitle}</h3>
         <p class="type-intro-scene">${t.introScene}</p>
         <p class="type-intro-freq">${t.introFreq}</p>
@@ -70,38 +69,35 @@
         <span class="tag">${t.label}</span>
         <span class="tag purple">${t.sub}</span>
       </div>
-      <span class="sec-kicker">RESET</span>
       <h2>${page.title}</h2>
-      <p class="rich">不安が来た夜に、ノートの周波数へ戻るための短い手順です。完璧な文章は不要です。5分で閉じてください。</p>
+      <p class="rich">不安が出た夜に、ノートを開いて1行書いて、スマホを伏せるまでのやり方です。</p>
     `;
 
     $("#nightBox").innerHTML = `
-      <span class="sec-kicker">TONIGHT</span>
       <h2>${page.nightTitle}</h2>
       ${page.nights
         .map(
           (n) => `
         <div class="scene-card">
-          <p>${n}</p>
+          <span class="label">${n.label}</span>
+          <p>${n.text}</p>
         </div>`
         )
         .join("")}
     `;
 
     $("#whyBox").innerHTML = `
-      <span class="sec-kicker">FREQUENCY</span>
       <h2>${page.whyTitle}</h2>
       <p class="rich">${page.why}</p>
     `;
 
     $("#stepsBox").innerHTML = `
-      <span class="sec-kicker">5 MINUTES</span>
       <h2>${page.stepsTitle}</h2>
-      <div class="step-list" role="list">
+      <div class="step-list">
         ${page.steps
           .map(
             (s, i) => `
-          <div class="step-item" role="listitem">
+          <div class="step-item">
             <span class="step-num">${i + 1}</span>
             <p>${s}</p>
           </div>`
@@ -111,7 +107,6 @@
     `;
 
     $("#linesBox").innerHTML = `
-      <span class="sec-kicker">ONE LINE</span>
       <h2>${page.linesTitle}</h2>
       <div class="phrase-list">
         ${page.lines
@@ -127,7 +122,6 @@
     `;
 
     $("#afterBox").innerHTML = `
-      <span class="sec-kicker">AFTER</span>
       <h2>${page.afterTitle}</h2>
       <div class="guide-card">
         <p>${page.after}</p>

@@ -459,6 +459,17 @@ h1 {
   border: 1px solid var(--line);
   background: #fff;
 }
+.scene-card .label {
+  display: inline-block;
+  margin-bottom: 8px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: .68rem;
+  font-weight: 800;
+  letter-spacing: .04em;
+  color: #fff;
+  background: linear-gradient(90deg, var(--pink), #ff8fb8);
+}
 .scene-card p {
   margin: 0;
   font-size: .86rem;
