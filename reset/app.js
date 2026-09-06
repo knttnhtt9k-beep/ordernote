@@ -22,6 +22,10 @@
     return window.RESET_DATA.types.find((t) => t.id === id);
   }
 
+  function visual(src) {
+    return `<figure class="sec-visual"><img src="${src}" alt="" width="1024" height="576" loading="lazy"></figure>`;
+  }
+
   function renderTypeCards() {
     const html = window.RESET_DATA.types
       .map(
@@ -71,6 +75,7 @@
       </div>
       <h2>${page.title}</h2>
       <p class="rich">不安が出た夜に、ノートを開いて1行書いて、スマホを伏せるまでのやり方です。</p>
+      ${visual("images/visual-path.png")}
     `;
 
     $("#nightBox").innerHTML = `
@@ -84,6 +89,7 @@
         </div>`
         )
         .join("")}
+      ${visual("images/visual-phone.png")}
     `;
 
     $("#whyBox").innerHTML = `
@@ -104,6 +110,7 @@
           )
           .join("")}
       </div>
+      ${visual("images/visual-notebook.png")}
     `;
 
     $("#linesBox").innerHTML = `
@@ -129,6 +136,7 @@
       <div class="highlight" style="margin-top:12px;">
         <p>${page.hope}</p>
       </div>
+      ${visual("images/visual-ring.png")}
     `;
   }
 

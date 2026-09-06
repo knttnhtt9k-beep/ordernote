@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="description" content="状況別・恋愛オーダー10フレーズ集。愛される周波数タイプ診断の結果と合わせて、今夜書く1行を選びます。">
 <title>状況別・恋愛オーダー10フレーズ集</title>
-<link rel="stylesheet" href="styles.css?v=10">
+<link rel="stylesheet" href="styles.css?v=11">
 </head>
 <body>
   <div class="app">
@@ -28,11 +28,8 @@
           <p>性格診断ではありません。<br>愛される周波数タイプ診断の結果（不安型／依存型／回避型）を手元に置いて使ってください。</p>
         </div>
       </div>
-      <figure class="mid-visual">
-        <img src="images/mid-visual.png" alt="" width="1080" height="1920" loading="lazy">
-      </figure>
       <div class="pad">
-        <h2 class="section-title">使い方（4ステップ）</h2>
+        <h2 class="section-title">今夜の1行を決めるまで</h2>
         <div class="step-list" role="list">
           <div class="step-item" role="listitem">
             <span class="step-num">1</span>
@@ -74,7 +71,7 @@
       </div>
       <div class="pad">
         <span class="sec-kicker">TYPE</span>
-        <h2 style="margin:0 0 8px;font-size:1.15rem;">あなたの診断タイプは？</h2>
+        <h2 style="margin:0 0 8px;font-size:1.15rem;">診断タイプを選ぶ（不安／依存／回避）</h2>
         <p class="rich" style="color:var(--muted);">下のボタンをタップして、診断結果と同じタイプを選んでください。</p>
         <div class="card-grid" id="typeCards"></div>
         <a class="link-diagnose" href="https://knttnhtt9k-beep.github.io/ordernote/" target="_blank" rel="noopener">結果が分からない方は、先に診断する →</a>
@@ -90,7 +87,7 @@
       <div class="pad">
         <div id="typeIntroBox"></div>
         <span class="sec-kicker">SITUATION</span>
-        <h2 style="margin:0 0 8px;font-size:1.15rem;">いまの恋の状況は？</h2>
+        <h2 style="margin:0 0 8px;font-size:1.15rem;">いまの恋の状況を1つ選ぶ</h2>
         <p class="rich" style="color:var(--muted);">いちばん近いものを、下のボタンから1つ選んでください。迷ったら優先順位（音信不通が先）を見てください。</p>
         <div class="card-grid" id="situationCards"></div>
       </div>
@@ -109,7 +106,7 @@
 
       <div class="sec">
         <span class="sec-kicker">PHRASES</span>
-        <h2>オーダー例（10）</h2>
+        <h2>今夜ノートに書く文の例（10）</h2>
         <div class="phrase-list" id="phraseBox"></div>
       </div>
 
@@ -121,7 +118,7 @@
 
       <div class="sec">
         <span class="sec-kicker">MEMO</span>
-        <h2>今夜の1行メモ</h2>
+        <h2>選んだ1行を、ここに控える</h2>
         <div class="memo">
           <label>診断タイプ</label>
           <input id="memoType" type="text" readonly>
@@ -149,7 +146,7 @@
       </div>
       <div class="pad">
         <span class="sec-kicker">PRIORITY</span>
-        <h2 style="margin:0 0 8px;font-size:1.15rem;">お悩みが重なるとき</h2>
+        <h2 style="margin:0 0 8px;font-size:1.15rem;">悩みが重なるとき、どれから書くか</h2>
         <p class="rich" style="color:var(--muted);">当てはまるものを上から見て、いちばん上に残った状況のフレーズを1つだけ書いてください。</p>
         <ul class="priority-list" id="priorityList"></ul>
       </div>
@@ -160,7 +157,7 @@
 
   </div>
 
-  <script src="phrases-data.js?v=9"></script>
-  <script src="app.js?v=9"></script>
+  <script src="phrases-data.js?v=10"></script>
+  <script src="app.js?v=10"></script>
 </body>
 </html>

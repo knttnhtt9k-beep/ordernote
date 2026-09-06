@@ -56,7 +56,6 @@
     if (!t) return "";
     return `
       <div class="type-intro">
-        <span class="sec-kicker">YOUR TYPE</span>
         <h3>${t.introTitle}</h3>
         <p class="type-intro-scene">${t.introScene}</p>
         <p class="type-intro-freq">${t.introFreq}</p>
@@ -106,9 +105,11 @@
         <span class="tag">${typeLabel(state.typeId)}</span>
         <span class="tag purple">${sit.title}</span>
       </div>
-      <span class="sec-kicker">TONIGHT</span>
       <h2>今夜ノートに書く1行を決める</h2>
       <p class="rich">下のフレーズから、いまの自分に近いものを<strong>1つだけ</strong>ノートに書いてください。</p>
+      <figure class="sec-visual">
+        <img src="images/visual-notebook.png" alt="" width="1024" height="576" loading="lazy">
+      </figure>
     `;
 
     $("#guideBox").innerHTML = `
@@ -120,6 +121,9 @@
         <span class="guide-label mute">書いたあと、今夜の行動</span>
         <p>${guide.dont}</p>
       </div>
+      <figure class="sec-visual">
+        <img src="images/visual-phone.png" alt="" width="1024" height="576" loading="lazy">
+      </figure>
     `;
 
     $("#phraseBox").innerHTML = sit.phrases
