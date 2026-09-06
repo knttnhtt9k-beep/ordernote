@@ -169,15 +169,31 @@ h1 {
   color: var(--muted);
 }
 .card-cta {
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  gap: 4px;
-  font-size: .78rem;
+  justify-content: center;
+  width: 100%;
+  margin-top: 4px;
+  padding: 13px 16px;
+  border-radius: 999px;
+  font-size: .88rem;
   font-weight: 800;
-  color: #b5487a;
+  letter-spacing: .04em;
+  color: #fff;
+  background: linear-gradient(90deg, var(--pink), var(--purple));
+  box-shadow: 0 8px 20px rgba(255, 107, 157, .22);
+  text-align: center;
 }
-.benefit-card.is-diagnose .card-cta { color: #5a3db8; }
-.benefit-card.is-soon .card-cta { color: var(--muted); }
+.benefit-card.is-diagnose .card-cta {
+  background: linear-gradient(90deg, #7c5cff, #9b7cff);
+  box-shadow: 0 8px 20px rgba(124, 92, 255, .22);
+}
+.benefit-card.is-soon .card-cta {
+  color: #6b5a7a;
+  background: linear-gradient(180deg, #fff, #f4eef8);
+  border: 1.5px solid #dcc8f0;
+  box-shadow: none;
+}
 
 .note {
   margin: 16px 20px 0;
