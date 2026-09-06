@@ -169,6 +169,7 @@ h1 {
   font-weight: 800;
   word-break: keep-all;
   line-break: strict;
+  overflow-wrap: anywhere;
 }
 .sec h2.heading-break .heading-line2 {
   display: block;
