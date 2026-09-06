@@ -74,7 +74,7 @@
         <span class="tag purple">${t.sub}</span>
       </div>
       <h2>${page.title}</h2>
-      <p class="rich">不安が出た夜に、ノートを開いて1行書いて、スマホを伏せるまでのやり方です。</p>
+      <p class="rich">ザワザワしたときに、ノートを開いて1行書いて、スマホを伏せるまでのやり方です。</p>
       ${visual("images/visual-01.png")}
     `;
 

@@ -105,7 +105,7 @@
         <span class="tag">${typeLabel(state.typeId)}</span>
         <span class="tag purple">${sit.title}</span>
       </div>
-      <h2>今夜ノートに書く1行を決める</h2>
+      <h2>今夜ノートに書く1行を、ここで決める</h2>
       <p class="rich">下のフレーズから、いまの自分に近いものを<strong>1つだけ</strong>ノートに書いてください。</p>
       <figure class="sec-visual">
         <img src="images/visual-01.png" alt="" width="1024" height="576" loading="lazy">
