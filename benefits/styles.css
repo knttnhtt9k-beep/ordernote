@@ -196,6 +196,8 @@ h1 {
   font-weight: 800;
   line-height: 1.45;
   color: #3a2a48;
+  word-break: keep-all;
+  line-break: strict;
 }
 .card-desc {
   margin: 0;
