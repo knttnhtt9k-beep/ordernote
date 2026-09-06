@@ -48,8 +48,26 @@
     });
   }
 
+  function typeById(id) {
+    return window.PHRASES_DATA.types.find((t) => t.id === id);
+  }
+
+  function typeIntroHtml(t) {
+    if (!t) return "";
+    return `
+      <div class="type-intro">
+        <span class="sec-kicker">YOUR TYPE</span>
+        <h3>${t.introTitle}</h3>
+        <p class="type-intro-scene">${t.introScene}</p>
+        <p class="type-intro-freq">${t.introFreq}</p>
+        <p class="type-intro-use">${t.introUse}</p>
+      </div>`;
+  }
+
   function renderSituationCards() {
+    const t = typeById(state.typeId);
     $("#situationCrumb").textContent = `タイプ：${typeLabel(state.typeId)}`;
+    $("#typeIntroBox").innerHTML = typeIntroHtml(t);
     const box = $("#situationCards");
     box.innerHTML = window.PHRASES_DATA.situations
       .map(
@@ -78,11 +96,13 @@
     const sit = situationById(state.situationId);
     const guide = sit.guide[state.typeId];
     const goodSet = new Set(guide.goodNums);
+    const t = typeById(state.typeId);
 
     $("#detailCrumb").textContent = `${typeLabel(state.typeId)} × ${sit.title}`;
 
     $("#detailHead").innerHTML = `
-      <div class="tag-row">
+      ${typeIntroHtml(t)}
+      <div class="tag-row" style="margin-top:14px;">
         <span class="tag">${typeLabel(state.typeId)}</span>
         <span class="tag purple">${sit.title}</span>
       </div>
