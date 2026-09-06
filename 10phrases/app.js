@@ -78,7 +78,6 @@
     const sit = situationById(state.situationId);
     const guide = sit.guide[state.typeId];
     const goodSet = new Set(guide.goodNums);
-    const badSet = new Set(guide.badNums);
 
     $("#detailCrumb").textContent = `${typeLabel(state.typeId)} × ${sit.title}`;
 
@@ -89,17 +88,15 @@
       </div>
       <span class="sec-kicker">TONIGHT</span>
       <h2>今夜ノートに書く1行を決める</h2>
-      <p class="rich">色がついた文から、近いものを<strong>1つだけ</strong>ノートに書いてください。薄い色の文は、今夜は使いません。</p>
+      <p class="rich">下のフレーズから、いまの自分に近いものを<strong>1つだけ</strong>ノートに書いてください。</p>
     `;
 
     $("#guideBox").innerHTML = `
       <div class="guide-card">
         <h3>いまの恋で、やりがちなこと（${typeLabel(state.typeId)}）</h3>
         <p>${guide.night}</p>
-        <span class="guide-label">選ぶ番号</span>
+        <span class="guide-label">このタイプなら、合いやすい番号</span>
         <p>${guide.good}</p>
-        <span class="guide-label bad">使わない番号</span>
-        <p>${guide.bad}</p>
         <span class="guide-label mute">書いたあと、やらないこと</span>
         <p>${guide.dont}</p>
       </div>
@@ -110,7 +107,6 @@
         const n = i + 1;
         let cls = "phrase";
         if (goodSet.has(n)) cls += " good";
-        else if (badSet.has(n)) cls += " bad";
         return `
           <div class="${cls}">
             <div class="num">${n}</div>

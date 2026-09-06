@@ -93,14 +93,44 @@ h1 {
   margin: 24px 0 12px; font-size: .95rem; font-weight: 800; line-height: 1.5;
 }
 .step-list {
-  margin: 0 0 20px; padding: 14px 14px 14px 18px;
-  border-radius: 14px; background: rgba(255,255,255,.85);
+  margin: 0 0 20px;
+  padding: 8px 12px;
+  border-radius: 16px;
+  background: #fff;
   border: 1px solid var(--line);
+  display: grid;
+  gap: 0;
 }
-.step-list li {
-  margin: 0 0 8px; color: var(--text); font-size: .86rem; line-height: 1.65;
+.step-item {
+  display: grid;
+  grid-template-columns: 36px 1fr;
+  gap: 12px;
+  align-items: start;
+  padding: 14px 8px;
+  border-bottom: 1px solid var(--line);
 }
-.step-list li:last-child { margin-bottom: 0; }
+.step-item:last-child { border-bottom: none; }
+.step-num {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: .88rem;
+  font-weight: 800;
+  color: #fff;
+  background: linear-gradient(135deg, var(--pink), var(--purple));
+  flex-shrink: 0;
+}
+.step-item p {
+  margin: 0;
+  padding-top: 6px;
+  font-size: .9rem;
+  line-height: 1.7;
+  color: var(--text);
+  text-align: left;
+  width: 100%;
+}
 
 .btn {
   display: block; width: 100%; border: none; cursor: pointer;
@@ -126,31 +156,34 @@ h1 {
   border-radius: 16px;
   text-decoration: none;
   text-align: left;
-  background: #fff;
-  border: 1.5px solid #e0d0f5;
-  box-shadow: 0 6px 18px rgba(124, 92, 255, .1);
+  background: linear-gradient(135deg, #f3eeff 0%, #ebe4ff 55%, #e8f0ff 100%);
+  border: 1.5px solid #b8a0f0;
+  box-shadow: 0 8px 20px rgba(124, 92, 255, .16);
 }
 .diagnose-card:active { transform: scale(.985); }
 .diagnose-card-kicker {
-  display: block;
+  display: inline-block;
   font-size: .68rem;
   font-weight: 800;
   letter-spacing: .08em;
-  color: var(--purple);
-  margin-bottom: 6px;
+  color: #fff;
+  background: #7c5cff;
+  border-radius: 999px;
+  padding: 3px 10px;
+  margin-bottom: 8px;
 }
 .diagnose-card-title {
   display: block;
   font-size: 1.02rem;
   font-weight: 800;
-  color: #3a2a48;
+  color: #4a2f8a;
   line-height: 1.4;
   margin-bottom: 4px;
 }
 .diagnose-card-sub {
   display: block;
   font-size: .78rem;
-  color: var(--muted);
+  color: #6b5a9a;
   line-height: 1.5;
 }
 .btn-row { padding: 8px 20px 20px; }
@@ -338,11 +371,6 @@ h1 {
   border-color: #f0a0c0;
   background: linear-gradient(90deg, #fff5fa, #fff 42%);
 }
-.phrase.bad {
-  border-color: #ddd2d8;
-  background: linear-gradient(90deg, #f7f5f6, #fff 42%);
-  opacity: .95;
-}
 .phrase .num {
   width: 34px; height: 34px; border-radius: 50%;
   display: grid; place-items: center;
@@ -353,11 +381,6 @@ h1 {
   color: #fff;
   background: linear-gradient(135deg, var(--pink), var(--purple));
   border-color: transparent;
-}
-.phrase.bad .num {
-  color: #8a8090;
-  background: #f0eaee;
-  border-color: #ddd2d8;
 }
 .phrase .txt { font-size: .86rem; line-height: 1.7; color: var(--text); margin: 2px 0 0; }
 
