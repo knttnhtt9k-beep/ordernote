@@ -559,3 +559,12 @@ h1 {
   font-weight: 700;
   color: #5a3db8;
 }
+#detailHead h2.heading-break {
+  margin-top: 8px;
+}
+#detailHead h2.heading-break .heading-line2 {
+  display: block;
+  margin-top: 4px;
+  font-size: .95em;
+  font-weight: 800;
+}

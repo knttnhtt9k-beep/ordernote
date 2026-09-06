@@ -120,6 +120,9 @@ h1 {
 }
 .lead p {
   margin: 0 0 1em; color: var(--muted); font-size: .9rem; line-height: 1.85;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+  line-break: strict;
 }
 .lead p:last-child { margin-bottom: 0; }
 .section-title {

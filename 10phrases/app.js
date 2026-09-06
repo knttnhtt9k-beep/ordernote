@@ -118,7 +118,7 @@
         <p>${guide.night}</p>
         <span class="guide-label">このタイプなら、先に見てほしい番号</span>
         <p>${guide.good}</p>
-        <span class="guide-label mute">書いたあと、今夜の行動</span>
+        <span class="guide-label mute">書いたあと、やること</span>
         <p>${guide.dont}</p>
       </div>
       <figure class="sec-visual">
