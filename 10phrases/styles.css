@@ -511,8 +511,9 @@ h1 {
 }
 .type-intro-scene,
 .type-intro-freq,
-.type-intro-use {
-  margin: 0 0 8px;
+.type-intro-use,
+.type-intro-p {
+  margin: 0 0 14px;
   font-size: .84rem;
   line-height: 1.75;
   color: #3a2a48;
@@ -520,6 +521,7 @@ h1 {
 .type-intro-freq { color: #5a4a5c; }
 .type-intro-use {
   margin-bottom: 0;
+  margin-top: 4px;
   font-weight: 700;
   color: #5a3db8;
 }

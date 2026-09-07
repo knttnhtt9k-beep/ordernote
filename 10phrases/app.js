@@ -54,18 +54,18 @@
 
   function typeIntroHtml(t) {
     if (!t) return "";
+    const paras = (t.introParas || []).map((p) => `<p class="type-intro-p">${p}</p>`).join("");
     return `
       <div class="type-intro">
         <h3>${t.introTitle}</h3>
-        <p class="type-intro-scene">${t.introScene}</p>
-        <p class="type-intro-freq">${t.introFreq}</p>
+        ${paras}
         <p class="type-intro-use">${t.introUse}</p>
       </div>`;
   }
 
   function renderSituationCards() {
     const t = typeById(state.typeId);
-    $("#situationCrumb").textContent = `タイプ：${typeLabel(state.typeId)}`;
+    $("#situationCrumb").textContent = `STEP2｜${typeLabel(state.typeId)}`;
     $("#typeIntroBox").innerHTML = typeIntroHtml(t);
     const box = $("#situationCards");
     box.innerHTML = window.PHRASES_DATA.situations
@@ -97,7 +97,7 @@
     const goodSet = new Set(guide.goodNums);
     const t = typeById(state.typeId);
 
-    $("#detailCrumb").textContent = `${typeLabel(state.typeId)} × ${sit.title}`;
+    $("#detailCrumb").textContent = `STEP3｜${typeLabel(state.typeId)} × ${sit.title}`;
 
     $("#detailHead").innerHTML = `
       ${typeIntroHtml(t)}
@@ -105,7 +105,7 @@
         <span class="tag">${typeLabel(state.typeId)}</span>
         <span class="tag purple">${sit.title}</span>
       </div>
-      <h2>今夜ノートに書く1行を、<br>ここで決める</h2>
+      <h2>今夜の恋愛オーダーを、<br>ここで決める</h2>
       <p class="rich">下のフレーズから、いまの自分に近いものを<strong>1つだけ</strong>ノートに書いてください。</p>
       <figure class="sec-visual">
         <img src="images/visual-01.png" alt="" width="1024" height="576" loading="lazy">
