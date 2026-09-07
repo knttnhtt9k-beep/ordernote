@@ -65,8 +65,7 @@
     $("#detailHead").innerHTML = `
       <div class="type-intro">
         <h3>${t.introTitle}</h3>
-        <p class="type-intro-scene">${t.introScene}</p>
-        <p class="type-intro-freq">${t.introFreq}</p>
+        ${(t.introParas || []).map((p) => `<p class="type-intro-p">${p}</p>`).join("")}
         <p class="type-intro-use">${t.introUse}</p>
       </div>
       <div class="tag-row" style="margin-top:14px;">
