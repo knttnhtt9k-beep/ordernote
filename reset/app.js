@@ -3,6 +3,15 @@
   const $ = (sel, root = document) => root.querySelector(sel);
   const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 
+  function splitParas(text) {
+    return String(text || "")
+      .split(/(?<=[。！？])/)
+      .map((s) => s.trim())
+      .filter(Boolean)
+      .map((s) => `<p class="rich-p">${s}</p>`)
+      .join("");
+  }
+
   function show(id) {
     $$(".screen").forEach((el) => {
       el.classList.remove("active");
@@ -84,7 +93,7 @@
           (n) => `
         <div class="scene-card">
           <span class="label">${n.label}</span>
-          <p>${n.text}</p>
+          ${splitParas(n.text)}
         </div>`
         )
         .join("")}
@@ -93,7 +102,7 @@
 
     $("#whyBox").innerHTML = `
       <h2>${page.whyTitle}</h2>
-      <p class="rich">${page.why}</p>
+      ${splitParas(page.why)}
     `;
 
     $("#stepsBox").innerHTML = `
@@ -104,7 +113,7 @@
             (s, i) => `
           <div class="step-item">
             <span class="step-num">${i + 1}</span>
-            <p>${s}</p>
+            <div>${splitParas(s)}</div>
           </div>`
           )
           .join("")}
@@ -130,10 +139,10 @@
     $("#afterBox").innerHTML = `
       <h2>${page.afterTitle}</h2>
       <div class="guide-card">
-        <p>${page.after}</p>
+        ${splitParas(page.after)}
       </div>
       <div class="highlight" style="margin-top:12px;">
-        <p>${page.hope}</p>
+        ${splitParas(page.hope)}
       </div>
       ${visual("images/visual-04.png")}
     `;

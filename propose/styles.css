@@ -183,11 +183,18 @@ h1 {
   line-height: 1.5;
 }
 .rich {
-  margin: 0 0 12px;
+  margin: 0 0 16px;
   font-size: .88rem;
-  line-height: 1.85;
+  line-height: 1.9;
   color: var(--text);
 }
+.rich-p {
+  margin: 0 0 14px;
+  font-size: .88rem;
+  line-height: 1.9;
+  color: var(--text);
+}
+.rich-p:last-child { margin-bottom: 0; }
 
 .step-list {
   margin: 0 0 16px;
@@ -409,14 +416,14 @@ h1 {
 
 .dont-list {
   display: grid;
-  gap: 8px;
+  gap: 12px;
   margin: 0 0 12px;
 }
 .dont-item {
   display: grid;
   grid-template-columns: 36px 1fr;
   gap: 10px;
-  padding: 12px;
+  padding: 14px;
   border-radius: 14px;
   background: #fff;
   border: 1px solid var(--line);
@@ -433,17 +440,17 @@ h1 {
   background: var(--pink-soft);
 }
 .dont-item .body .bad {
-  margin: 0 0 4px;
+  margin: 0 0 10px;
   font-size: .86rem;
   font-weight: 800;
   color: var(--bad);
-  line-height: 1.5;
+  line-height: 1.7;
 }
 .dont-item .body .fix {
   margin: 0;
   font-size: .8rem;
   color: var(--muted);
-  line-height: 1.65;
+  line-height: 1.75;
 }
 
 .day-list {

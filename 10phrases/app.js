@@ -6,6 +6,12 @@
 
   const $ = (sel, root = document) => root.querySelector(sel);
   const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
+  const esc = (s) =>
+    String(s || "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
 
   function show(id) {
     $$(".screen").forEach((el) => el.classList.remove("active"));
@@ -115,11 +121,11 @@
     $("#guideBox").innerHTML = `
       <div class="guide-card">
         <h3>いまの恋で、やりがちなこと（${typeLabel(state.typeId)}）</h3>
-        <p>${guide.night}</p>
+        <p class="guide-p">${esc(guide.night)}</p>
         <span class="guide-label">このタイプなら、先に見てほしい番号</span>
-        <p>${guide.good}</p>
+        <p class="guide-p">${esc(guide.good)}</p>
         <span class="guide-label mute">書いたあと、やること</span>
-        <p>${guide.dont}</p>
+        <p class="guide-p">${esc(guide.dont)}</p>
       </div>
       <figure class="sec-visual">
         <img src="images/visual-02.png" alt="" width="1024" height="576" loading="lazy">
@@ -135,13 +141,21 @@
           <div class="${cls}">
             <div class="num">${n}</div>
             <div>
-              <p class="txt">${text}</p>
+              <p class="txt">${esc(text)}</p>
             </div>
           </div>`;
       })
       .join("");
 
-    $("#ngBox").textContent = sit.ng;
+    const ng = sit.ng || {};
+    const ngPhrases = (ng.phrases || []).map((p) => `<p class="ng-phrase">${esc(p)}</p>`).join("");
+    $("#ngBox").innerHTML = `
+      <div class="ng-block">
+        ${ngPhrases}
+        <p class="ng-meaning">${esc(ng.meaning || "")}</p>
+        <p class="ng-risk">${esc(ng.risk || "")}</p>
+      </div>
+    `;
 
     $("#memoType").value = typeLabel(state.typeId);
     $("#memoSit").value = sit.title;

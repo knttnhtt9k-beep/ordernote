@@ -386,7 +386,25 @@ h1 {
   overflow-wrap: anywhere;
 }
 .rich {
-  margin: 0 0 10px; font-size: .88rem; line-height: 1.8; color: var(--text);
+  margin: 0 0 14px; font-size: .88rem; line-height: 1.9; color: var(--text);
+}
+.rich-p {
+  margin: 0 0 14px;
+  font-size: .88rem;
+  line-height: 1.9;
+  color: var(--text);
+}
+.rich-p:last-child { margin-bottom: 0; }
+.scene-card .rich-p {
+  font-size: .84rem;
+}
+.step-item .rich-p {
+  font-size: .84rem;
+  margin-bottom: 10px;
+}
+.guide-card .rich-p,
+.highlight .rich-p {
+  font-size: .84rem;
 }
 .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 12px; }
 .tag {
@@ -554,9 +572,9 @@ h1 {
 .type-intro-freq,
 .type-intro-use,
 .type-intro-p {
-  margin: 0 0 14px;
+  margin: 0 0 16px;
   font-size: .84rem;
-  line-height: 1.75;
+  line-height: 1.85;
   color: #3a2a48;
 }
 .type-intro-freq { color: #5a4a5c; }
