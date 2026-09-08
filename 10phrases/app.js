@@ -13,6 +13,20 @@
       .replace(/>/g, "&gt;")
       .replace(/"/g, "&quot;");
 
+  const CIRCLED = ["①", "②", "③", "④", "⑤", "⑥", "⑦", "⑧", "⑨", "⑩"];
+  const circ = (n) => CIRCLED[n - 1] || String(n);
+  const formatGoodNums = (nums) => (nums || []).map(circ).join("　");
+
+  function nightHtml(night) {
+    const parts = Array.isArray(night)
+      ? night
+      : String(night || "")
+          .split(/(?<=[。！？])/)
+          .map((s) => s.trim())
+          .filter(Boolean);
+    return parts.map((p) => `<p class="guide-p">${esc(p)}</p>`).join("");
+  }
+
   function show(id) {
     $$(".screen").forEach((el) => el.classList.remove("active"));
     const target = document.getElementById(id);
@@ -120,12 +134,12 @@
 
     $("#guideBox").innerHTML = `
       <div class="guide-card">
-        <h3>いまの恋で、やりがちなこと（${typeLabel(state.typeId)}）</h3>
-        <p class="guide-p">${esc(guide.night)}</p>
+        <h3>いまの恋で、やりがちなこと</h3>
+        ${nightHtml(guide.night)}
         <span class="guide-label">このタイプなら、先に見てほしい番号</span>
-        <p class="guide-p">${esc(guide.good)}</p>
-        <span class="guide-label mute">書いたあと、やること</span>
-        <p class="guide-p">${esc(guide.dont)}</p>
+        <p class="guide-p guide-nums">${formatGoodNums(guide.goodNums)}</p>
+        <span class="guide-label mute">書いたあとやること</span>
+        ${nightHtml(guide.dont)}
       </div>
       <figure class="sec-visual">
         <img src="images/visual-02.png" alt="" width="1024" height="576" loading="lazy">
@@ -139,7 +153,7 @@
         if (goodSet.has(n)) cls += " good";
         return `
           <div class="${cls}">
-            <div class="num">${n}</div>
+            <div class="num">${circ(n)}</div>
             <div>
               <p class="txt">${esc(text)}</p>
             </div>
@@ -151,9 +165,11 @@
     const ngPhrases = (ng.phrases || []).map((p) => `<p class="ng-phrase">${esc(p)}</p>`).join("");
     $("#ngBox").innerHTML = `
       <div class="ng-block">
+        <span class="guide-label">ノートにこんな言葉が出てきたら</span>
         ${ngPhrases}
-        <p class="ng-meaning">${esc(ng.meaning || "")}</p>
-        <p class="ng-risk">${esc(ng.risk || "")}</p>
+        <p class="ng-meaning">${esc(ng.notice || ng.meaning || "")}</p>
+        <span class="guide-label mute">書いたあと、こんな気持ちに気づいたら</span>
+        <p class="ng-focus">${esc(ng.focus || ng.risk || "")}</p>
       </div>
     `;
 

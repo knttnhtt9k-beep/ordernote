@@ -368,8 +368,8 @@ h1 {
 }
 .sec-result { background: linear-gradient(180deg, #fff8fb 0%, #fff 70%); border-top: none; }
 .sec-warn {
-  background: linear-gradient(90deg, #fff5f7 0%, #fff 18%);
-  border-left: 3px solid #f0a0b8;
+  background: linear-gradient(90deg, #faf5ff 0%, #fff 18%);
+  border-left: 3px solid #c8a8e8;
   margin: 0 0 0 0;
   padding-left: 17px;
 }
@@ -424,7 +424,15 @@ h1 {
   background: linear-gradient(135deg, var(--pink), var(--purple));
   border-color: transparent;
 }
-.phrase .txt { font-size: .86rem; line-height: 1.7; color: var(--text); margin: 2px 0 0; }
+.guide-nums {
+  font-size: 1.05rem !important;
+  font-weight: 800;
+  letter-spacing: .06em;
+  color: #5a3db8 !important;
+}
+.phrase .num {
+  font-size: .95rem;
+}
 
 .guide-card {
   margin: 0 0 12px; padding: 14px;
@@ -453,7 +461,7 @@ h1 {
   font-size: .9rem;
   font-weight: 800;
   line-height: 1.6;
-  color: #b5487a;
+  color: #8a4a72;
 }
 .ng-meaning {
   margin: 16px 0 10px;
@@ -461,11 +469,12 @@ h1 {
   line-height: 1.8;
   color: var(--text);
 }
-.ng-risk {
+.ng-risk,
+.ng-focus {
   margin: 0;
-  font-size: .84rem;
-  line-height: 1.8;
-  color: var(--muted);
+  font-size: .86rem;
+  line-height: 1.85;
+  color: #5a3db8;
 }
 
 .type-intro-p {
