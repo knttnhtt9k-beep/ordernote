@@ -414,24 +414,27 @@ h1 {
   background: linear-gradient(90deg, #fff5fa, #fff 42%);
 }
 .phrase .num {
-  width: 34px; height: 34px; border-radius: 50%;
+  width: 32px; height: 32px; border-radius: 50%;
   display: grid; place-items: center;
-  font-size: .78rem; font-weight: 800;
-  color: var(--pink); background: #fff0f5; border: 1.5px solid #f0c8d8;
+  flex-shrink: 0;
+  font-size: .88rem; font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  color: var(--pink);
+  background: #fff5f8;
+  border: 1.5px solid #f0c8d8;
+  box-shadow: none;
 }
 .phrase.good .num {
   color: #fff;
   background: linear-gradient(135deg, var(--pink), var(--purple));
-  border-color: transparent;
+  border: none;
 }
 .guide-nums {
   font-size: 1.05rem !important;
   font-weight: 800;
   letter-spacing: .06em;
   color: #5a3db8 !important;
-}
-.phrase .num {
-  font-size: .95rem;
 }
 
 .guide-card {
@@ -463,8 +466,10 @@ h1 {
   line-height: 1.6;
   color: #8a4a72;
 }
+.ng-block .ng-phrase:last-of-type { margin-bottom: 14px; }
+.ng-block .guide-label { margin-top: 4px; }
 .ng-meaning {
-  margin: 16px 0 10px;
+  margin: 8px 0 10px;
   font-size: .86rem;
   line-height: 1.8;
   color: var(--text);

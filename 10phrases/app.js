@@ -136,7 +136,7 @@
       <div class="guide-card">
         <h3>いまの恋で、やりがちなこと</h3>
         ${nightHtml(guide.night)}
-        <span class="guide-label">このタイプなら、先に見てほしい番号</span>
+        <span class="guide-label">まずはこのフレーズから</span>
         <p class="guide-p guide-nums">${formatGoodNums(guide.goodNums)}</p>
         <span class="guide-label mute">書いたあとやること</span>
         ${nightHtml(guide.dont)}
@@ -153,7 +153,7 @@
         if (goodSet.has(n)) cls += " good";
         return `
           <div class="${cls}">
-            <div class="num">${circ(n)}</div>
+            <div class="num">${n}</div>
             <div>
               <p class="txt">${esc(text)}</p>
             </div>
@@ -165,8 +165,8 @@
     const ngPhrases = (ng.phrases || []).map((p) => `<p class="ng-phrase">${esc(p)}</p>`).join("");
     $("#ngBox").innerHTML = `
       <div class="ng-block">
-        <span class="guide-label">ノートにこんな言葉が出てきたら</span>
         ${ngPhrases}
+        <span class="guide-label">ノートにこんな言葉が出てきたら</span>
         <p class="ng-meaning">${esc(ng.notice || ng.meaning || "")}</p>
         <span class="guide-label mute">書いたあと、こんな気持ちに気づいたら</span>
         <p class="ng-focus">${esc(ng.focus || ng.risk || "")}</p>
