@@ -141,10 +141,10 @@ h1 {
   color: var(--muted);
   font-weight: 600;
 }
-.toc nav { display: grid; gap: 6px; }
+.toc nav { display: grid; gap: 4px; }
 .toc a {
   display: block;
-  padding: 10px 12px;
+  padding: 8px 12px;
   border-radius: 12px;
   background: #fff;
   border: 1px solid #f3e0ea;
@@ -152,7 +152,7 @@ h1 {
   text-decoration: none;
   font-size: .84rem;
   font-weight: 700;
-  line-height: 1.45;
+  line-height: 1.4;
 }
 .toc a:active { transform: scale(.985); }
 
@@ -213,9 +213,9 @@ h1 {
 .step-item {
   display: grid;
   grid-template-columns: 36px 1fr;
-  gap: 12px;
+  gap: 10px;
   align-items: start;
-  padding: 14px 8px;
+  padding: 8px 8px;
   border-bottom: 1px solid var(--line);
 }
 .step-item:last-child { border-bottom: none; }
@@ -235,7 +235,7 @@ h1 {
   margin: 0;
   padding-top: 6px;
   font-size: .9rem;
-  line-height: 1.7;
+  line-height: 1.45;
   color: var(--text);
 }
 
@@ -658,9 +658,10 @@ h1 {
 
 .part-gate {
   display: grid;
-  gap: 10px;
-  padding: 8px 20px 20px;
+  gap: 8px;
+  padding: 4px 20px 12px;
 }
+.part-gate[hidden] { display: none; }
 .btn-ghost {
   background: #fff;
   color: #7c3f6e;
@@ -699,8 +700,7 @@ h1 {
   font-weight: 800;
   cursor: pointer;
 }
-.part-sticky button.is-active,
-[data-open-part].is-active {
+.part-sticky button.is-active {
   background: linear-gradient(90deg, var(--pink), var(--purple));
   color: #fff;
   border-color: transparent;

@@ -4,6 +4,7 @@
     practice: document.getElementById("part-practice")
   };
   const sticky = document.getElementById("partSticky");
+  const gate = document.getElementById("partGate");
 
   function partKeyFromEl(el) {
     if (!el) return null;
@@ -17,10 +18,11 @@
       if (!el) return;
       el.classList.toggle("is-open", id === key);
     });
-    document.querySelectorAll("[data-open-part]").forEach((btn) => {
+    document.querySelectorAll(".part-sticky [data-open-part]").forEach((btn) => {
       btn.classList.toggle("is-active", btn.getAttribute("data-open-part") === key);
     });
     if (sticky) sticky.hidden = false;
+    if (gate) gate.hidden = true;
 
     const target = jumpId ? document.getElementById(jumpId) : parts[key];
     requestAnimationFrame(() => {

@@ -3,14 +3,22 @@
   const $ = (sel, root = document) => root.querySelector(sel);
   const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 
+  function splitLines(text) {
+    if (Array.isArray(text)) return text.map((s) => String(s).trim()).filter(Boolean);
+    return String(text || "")
+      .split(/(?<=？」)|(?<=[。！])|(?<=？)(?!」)/)
+      .map((s) => s.trim())
+      .filter(Boolean);
+  }
+
   function splitParas(text) {
-    const parts = Array.isArray(text)
-      ? text
-      : String(text || "")
-          .split(/(?<=？」)|(?<=[。！])|(?<=？)(?!」)/)
-          .map((s) => s.trim())
-          .filter(Boolean);
-    return parts.map((s) => `<p class="rich-p">${s}</p>`).join("");
+    return splitLines(text)
+      .map((s) => `<p class="rich-p">${s}</p>`)
+      .join("");
+  }
+
+  function stepHtml(text) {
+    return `<p>${splitLines(text).join("<br>")}</p>`;
   }
 
   function show(id) {
@@ -114,7 +122,7 @@
             (s, i) => `
           <div class="step-item">
             <span class="step-num">${i + 1}</span>
-            <div>${splitParas(s)}</div>
+            <div>${stepHtml(s)}</div>
           </div>`
           )
           .join("")}
