@@ -82,7 +82,7 @@
         <span class="tag purple">${t.sub}</span>
       </div>
       <h2 class="heading-break">${page.titleLabel}<span class="heading-line2">${page.titleAction}</span></h2>
-      <p class="rich">ザワザワしたときに、ノートを開いて1行書いて、スマホを伏せるまでのやり方です。</p>
+      <p class="rich">ザワザワしたときに、ノートを開いて1行書いて、スマホを見ないまでのやり方です。</p>
       ${visual("images/visual-01.png")}
     `;
 

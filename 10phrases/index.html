@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="description" content="状況別・恋愛オーダー10フレーズ集。愛される周波数タイプ診断の結果に合わせて、恋愛オーダーの1行を選びます。">
 <title>状況別・恋愛オーダー10フレーズ集</title>
-  <link rel="stylesheet" href="styles.css?v=20">
+  <link rel="stylesheet" href="styles.css?v=21">
 </head>
 <body>
   <div class="app">
@@ -30,7 +30,7 @@
         </div>
       </div>
       <div class="pad">
-        <h2 class="section-title">今夜の恋愛オーダーを決めるまで</h2>
+        <h2 class="section-title">ノートに書く1行を決めるまで</h2>
         <div class="step-list" role="list">
           <div class="step-item" role="listitem">
             <span class="step-num">1</span>
@@ -45,18 +45,14 @@
             <p>近いフレーズを選んで、ノートに書く</p>
           </div>
         </div>
-        <p class="rich" style="font-size:.84rem;color:var(--muted);margin:0 0 8px;">
-          複数の状況が重なるときは、先に優先順位を見てください。書くのはいちばん上の状況の恋愛オーダー1行だけです。
-        </p>
       </div>
       <div class="btn-row">
-        <button class="btn" id="startBtn" type="button">タイプを選んで始める</button>
+        <button class="btn" id="startBtn" type="button">診断タイプを選んで、書く1行を見る</button>
         <a class="diagnose-card" id="toDiagnose" href="https://knttnhtt9k-beep.github.io/ordernote/" target="_blank" rel="noopener">
           <span class="diagnose-card-kicker">まだ診断していない方</span>
           <span class="diagnose-card-title">愛され周波数タイプ診断へ</span>
           <span class="diagnose-card-sub">無料・約2分 ／ 別ページで開きます</span>
         </a>
-        <button class="btn btn-ghost" id="toPriorityFromIntro" type="button">複合の優先順位を見る</button>
       </div>
     </section>
 
@@ -85,7 +81,7 @@
         <div id="typeIntroBox"></div>
         <span class="sec-kicker">SITUATION</span>
         <h2 style="margin:0 0 8px;font-size:1.15rem;">いまの恋の状況を1つ選ぶ</h2>
-        <p class="rich" style="color:var(--muted);">いちばん近いものを、下のボタンから1つ選んでください。迷ったら優先順位（音信不通が先）を見てください。</p>
+        <p class="rich" style="color:var(--muted);">いちばん近いものを、下のボタンから1つ選んでください。</p>
         <div class="card-grid" id="situationCards"></div>
       </div>
     </section>
@@ -119,42 +115,21 @@
         <div class="memo">
           <label>診断タイプ</label>
           <input id="memoType" type="text" readonly>
-          <label>今夜の状況</label>
+          <label>いまの状況</label>
           <input id="memoSit" type="text" readonly>
           <label>いちばんつらい場面（1行）</label>
           <textarea id="memoScene" placeholder="例：既読だけついて、トークを何度も開いてしまう"></textarea>
           <label>選ぶ番号</label>
           <input id="memoNum" type="text" placeholder="例：5">
           <label>書いたあと、やること</label>
-          <textarea id="memoDont" placeholder="例：今夜は彼のトークを開かない"></textarea>
+          <textarea id="memoDont" placeholder="例：彼のトークを開かない"></textarea>
         </div>
-      </div>
-
-      <div class="btn-row">
-        <button class="btn btn-ghost" id="toPriorityFromDetail" type="button">複合の優先順位を見る</button>
-      </div>
-    </section>
-
-    <!-- PRIORITY -->
-    <section id="screen-priority" class="screen">
-      <div class="sticky-bar">
-        <button class="back" id="backFromPriority" type="button">← 戻る</button>
-        <div class="crumb">複合の優先順位</div>
-      </div>
-      <div class="pad">
-        <span class="sec-kicker">PRIORITY</span>
-        <h2 style="margin:0 0 8px;font-size:1.15rem;">悩みが重なるとき、<br>どれから書くか</h2>
-        <p class="rich" style="color:var(--muted);">当てはまるものを上から見て、いちばん上に残った状況のフレーズを1つだけ書いてください。</p>
-        <ul class="priority-list" id="priorityList"></ul>
-      </div>
-      <div class="btn-row">
-        <button class="btn" id="restartBtn" type="button">最初からタイプを選ぶ</button>
       </div>
     </section>
 
   </div>
 
-  <script src="phrases-data.js?v=24"></script>
-  <script src="app.js?v=21"></script>
+  <script src="phrases-data.js?v=25"></script>
+  <script src="app.js?v=22"></script>
 </body>
 </html>

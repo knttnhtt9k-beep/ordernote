@@ -648,3 +648,56 @@ h1 {
   color: #3a2a48;
   font-weight: 700;
 }
+
+.part-gate {
+  display: grid;
+  gap: 10px;
+  padding: 8px 20px 20px;
+}
+.btn-ghost {
+  background: #fff;
+  color: #7c3f6e;
+  border: 1.5px solid #e8c0d4;
+  box-shadow: none;
+}
+.part {
+  display: none;
+}
+.part.is-open {
+  display: block;
+}
+.part-head {
+  border-top: 1px solid var(--line);
+}
+.part-sticky {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  padding: 8px 12px;
+  background: rgba(255,255,255,.94);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line);
+}
+.part-sticky[hidden] { display: none; }
+.part-sticky button {
+  border: 1.5px solid #e8c0d4;
+  background: #fff;
+  color: #7c3f6e;
+  border-radius: 999px;
+  padding: 10px 8px;
+  font-size: .82rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+.part-sticky button.is-active,
+[data-open-part].is-active {
+  background: linear-gradient(90deg, var(--pink), var(--purple));
+  color: #fff;
+  border-color: transparent;
+}
+.sec {
+  scroll-margin-top: 64px;
+}

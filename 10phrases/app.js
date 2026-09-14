@@ -125,7 +125,7 @@
         <span class="tag">${typeLabel(state.typeId)}</span>
         <span class="tag purple">${sit.title}</span>
       </div>
-      <h2>今夜の恋愛オーダーを、<br>ここで決める</h2>
+      <h2>ノートに書く1行を、<br>ここで決める</h2>
       <p class="rich">下のフレーズから、いまの自分に近いものを<strong>1つだけ</strong>ノートに書いてください。</p>
       <figure class="sec-visual">
         <img src="images/visual-01.png" alt="" width="1024" height="576" loading="lazy">
@@ -177,43 +177,11 @@
     $("#memoSit").value = sit.title;
   }
 
-  function renderPriority() {
-    $("#priorityList").innerHTML = window.PHRASES_DATA.priority
-      .map(
-        (p) => `
-      <li>
-        <div class="rank">${p.rank}</div>
-        <div>
-          <div class="name">${p.name}</div>
-          <div class="reason">${p.reason}</div>
-        </div>
-      </li>`
-      )
-      .join("");
-  }
-
   function bind() {
     $("#startBtn").addEventListener("click", () => show("screen-type"));
-    $("#toPriorityFromIntro").addEventListener("click", () => {
-      renderPriority();
-      show("screen-priority");
-    });
     $("#backToIntro").addEventListener("click", () => show("screen-intro"));
     $("#backToType").addEventListener("click", () => show("screen-type"));
     $("#backToSituation").addEventListener("click", () => show("screen-situation"));
-    $("#toPriorityFromDetail").addEventListener("click", () => {
-      renderPriority();
-      show("screen-priority");
-    });
-    $("#backFromPriority").addEventListener("click", () => {
-      if (state.situationId) show("screen-detail");
-      else show("screen-intro");
-    });
-    $("#restartBtn").addEventListener("click", () => {
-      state.typeId = null;
-      state.situationId = null;
-      show("screen-intro");
-    });
   }
 
   document.addEventListener("DOMContentLoaded", () => {
