@@ -21,7 +21,7 @@
     const parts = Array.isArray(night)
       ? night
       : String(night || "")
-          .split(/(?<=[。！？])/)
+          .split(/(?<=？」)|(?<=[。！])|(?<=？)(?!」)/)
           .map((s) => s.trim())
           .filter(Boolean);
     return parts.map((p) => `<p class="guide-p">${esc(p)}</p>`).join("");
@@ -125,7 +125,7 @@
         <span class="tag">${typeLabel(state.typeId)}</span>
         <span class="tag purple">${sit.title}</span>
       </div>
-      <h2>ノートに書く1行を、<br>ここで決める</h2>
+      <h2>ノートに書くオーダーを、<br>ここで決める</h2>
       <p class="rich">下のフレーズから、いまの自分に近いものを<strong>1つだけ</strong>ノートに書いてください。</p>
       <figure class="sec-visual">
         <img src="images/visual-01.png" alt="" width="1024" height="576" loading="lazy">

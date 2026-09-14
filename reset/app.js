@@ -4,12 +4,13 @@
   const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 
   function splitParas(text) {
-    return String(text || "")
-      .split(/(?<=[。！？])/)
-      .map((s) => s.trim())
-      .filter(Boolean)
-      .map((s) => `<p class="rich-p">${s}</p>`)
-      .join("");
+    const parts = Array.isArray(text)
+      ? text
+      : String(text || "")
+          .split(/(?<=？」)|(?<=[。！])|(?<=？)(?!」)/)
+          .map((s) => s.trim())
+          .filter(Boolean);
+    return parts.map((s) => `<p class="rich-p">${s}</p>`).join("");
   }
 
   function show(id) {
@@ -82,7 +83,7 @@
         <span class="tag purple">${t.sub}</span>
       </div>
       <h2 class="heading-break">${page.titleLabel}<span class="heading-line2">${page.titleAction}</span></h2>
-      <p class="rich">ザワザワしたときに、ノートを開いて1行書いて、スマホを見ないまでのやり方です。</p>
+      <p class="rich">ザワザワしたときに、ノートを開いてオーダーを書いて、スマホを見ないまでのやり方です。</p>
       ${visual("images/visual-01.png")}
     `;
 
