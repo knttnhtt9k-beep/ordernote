@@ -255,7 +255,7 @@ h1 {
   font-weight: 800;
   letter-spacing: .06em;
   color: #fff;
-  background: linear-gradient(90deg, var(--pink), #ff8fb8);
+  background: linear-gradient(90deg, var(--purple), #9b7cff);
 }
 .scene-card.purple .label {
   background: linear-gradient(90deg, var(--purple), #9b7cff);
@@ -318,11 +318,11 @@ h1 {
 }
 .compare-box.ng .tag {
   color: #fff;
-  background: var(--bad);
+  background: var(--purple);
 }
 .compare-box.ok .tag {
   color: #fff;
-  background: var(--purple);
+  background: var(--pink);
 }
 .compare-box .line {
   margin: 0 0 8px;
