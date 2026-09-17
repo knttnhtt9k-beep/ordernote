@@ -1,0 +1,16 @@
+■ アップロードのしかた（毎回これだけ）
+
+1. このリンクを開く
+   https://github.com/knttnhtt9k-beep/ordernote/upload/main
+2. このフォルダの中身を全選択（command + A）してドラッグ
+   ※ フォルダごとでOK。10phrases / propose / reset / benefits は
+     名前がそのまま置き場所になるので、正しい場所に入ります
+3. Commit changes を押す
+4. 1〜2分待つと反映される
+
+■ 中身
+  ルート直下の5ファイル … 診断サイト
+  10phrases/ … 特典①10フレーズ
+  propose/   … 特典②プロポーズ
+  reset/     … 特典③周波数リセット
+  benefits/  … 特典一覧ハブ
