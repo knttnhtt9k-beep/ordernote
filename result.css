@@ -106,7 +106,10 @@ body {
 }
 /* はにぃ：宣材を丸枠中央に */
 .teacher-photo img.teacher-photo-hani {
-  object-position: center 28%;
+  object-fit: cover;
+  object-position: center 52%;
+  transform: scale(0.78);
+  transform-origin: center 30%;
 }
 .teacher-name {
   margin: 0 0 4px;
