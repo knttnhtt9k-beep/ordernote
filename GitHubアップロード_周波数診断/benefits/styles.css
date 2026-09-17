@@ -1,0 +1,328 @@
+:root {
+  --pink: #ff6b9d;
+  --pink-soft: #ffe4ef;
+  --purple: #7c5cff;
+  --bg: #fff7fa;
+  --text: #2b2430;
+  --muted: #8a7f8f;
+  --line: #f0dce6;
+  --shadow: 0 10px 30px rgba(255, 107, 157, 0.14);
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+}
+.app {
+  min-height: 100vh;
+  max-width: 430px;
+  margin: 0 auto;
+  padding: 0 0 48px;
+  background: #fff;
+  box-shadow: 0 0 40px rgba(80, 40, 70, .06);
+}
+.cover {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #2a1a45;
+}
+.cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.cover-fade {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 48%;
+  background: linear-gradient(180deg, transparent, #fff);
+}
+.mid-visual {
+  margin: 0;
+  width: 100%;
+  height: 120vh;
+  max-height: 1020px;
+  overflow: hidden;
+  background: #2a1a45;
+}
+.mid-visual img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+.sec-visual {
+  margin: 12px 0 16px;
+  padding: 0;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid #f0d0e0;
+  box-shadow: 0 10px 24px rgba(180, 80, 120, .12);
+  background: #2a1a45;
+}
+.sec-visual img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+.pad { padding: 20px 20px 8px; }
+.head-wrap { position: relative; text-align: center; }
+.head-glow {
+  position: absolute;
+  top: -48px; left: 50%; transform: translateX(-50%);
+  width: 280px; height: 160px;
+  background: radial-gradient(circle, rgba(255,142,196,.38), rgba(124,92,255,.16) 55%, transparent 75%);
+  filter: blur(6px); pointer-events: none;
+}
+.head-badge {
+  position: relative; z-index: 1;
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 16px; border-radius: 999px;
+  background: rgba(255,255,255,.95);
+  border: 1px solid #f3cfe0;
+  box-shadow: 0 4px 14px rgba(255,107,157,.22);
+  font-size: .72rem; font-weight: 800; letter-spacing: .1em;
+  color: #b5487a; margin-bottom: 12px;
+}
+h1 {
+  position: relative; z-index: 1;
+  margin: 0; font-size: 1.32rem; line-height: 1.45;
+  background: linear-gradient(90deg, #7c3f6e, #6a4a9a 60%, #7c3f6e);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.head-underline {
+  width: 64px; height: 4px; margin: 12px auto 14px; border-radius: 999px;
+  background: linear-gradient(90deg, var(--pink), var(--purple));
+}
+.lead {
+  margin: 0 0 6px;
+  color: var(--muted);
+  font-size: .88rem;
+  line-height: 1.85;
+  text-align: left;
+}
+.section-label {
+  margin: 18px 0 10px;
+  font-size: .68rem;
+  font-weight: 800;
+  letter-spacing: .14em;
+  color: #b5487a;
+}
+.card-list {
+  display: grid;
+  gap: 14px;
+  padding: 0 20px 8px;
+}
+.benefit-card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  border-radius: 18px;
+  overflow: hidden;
+  background: #fff;
+  border: 1.5px solid #f0c8d8;
+  box-shadow: var(--shadow);
+  transition: transform .12s ease, box-shadow .12s ease;
+  cursor: pointer;
+}
+.benefit-card:active { transform: scale(.985); }
+.benefit-card.is-diagnose {
+  border-color: #b8a0f0;
+  box-shadow: 0 10px 28px rgba(124, 92, 255, .16);
+}
+.benefit-card.is-soon {
+  opacity: .92;
+  border-style: dashed;
+}
+.thumb {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #f3e4f0;
+  overflow: hidden;
+}
+.thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.thumb-badge {
+  position: absolute;
+  top: 10px; left: 10px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: .68rem;
+  font-weight: 800;
+  letter-spacing: .06em;
+  color: #fff;
+  background: linear-gradient(90deg, var(--pink), var(--purple));
+  box-shadow: 0 4px 12px rgba(124,92,255,.25);
+}
+.thumb-badge.soon {
+  background: #8a7f8f;
+}
+.thumb-badge.diag {
+  background: #7c5cff;
+}
+.card-body {
+  padding: 14px 14px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+.card-kicker {
+  display: block;
+  margin-bottom: 4px;
+  font-size: .68rem;
+  font-weight: 800;
+  letter-spacing: .1em;
+  color: var(--pink);
+}
+.benefit-card.is-diagnose .card-kicker { color: #5a3db8; }
+.card-title {
+  margin: 0 0 6px;
+  font-size: 1.02rem;
+  font-weight: 800;
+  line-height: 1.45;
+  color: #3a2a48;
+  word-break: keep-all;
+  line-break: strict;
+}
+.card-desc {
+  margin: 0;
+  font-size: .8rem;
+  line-height: 1.7;
+  color: #6b5a6e;
+}
+.card-cta-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 12px 16px 16px;
+  box-sizing: border-box;
+}
+.open-btn,
+.card-cta {
+  appearance: none;
+  -webkit-appearance: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 48px;
+  margin: 0;
+  padding: 14px 20px;
+  border-radius: 999px;
+  font: inherit;
+  font-size: .95rem;
+  font-weight: 800;
+  letter-spacing: .12em;
+  color: #ffffff;
+  text-align: center;
+  background-color: #ff6b9d;
+  background-image: linear-gradient(90deg, #ff6b9d, #7c5cff);
+  box-shadow: 0 10px 24px rgba(255, 107, 157, .28);
+  border: 1.5px solid rgba(255,255,255,.65);
+  cursor: pointer;
+}
+.open-btn:active,
+.card-cta:active {
+  transform: scale(.98);
+}
+.open-btn-purple {
+  background-color: #7c5cff;
+  background-image: linear-gradient(90deg, #7c5cff, #9b7cff);
+  box-shadow: 0 10px 24px rgba(124, 92, 255, .28);
+}
+.benefit-card:active .open-btn,
+.benefit-card:active .card-cta {
+  transform: none;
+}
+
+.teachers-sec {
+  padding: 8px 20px 0;
+}
+.teacher {
+  margin: 0 0 28px;
+  text-align: center;
+}
+.teacher-photo {
+  width: 132px;
+  height: 132px;
+  margin: 0 auto 16px;
+  border-radius: 50%;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 35% 30%, #fff8fc 0%, transparent 55%),
+    linear-gradient(145deg, #f3e4f0 0%, #e8d4f5 45%, #f0c8d8 100%);
+  border: 3px solid rgba(232, 160, 184, .55);
+  box-shadow: 0 8px 24px rgba(180, 120, 160, .18);
+}
+.teacher-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.teacher-photo img.teacher-photo-hani {
+  object-position: center 28%;
+}
+.teacher-name {
+  margin: 0 0 6px;
+  font-size: 1.12rem;
+  font-weight: 800;
+  letter-spacing: .06em;
+  color: #4a3548;
+  line-height: 1.45;
+}
+.teacher-role {
+  margin: 0 0 14px;
+  font-size: .82rem;
+  font-weight: 700;
+  letter-spacing: .04em;
+  color: var(--pink);
+  line-height: 1.7;
+}
+.teacher-bio {
+  text-align: left;
+  font-size: .88rem;
+  line-height: 1.85;
+  color: #3f3644;
+}
+.teacher-bio p {
+  margin: 0 0 .85em;
+}
+.teacher-bio p:last-child {
+  margin-bottom: 0;
+}
+
+.note {
+  margin: 16px 20px 0;
+  font-size: .75rem;
+  line-height: 1.65;
+  color: var(--muted);
+  text-align: center;
+}
+.foot {
+  margin: 18px 20px 0;
+  padding: 14px;
+  border-radius: 16px;
+  background: linear-gradient(180deg, #fff5fa, #f8f4ff);
+  border: 1px solid var(--line);
+  font-size: .8rem;
+  line-height: 1.75;
+  color: var(--muted);
+}
