@@ -315,18 +315,10 @@
       motivation: motivation
     };
 
-    fetch("https://script.google.com/macros/s/AKfycbwQ9Q_SRfHoOlVkaXb0l3dFvxru5HNvr9l8q4-GyDuQSaYDsTjc4LnGm-xrgdsWsbhzlA/exec", {
-      method: "POST",
-      mode: "no-cors",
-      headers: { "Content-Type": "text/plain;charset=UTF-8" },
-      body: JSON.stringify(payload)
-    }).then(function () {
-      location.replace(thanks);
-    }).catch(function () {
-      submitBtn.disabled = false;
-      submitBtn.textContent = "送信する";
-      showErr("submit", true);
-    });
+    try {
+      sessionStorage.setItem("enrollPayload", JSON.stringify(payload));
+    } catch (err) {}
+    location.replace(thanks);
   });
 })();
 </script>

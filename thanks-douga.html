@@ -58,5 +58,20 @@
     <p>はにぃが初回のときに、この用紙を開いて話します。</p>
     <p>この画面は閉じて大丈夫です。</p>
   </div>
+<script>
+(function () {
+  var raw = "";
+  try { raw = sessionStorage.getItem("enrollPayload") || ""; } catch (e) {}
+  if (!raw) return;
+  try { sessionStorage.removeItem("enrollPayload"); } catch (e) {}
+  fetch("https://script.google.com/macros/s/AKfycbwQ9Q_SRfHoOlVkaXb0l3dFvxru5HNvr9l8q4-GyDuQSaYDsTjc4LnGm-xrgdsWsbhzlA/exec", {
+    method: "POST",
+    mode: "no-cors",
+    keepalive: true,
+    headers: { "Content-Type": "text/plain;charset=UTF-8" },
+    body: raw
+  });
+})();
+</script>
 </body>
 </html>
