@@ -60,18 +60,6 @@
     color: #4a3f4c;
     text-align: left;
   }
-  .plan-chip {
-    margin-top: 16px;
-    display: none;
-    font-size: 13px;
-    color: #5b3d8a;
-    background: #f6f0ff;
-    border: 1px solid #e6d8ff;
-    border-radius: 10px;
-    padding: 10px 12px;
-    text-align: left;
-  }
-  .plan-chip.is-on { display: block; }
   .warn {
     display: none;
     margin: 16px 22px 0;
@@ -172,10 +160,9 @@
       <h1>【恋愛特化版】<br>オーダーノート現実創造プログラム</h1>
       <p class="lead">
         講座のご入会、ありがとうございます。<br>
-        はにぃが初回のときに、この用紙を開いて話します。<br>
-        LINEで使っている名前、お名前、いまの恋愛の状況、理想を書いて送信してください。所要は5分です。
+        初回の内面セッションは、こちらの内容をもとに行います。<br>
+        あなたの率直なお気持ちをご記入ください。
       </p>
-      <div class="plan-chip" id="planChip"></div>
     </div>
 
     <div class="warn" id="noPlan">
@@ -258,7 +245,6 @@
   var planName = plans[raw] || "";
   var form = document.getElementById("form");
   var planInput = document.getElementById("plan");
-  var chip = document.getElementById("planChip");
   var noPlan = document.getElementById("noPlan");
   var submitBtn = document.getElementById("submitBtn");
   var otherWrap = document.getElementById("otherWrap");
@@ -266,8 +252,10 @@
 
   if (planName) {
     planInput.value = planName;
-    chip.textContent = "いま開いているプラン：" + planName;
-    chip.classList.add("is-on");
+    if (raw === "douga") {
+      document.querySelector(".lead").innerHTML =
+        "講座のご入会、ありがとうございます。<br>初回は、こちらの内容をもとに行います。<br>あなたの率直なお気持ちをご記入ください。";
+    }
   } else {
     noPlan.classList.add("is-on");
     submitBtn.disabled = true;
