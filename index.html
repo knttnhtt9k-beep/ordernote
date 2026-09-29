@@ -160,8 +160,7 @@
       <h1>【恋愛特化版】<br>オーダーノート現実創造プログラム</h1>
       <p class="lead">
         講座のご入会、ありがとうございます。<br>
-        初回の内面セッションは、こちらの内容をもとに行います。<br>
-        あなたの率直なお気持ちをご記入ください。
+        初回セッションはこちらの内容をもとに行いますので、ゆっくりご記入ください。
       </p>
     </div>
 
@@ -252,10 +251,6 @@
 
   if (planName) {
     planInput.value = planName;
-    if (raw === "douga") {
-      document.querySelector(".lead").innerHTML =
-        "講座のご入会、ありがとうございます。<br>初回は、こちらの内容をもとに行います。<br>あなたの率直なお気持ちをご記入ください。";
-    }
   } else {
     noPlan.classList.add("is-on");
     submitBtn.disabled = true;
@@ -307,7 +302,31 @@
     submitBtn.textContent = "送信しています…";
 
     var thanks = raw === "douga" ? "thanks-douga.html" : "thanks-naimen.html";
-    location.replace(thanks);
+    var payload = {
+      plan: planName,
+      lineName: lineName,
+      fullName: fullName,
+      age: age,
+      worryType: worryType,
+      worryOther: other,
+      worryNow: worryNow,
+      ideal: ideal,
+      reason: reason,
+      motivation: motivation
+    };
+
+    fetch("https://script.google.com/macros/s/AKfycbwQ9Q_SRfHoOlVkaXb0l3dFvxru5HNvr9l8q4-GyDuQSaYDsTjc4LnGm-xrgdsWsbhzlA/exec", {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "text/plain;charset=UTF-8" },
+      body: JSON.stringify(payload)
+    }).then(function () {
+      location.replace(thanks);
+    }).catch(function () {
+      submitBtn.disabled = false;
+      submitBtn.textContent = "送信する";
+      showErr("submit", true);
+    });
   });
 })();
 </script>
