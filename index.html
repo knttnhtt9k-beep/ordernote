@@ -39,13 +39,15 @@
   }
   .badge {
     display: inline-block;
-    font-size: 11px;
-    letter-spacing: 0.08em;
+    font-size: 12px;
+    letter-spacing: 0.04em;
     color: #c44d7a;
     background: var(--pink-soft);
     border-radius: 999px;
-    padding: 6px 12px;
+    padding: 8px 14px;
     margin-bottom: 14px;
+    line-height: 1.55;
+    max-width: 100%;
   }
   h1 {
     margin: 0 0 8px;
@@ -85,6 +87,12 @@
     color: var(--muted);
     font-size: 12px;
     margin-left: 6px;
+  }
+  label span.long {
+    display: block;
+    margin-left: 0;
+    margin-top: 4px;
+    line-height: 1.6;
   }
   input[type="text"],
   textarea,
@@ -156,8 +164,8 @@
 <body>
   <div class="app">
     <div class="hero" id="hero">
-      <div class="badge">入会アンケート</div>
-      <h1>【恋愛特化版】<br>オーダーノート現実創造プログラム</h1>
+      <div class="badge">【恋愛特化版】オーダーノート現実創造プログラム</div>
+      <h1>入会アンケート</h1>
       <p class="lead">
         講座のご入会、ありがとうございます。<br>
         初回セッションはこちらの内容をもとに行いますので、ゆっくりご記入ください。
@@ -188,7 +196,7 @@
       </div>
 
       <div class="field">
-        <label>いまの恋愛の状況 <span>必須・ひとつ</span></label>
+        <label>いまの恋愛の状況 <span>必須</span></label>
         <div class="choices">
           <label class="choice"><input type="radio" name="worryType" value="交際中"><span class="choice-text">交際中</span></label>
           <label class="choice"><input type="radio" name="worryType" value="復縁"><span class="choice-text">復縁</span></label>
@@ -204,14 +212,14 @@
       </div>
 
       <div class="field">
-        <label for="worryNow">現在のお悩み <span>必須</span></label>
-        <textarea id="worryNow" name="worryNow" required placeholder="例：送ったあとに既読だけついて、何も返ってこない"></textarea>
+        <label for="worryNow">現在のお悩み <span class="long">必須・恋愛以外のお金や仕事などのお悩みをお書きください</span></label>
+        <textarea id="worryNow" name="worryNow" required></textarea>
         <div class="err" data-err="worryNow">いま困っていることを書いてください。</div>
       </div>
 
       <div class="field">
         <label for="ideal">あなたの理想 <span>必須</span></label>
-        <textarea id="ideal" name="ideal" required placeholder="例：彼から先に会おうとLINEが来る。日曜の予定を一緒に決められる"></textarea>
+        <textarea id="ideal" name="ideal" required></textarea>
         <div class="err" data-err="ideal">理想の状態を書いてください。</div>
       </div>
 
