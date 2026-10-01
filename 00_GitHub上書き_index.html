@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>入会アンケート｜オーダーノート現実創造プログラム</title>
+<style>
+  :root {
+    --pink: #ff6b9d;
+    --pink-soft: #ffe4ef;
+    --purple: #7c5cff;
+    --bg: #fff7fa;
+    --card: #ffffff;
+    --text: #2b2430;
+    --muted: #8a7f8f;
+    --line: #f0dce6;
+    --shadow: 0 10px 30px rgba(255, 107, 157, 0.12);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+  }
+  .app {
+    min-height: 100vh;
+    max-width: 430px;
+    margin: 0 auto;
+    background: var(--card);
+    box-shadow: 0 0 40px rgba(80, 40, 70, 0.06);
+    padding: 0 0 64px;
+  }
+  .hero {
+    padding: 36px 22px 20px;
+    background: linear-gradient(180deg, #fff0f6 0%, #fff 72%);
+    text-align: center;
+  }
+  .badge {
+    display: inline-block;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    color: #c44d7a;
+    background: var(--pink-soft);
+    border-radius: 999px;
+    padding: 8px 14px;
+    margin-bottom: 14px;
+    line-height: 1.55;
+    max-width: 100%;
+  }
+  h1 {
+    margin: 0 0 8px;
+    font-size: 18px;
+    line-height: 1.55;
+    font-weight: 700;
+  }
+  .lead {
+    margin: 14px 0 0;
+    font-size: 14px;
+    line-height: 1.85;
+    color: #4a3f4c;
+    text-align: left;
+  }
+  .warn {
+    display: none;
+    margin: 16px 22px 0;
+    padding: 12px 14px;
+    border-radius: 12px;
+    background: #fff6e8;
+    border: 1px solid #f3ddb0;
+    color: #6a4e16;
+    font-size: 13px;
+    line-height: 1.7;
+  }
+  .warn.is-on { display: block; }
+  form { padding: 8px 22px 0; }
+  .field { margin: 0 0 18px; }
+  label {
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  label span {
+    font-weight: 500;
+    color: var(--muted);
+    font-size: 12px;
+    margin-left: 6px;
+  }
+  label span.long {
+    display: block;
+    margin-left: 0;
+    margin-top: 4px;
+    line-height: 1.6;
+  }
+  input[type="text"],
+  textarea,
+  select {
+    width: 100%;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 12px 14px;
+    font-size: 16px;
+    font-family: inherit;
+    color: var(--text);
+    background: #fff;
+    outline: none;
+  }
+  input:focus,
+  textarea:focus,
+  select:focus {
+    border-color: #f3a0bd;
+    box-shadow: 0 0 0 3px rgba(255, 107, 157, 0.15);
+  }
+  textarea { min-height: 96px; resize: vertical; line-height: 1.6; }
+  .choices { display: grid; gap: 8px; }
+  .choice {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 12px 12px;
+    background: #fff;
+    cursor: pointer;
+  }
+  .choice:has(input:checked) {
+    border-color: #f3a0bd;
+    background: #fff7fa;
+  }
+  .choice input { margin-top: 3px; accent-color: var(--pink); }
+  .choice-text { font-size: 14px; line-height: 1.5; }
+  .other { display: none; margin-top: 8px; }
+  .other.is-on { display: block; }
+  .submit {
+    width: 100%;
+    border: 0;
+    border-radius: 999px;
+    padding: 16px 18px;
+    margin-top: 8px;
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+    background: linear-gradient(90deg, var(--pink), var(--purple));
+    box-shadow: var(--shadow);
+    cursor: pointer;
+  }
+  .submit:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+  .err {
+    display: none;
+    margin-top: 6px;
+    font-size: 12px;
+    color: #c0392b;
+  }
+  .err.is-on { display: block; }
+  .done { display: none; }
+  .done.is-on { display: block; }
+  .done h1 {
+    font-size: 18px;
+    line-height: 1.55;
+    margin: 0 0 16px;
+  }
+  .done p {
+    font-size: 14px;
+    line-height: 1.85;
+    margin: 0 0 12px;
+    color: #4a3f4c;
+  }
+</style>
+</head>
+<body>
+  <div class="app">
+    <div class="hero" id="hero">
+      <div class="badge">【恋愛特化版】オーダーノート現実創造プログラム</div>
+      <h1>入会アンケート</h1>
+      <p class="lead">
+        講座のご入会、ありがとうございます。<br>
+        初回セッションはこちらの内容を<br>
+        もとに行いますので、ゆっくりご記入ください。
+      </p>
+    </div>
+
+    <div class="warn" id="noPlan">
+      このページは、お送りした専用リンクから開いてください。リンクが違うと、どちらのプランか分からず送れません。
+    </div>
+
+    <form id="form">
+      <div class="field">
+        <label for="lineName">LINE名 <span>必須</span></label>
+        <input id="lineName" name="lineName" type="text" autocomplete="nickname" required>
+        <div class="err" data-err="lineName">LINEで表示されている名前を書いてください。</div>
+      </div>
+
+      <div class="field">
+        <label for="fullName">お名前 <span>必須</span></label>
+        <input id="fullName" name="fullName" type="text" autocomplete="name" required>
+        <div class="err" data-err="fullName">お名前を書いてください。</div>
+      </div>
+
+      <div class="field">
+        <label for="age">年齢 <span>必須</span></label>
+        <input id="age" name="age" type="text" inputmode="numeric" autocomplete="off" required>
+        <div class="err" data-err="age">年齢を書いてください。</div>
+      </div>
+
+      <div class="field">
+        <label>いまの恋愛の状況 <span>必須</span></label>
+        <div class="choices">
+          <label class="choice"><input type="radio" name="worryType" value="交際中"><span class="choice-text">交際中</span></label>
+          <label class="choice"><input type="radio" name="worryType" value="復縁"><span class="choice-text">復縁</span></label>
+          <label class="choice"><input type="radio" name="worryType" value="不倫など複雑恋愛"><span class="choice-text">不倫など複雑恋愛</span></label>
+          <label class="choice"><input type="radio" name="worryType" value="出会いがない"><span class="choice-text">出会いがない</span></label>
+          <label class="choice"><input type="radio" name="worryType" value="その他"><span class="choice-text">その他</span></label>
+        </div>
+        <div class="other" id="otherWrap">
+          <input id="worryOther" name="worryOther" type="text" placeholder="その他の内容を書いてください">
+        </div>
+        <div class="err" data-err="worryType">いまの恋愛の状況を1つ選んでください。</div>
+        <div class="err" data-err="worryOther">その他の内容を書いてください。</div>
+      </div>
+
+      <div class="field">
+        <label for="pastEffort">過去の恋愛で努力したこと・試したこと <span>必須</span></label>
+        <textarea id="pastEffort" name="pastEffort" required placeholder="外見を磨く、男性心理を学ぶなど"></textarea>
+        <div class="err" data-err="pastEffort">過去に試したことを書いてください。</div>
+      </div>
+
+      <div class="field">
+        <label for="worryNow">現在のお悩み <span class="long">必須・恋愛以外にもお金や仕事などのお悩みもお書きください</span></label>
+        <textarea id="worryNow" name="worryNow" required></textarea>
+        <div class="err" data-err="worryNow">いま困っていることを書いてください。</div>
+      </div>
+
+      <div class="field">
+        <label for="ideal">あなたの理想 <span>必須</span></label>
+        <textarea id="ideal" name="ideal" required></textarea>
+        <div class="err" data-err="ideal">理想の状態を書いてください。</div>
+      </div>
+
+      <div class="field">
+        <label for="reason">講座に参加した理由 <span>必須</span></label>
+        <textarea id="reason" name="reason" required></textarea>
+        <div class="err" data-err="reason">参加した理由を書いてください。</div>
+      </div>
+
+      <div class="field">
+        <label for="motivation">講座への意気込み <span>必須</span></label>
+        <textarea id="motivation" name="motivation" required></textarea>
+        <div class="err" data-err="motivation">意気込みを書いてください。</div>
+      </div>
+
+      <input type="hidden" name="plan" id="plan">
+      <button class="submit" id="submitBtn" type="submit">送信する</button>
+      <div class="err" data-err="submit">送信できませんでした。もう一度押してください。</div>
+    </form>
+
+    <div class="done" id="done">
+      <div class="badge" id="doneBadge"></div>
+      <h1>送信、ありがとうございました。</h1>
+      <p id="doneLead"></p>
+      <p>はにぃが初回のときに、この用紙を開いて話します。</p>
+      <p>この画面は閉じて大丈夫です。</p>
+    </div>
+  </div>
+
+<script>
+(function () {
+  var params = new URLSearchParams(location.search);
+  var raw = (params.get("plan") || "").toLowerCase();
+  var plans = {
+    naimen: "内面セッションのみ",
+    douga: "動画講座＋セッション"
+  };
+  var planName = plans[raw] || "";
+  var form = document.getElementById("form");
+  var planInput = document.getElementById("plan");
+  var noPlan = document.getElementById("noPlan");
+  var submitBtn = document.getElementById("submitBtn");
+  var otherWrap = document.getElementById("otherWrap");
+  var worryOther = document.getElementById("worryOther");
+
+  if (planName) {
+    planInput.value = planName;
+  } else {
+    noPlan.classList.add("is-on");
+    submitBtn.disabled = true;
+  }
+
+  form.querySelectorAll('input[name="worryType"]').forEach(function (el) {
+    el.addEventListener("change", function () {
+      var isOther = el.value === "その他" && el.checked;
+      otherWrap.classList.toggle("is-on", isOther);
+      if (!isOther) worryOther.value = "";
+    });
+  });
+
+  function showErr(name, on) {
+    var node = form.querySelector('[data-err="' + name + '"]');
+    if (node) node.classList.toggle("is-on", on);
+  }
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    if (!planName) return;
+
+    var lineName = document.getElementById("lineName").value.trim();
+    var fullName = document.getElementById("fullName").value.trim();
+    var age = document.getElementById("age").value.trim();
+    var worryTypeEl = form.querySelector('input[name="worryType"]:checked');
+    var worryType = worryTypeEl ? worryTypeEl.value : "";
+    var other = worryOther.value.trim();
+    var pastEffort = document.getElementById("pastEffort").value.trim();
+    var worryNow = document.getElementById("worryNow").value.trim();
+    var ideal = document.getElementById("ideal").value.trim();
+    var reason = document.getElementById("reason").value.trim();
+    var motivation = document.getElementById("motivation").value.trim();
+
+    showErr("lineName", !lineName);
+    showErr("fullName", !fullName);
+    showErr("age", !age);
+    showErr("worryType", !worryType);
+    showErr("worryOther", worryType === "その他" && !other);
+    showErr("pastEffort", !pastEffort);
+    showErr("worryNow", !worryNow);
+    showErr("ideal", !ideal);
+    showErr("reason", !reason);
+    showErr("motivation", !motivation);
+
+    if (!lineName || !fullName || !age || !worryType || !pastEffort || !worryNow || !ideal || !reason || !motivation) return;
+    if (worryType === "その他" && !other) return;
+
+    showErr("submit", false);
+    submitBtn.disabled = true;
+    submitBtn.textContent = "送信しています…";
+
+    var payload = {
+      plan: planName,
+      lineName: lineName,
+      fullName: fullName,
+      age: age,
+      worryType: worryType,
+      worryOther: other,
+      pastEffort: pastEffort,
+      worryNow: worryNow,
+      ideal: ideal,
+      reason: reason,
+      motivation: motivation
+    };
+
+    document.getElementById("hero").style.display = "none";
+    form.style.display = "none";
+    document.getElementById("doneBadge").textContent = planName;
+    document.getElementById("doneLead").textContent = "いま書いていただいた内容は、" + planName + "として届いています。";
+    document.getElementById("done").classList.add("is-on");
+
+    fetch("https://script.google.com/macros/s/AKfycbwQ9Q_SRfHoOlVkaXb0l3dFvxru5HNvr9l8q4-GyDuQSaYDsTjc4LnGm-xrgdsWsbhzlA/exec", {
+      method: "POST",
+      mode: "no-cors",
+      keepalive: true,
+      headers: { "Content-Type": "text/plain;charset=UTF-8" },
+      body: JSON.stringify(payload)
+    });
+  });
+})();
+</script>
+</body>
+</html>
