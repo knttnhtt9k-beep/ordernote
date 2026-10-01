@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- enroll 2026-10-01 -->
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
@@ -159,6 +160,18 @@
   }
   .err.is-on { display: block; }
   .done { display: none; }
+  .done.is-on { display: block; }
+  .done h1 {
+    font-size: 18px;
+    line-height: 1.55;
+    margin: 0 0 16px;
+  }
+  .done p {
+    font-size: 14px;
+    line-height: 1.85;
+    margin: 0 0 12px;
+    color: #4a3f4c;
+  }
 </style>
 </head>
 <body>
@@ -213,6 +226,12 @@
       </div>
 
       <div class="field">
+        <label for="pastEffort">過去の恋愛で努力したこと・試したこと <span>必須</span></label>
+        <textarea id="pastEffort" name="pastEffort" required placeholder="外見を磨く、男性心理を学ぶなど"></textarea>
+        <div class="err" data-err="pastEffort">過去に試したことを書いてください。</div>
+      </div>
+
+      <div class="field">
         <label for="worryNow">現在のお悩み <span class="long">必須・恋愛以外にもお金や仕事などのお悩みもお書きください</span></label>
         <textarea id="worryNow" name="worryNow" required></textarea>
         <div class="err" data-err="worryNow">いま困っていることを書いてください。</div>
@@ -240,6 +259,14 @@
       <button class="submit" id="submitBtn" type="submit">送信する</button>
       <div class="err" data-err="submit">送信できませんでした。もう一度押してください。</div>
     </form>
+
+    <div class="done" id="done">
+      <div class="badge" id="doneBadge"></div>
+      <h1>送信、ありがとうございました。</h1>
+      <p id="doneLead"></p>
+      <p>はにぃが初回のときに、この用紙を開いて話します。</p>
+      <p>この画面は閉じて大丈夫です。</p>
+    </div>
   </div>
 
 <script>
@@ -247,8 +274,8 @@
   var params = new URLSearchParams(location.search);
   var raw = (params.get("plan") || "").toLowerCase();
   var plans = {
-    naimen: "内面セッションプラン",
-    douga: "動画講座付きプラン"
+    naimen: "内面セッションのみ",
+    douga: "動画講座＋セッション"
   };
   var planName = plans[raw] || "";
   var form = document.getElementById("form");
@@ -288,6 +315,7 @@
     var worryTypeEl = form.querySelector('input[name="worryType"]:checked');
     var worryType = worryTypeEl ? worryTypeEl.value : "";
     var other = worryOther.value.trim();
+    var pastEffort = document.getElementById("pastEffort").value.trim();
     var worryNow = document.getElementById("worryNow").value.trim();
     var ideal = document.getElementById("ideal").value.trim();
     var reason = document.getElementById("reason").value.trim();
@@ -298,19 +326,19 @@
     showErr("age", !age);
     showErr("worryType", !worryType);
     showErr("worryOther", worryType === "その他" && !other);
+    showErr("pastEffort", !pastEffort);
     showErr("worryNow", !worryNow);
     showErr("ideal", !ideal);
     showErr("reason", !reason);
     showErr("motivation", !motivation);
 
-    if (!lineName || !fullName || !age || !worryType || !worryNow || !ideal || !reason || !motivation) return;
+    if (!lineName || !fullName || !age || !worryType || !pastEffort || !worryNow || !ideal || !reason || !motivation) return;
     if (worryType === "その他" && !other) return;
 
     showErr("submit", false);
     submitBtn.disabled = true;
     submitBtn.textContent = "送信しています…";
 
-    var thanks = raw === "douga" ? "thanks-douga.html" : "thanks-naimen.html";
     var payload = {
       plan: planName,
       lineName: lineName,
@@ -318,16 +346,26 @@
       age: age,
       worryType: worryType,
       worryOther: other,
+      pastEffort: pastEffort,
       worryNow: worryNow,
       ideal: ideal,
       reason: reason,
       motivation: motivation
     };
 
-    try {
-      sessionStorage.setItem("enrollPayload", JSON.stringify(payload));
-    } catch (err) {}
-    location.replace(thanks);
+    document.getElementById("hero").style.display = "none";
+    form.style.display = "none";
+    document.getElementById("doneBadge").textContent = planName;
+    document.getElementById("doneLead").textContent = "いま書いていただいた内容は、" + planName + "として届いています。";
+    document.getElementById("done").classList.add("is-on");
+
+    fetch("https://script.google.com/macros/s/AKfycbwQ9Q_SRfHoOlVkaXb0l3dFvxru5HNvr9l8q4-GyDuQSaYDsTjc4LnGm-xrgdsWsbhzlA/exec", {
+      method: "POST",
+      mode: "no-cors",
+      keepalive: true,
+      headers: { "Content-Type": "text/plain;charset=UTF-8" },
+      body: JSON.stringify(payload)
+    });
   });
 })();
 </script>
