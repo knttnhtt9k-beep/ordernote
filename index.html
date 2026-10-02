@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- enroll 2026-10-01 -->
+<!-- enroll 2026-10-02 -->
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
@@ -159,18 +159,40 @@
     color: #c0392b;
   }
   .err.is-on { display: block; }
-  .done { display: none; }
+  .done { display: none; padding: 36px 22px 24px; }
   .done.is-on { display: block; }
   .done h1 {
     font-size: 18px;
-    line-height: 1.55;
+    line-height: 1.6;
     margin: 0 0 16px;
   }
   .done p {
     font-size: 14px;
     line-height: 1.85;
-    margin: 0 0 12px;
+    margin: 0 0 14px;
     color: #4a3f4c;
+  }
+  .done .cta {
+    font-weight: 700;
+    color: var(--text);
+  }
+  .done .label {
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    margin: 18px 0 8px;
+    color: var(--text);
+  }
+  .done .msg {
+    margin: 0 0 16px;
+    padding: 14px 16px;
+    border-radius: 12px;
+    background: #fff7fa;
+    border: 1px solid var(--line);
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--text);
+    white-space: pre-wrap;
   }
 </style>
 </head>
@@ -262,10 +284,16 @@
 
     <div class="done" id="done">
       <div class="badge" id="doneBadge"></div>
-      <h1>送信、ありがとうございました。</h1>
-      <p id="doneLead"></p>
-      <p>はにぃが初回のときに、この用紙を開いて話します。</p>
-      <p>この画面は閉じて大丈夫です。</p>
+      <h1>アンケートのご記入ありがとうございました！</h1>
+      <p>初回セッションでは、講師のはにぃが今回記載いただいたアンケートをもとに行います。</p>
+      <p class="cta">このアンケートが届いたLINEを開いて、内面セッションができる日を、日時つきで3つ送ってください。</p>
+      <p>日付と、その日に始められる時刻を書いてください。<br>例：10月8日 11~20時／10月9日 21時以降／10月12日 終日</p>
+      <span class="label">LINEに送る文</span>
+      <div class="msg">入れる日はこちらです。
+・○月○日 ○時〜
+・○月○日 ○時〜
+・○月○日 ○時〜</div>
+      <p>3つのうち、内面セッションが可能な日程を講師よりご返信いたします。</p>
     </div>
   </div>
 
@@ -273,6 +301,7 @@
 (function () {
   var params = new URLSearchParams(location.search);
   var raw = (params.get("plan") || "").toLowerCase();
+  var showThanksFirst = params.get("thanks") === "1";
   var plans = {
     naimen: "内面セッションのみ",
     douga: "動画講座＋セッション"
@@ -284,8 +313,27 @@
   var submitBtn = document.getElementById("submitBtn");
   var otherWrap = document.getElementById("otherWrap");
   var worryOther = document.getElementById("worryOther");
+  var hero = document.getElementById("hero");
+  var done = document.getElementById("done");
+  var doneBadge = document.getElementById("doneBadge");
 
-  if (planName) {
+  function showThanks() {
+    hero.style.display = "none";
+    form.style.display = "none";
+    noPlan.classList.remove("is-on");
+    if (planName) {
+      doneBadge.textContent = planName;
+      doneBadge.style.display = "inline-block";
+    } else {
+      doneBadge.style.display = "none";
+    }
+    done.classList.add("is-on");
+    document.title = "送信完了｜オーダーノート現実創造プログラム";
+  }
+
+  if (showThanksFirst) {
+    showThanks();
+  } else if (planName) {
     planInput.value = planName;
   } else {
     noPlan.classList.add("is-on");
@@ -353,11 +401,9 @@
       motivation: motivation
     };
 
-    document.getElementById("hero").style.display = "none";
-    form.style.display = "none";
-    document.getElementById("doneBadge").textContent = planName;
-    document.getElementById("doneLead").textContent = "いま書いていただいた内容は、" + planName + "として届いています。";
-    document.getElementById("done").classList.add("is-on");
+    var next = "?plan=" + encodeURIComponent(raw) + "&thanks=1";
+    history.replaceState(null, "", next);
+    showThanks();
 
     fetch("https://script.google.com/macros/s/AKfycbwQ9Q_SRfHoOlVkaXb0l3dFvxru5HNvr9l8q4-GyDuQSaYDsTjc4LnGm-xrgdsWsbhzlA/exec", {
       method: "POST",
