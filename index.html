@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- enroll 2026-10-04 -->
+<!-- enroll 2026-10-04 split -->
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
@@ -63,12 +63,6 @@
     color: #4a3f4c;
     text-align: left;
   }
-  .pager {
-    margin: 12px 0 0;
-    font-size: 12px;
-    color: #c44d7a;
-    font-weight: 700;
-  }
   .warn {
     display: none;
     margin: 16px 22px 0;
@@ -82,8 +76,7 @@
   }
   .warn.is-on { display: block; }
   form { padding: 8px 22px 0; }
-  .page { display: none; }
-  .page.is-on { display: block; }
+  .form-hidden { display: none; }
   .sec {
     margin: 10px 0 22px;
     padding-top: 16px;
@@ -171,9 +164,7 @@
   .pair .row .choice-text { font-size: 12px; }
   .other, .reveal { display: none; }
   .other.is-on, .reveal.is-on { display: block; }
-  .submit,
-  .next,
-  .back {
+  .submit {
     width: 100%;
     border: 0;
     border-radius: 999px;
@@ -181,27 +172,12 @@
     margin-top: 8px;
     font-size: 16px;
     font-weight: 700;
-    cursor: pointer;
-  }
-  .submit,
-  .next {
     color: #fff;
     background: linear-gradient(90deg, var(--pink), var(--purple));
     box-shadow: var(--shadow);
+    cursor: pointer;
   }
-  .back {
-    color: var(--text);
-    background: #fff;
-    border: 1px solid var(--line);
-  }
-  .btn-row {
-    display: grid;
-    grid-template-columns: 1fr 1.5fr;
-    gap: 10px;
-    margin-top: 8px;
-  }
-  .submit:disabled,
-  .next:disabled {
+  .submit:disabled {
     opacity: 0.45;
     cursor: not-allowed;
     box-shadow: none;
@@ -253,370 +229,360 @@
 <body>
   <div class="app">
     <div class="hero" id="hero">
-      <div class="badge">【恋愛特化版】オーダーノート現実創造プログラム</div>
-      <h1>入会アンケート</h1>
+      <div class="badge" id="heroBadge">【恋愛特化版】オーダーノート現実創造プログラム</div>
+      <h1 id="heroTitle">入会アンケート</h1>
       <p class="lead" id="lead">
         講座のご入会、ありがとうございます。<br>
         初回セッションはこちらの内容を<br>
         もとに行いますので、ゆっくりご記入ください。
       </p>
-      <div class="pager" id="pager">2ページのうち 1ページ目</div>
     </div>
 
     <div class="warn" id="noPlan">
       このページは、お送りした専用リンクから開いてください。リンクが違うと、どちらのプランか分からず送れません。
     </div>
 
-    <form id="form">
-      <div class="page is-on" id="page1">
-        <div class="field">
-          <label for="lineName">LINE名 <span>必須</span></label>
-          <input id="lineName" name="lineName" type="text" autocomplete="nickname">
-          <div class="err" data-err="lineName">LINEで表示されている名前を書いてください。</div>
-        </div>
-
-        <div class="field">
-          <label for="fullName">お名前 <span>必須</span></label>
-          <input id="fullName" name="fullName" type="text" autocomplete="name">
-          <div class="err" data-err="fullName">お名前を書いてください。</div>
-        </div>
-
-        <div class="field">
-          <label for="age">年齢 <span>必須</span></label>
-          <input id="age" name="age" type="text" inputmode="numeric" autocomplete="off">
-          <div class="err" data-err="age">年齢を書いてください。</div>
-        </div>
-
-        <div class="field">
-          <label>いまの恋愛の状況 <span>必須</span></label>
-          <div class="choices">
-            <label class="choice"><input type="radio" name="worryType" value="交際中"><span class="choice-text">交際中</span></label>
-            <label class="choice"><input type="radio" name="worryType" value="復縁"><span class="choice-text">復縁</span></label>
-            <label class="choice"><input type="radio" name="worryType" value="不倫など複雑恋愛"><span class="choice-text">不倫など複雑恋愛</span></label>
-            <label class="choice"><input type="radio" name="worryType" value="出会いがない"><span class="choice-text">出会いがない</span></label>
-            <label class="choice"><input type="radio" name="worryType" value="その他"><span class="choice-text">その他</span></label>
-          </div>
-          <div class="other" id="otherWrap">
-            <input id="worryOther" name="worryOther" type="text" placeholder="その他の内容を書いてください">
-          </div>
-          <div class="err" data-err="worryType">いまの恋愛の状況を1つ選んでください。</div>
-          <div class="err" data-err="worryOther">その他の内容を書いてください。</div>
-        </div>
-
-        <div class="field">
-          <label for="pastEffort">過去の恋愛で努力したこと・試したこと <span>必須</span></label>
-          <textarea id="pastEffort" name="pastEffort" placeholder="外見を磨く、男性心理を学ぶなど"></textarea>
-          <div class="err" data-err="pastEffort">過去に試したことを書いてください。</div>
-        </div>
-
-        <div class="field">
-          <label for="worryNow">現在のお悩み <span class="long">必須・恋愛以外にもお金や仕事などのお悩みもお書きください</span></label>
-          <textarea id="worryNow" name="worryNow"></textarea>
-          <div class="err" data-err="worryNow">いま困っていることを書いてください。</div>
-        </div>
-
-        <div class="field">
-          <label for="ideal">あなたの理想 <span>必須</span></label>
-          <textarea id="ideal" name="ideal"></textarea>
-          <div class="err" data-err="ideal">理想の状態を書いてください。</div>
-        </div>
-
-        <div class="field">
-          <label for="reason">講座に参加した理由 <span>必須</span></label>
-          <textarea id="reason" name="reason"></textarea>
-          <div class="err" data-err="reason">参加した理由を書いてください。</div>
-        </div>
-
-        <div class="field">
-          <label for="motivation">講座への意気込み <span>必須</span></label>
-          <textarea id="motivation" name="motivation"></textarea>
-          <div class="err" data-err="motivation">意気込みを書いてください。</div>
-        </div>
-
-        <button class="next" id="nextBtn" type="button">次へ</button>
+    <form id="enrollForm">
+      <div class="field">
+        <label for="lineName">LINE名 <span>必須</span></label>
+        <input id="lineName" name="lineName" type="text" autocomplete="nickname">
+        <div class="err" data-err="lineName">LINEで表示されている名前を書いてください。</div>
       </div>
-
-      <div class="page" id="page2">
-        <div class="sec">
-          <h2>① 基本情報</h2>
-          <div class="field">
-            <label for="p2Name">名前 <span>必須</span></label>
-            <input id="p2Name" name="p2Name" type="text" autocomplete="name">
-            <div class="err" data-err="p2Name">名前を書いてください。</div>
-          </div>
-          <div class="field">
-            <label for="nickname">ニックネーム <span>必須</span></label>
-            <input id="nickname" name="nickname" type="text">
-            <div class="err" data-err="nickname">ニックネームを書いてください。</div>
-          </div>
-          <div class="field">
-            <label for="birthday">生年月日 <span>必須</span></label>
-            <input id="birthday" name="birthday" type="date">
-            <div class="err" data-err="birthday">生年月日を入れてください。</div>
-          </div>
-          <div class="field">
-            <label for="p2Age">年齢 <span>必須</span></label>
-            <input id="p2Age" name="p2Age" type="text" inputmode="numeric">
-            <div class="err" data-err="p2Age">年齢を書いてください。</div>
-          </div>
-          <div class="field">
-            <label for="birthplace">出身地（都道府県） <span>必須</span></label>
-            <select id="birthplace" name="birthplace"></select>
-            <div class="err" data-err="birthplace">出身地を選んでください。</div>
-          </div>
-          <div class="field">
-            <label for="residence">居住地（都道府県） <span>必須</span></label>
-            <select id="residence" name="residence"></select>
-            <div class="err" data-err="residence">居住地を選んでください。</div>
-          </div>
-        </div>
-
-        <div class="sec">
-          <h2>② 家族・婚姻・子ども</h2>
-          <div class="field">
-            <label for="siblingCount">自分の兄弟姉妹（自分を含む） <span>必須</span></label>
-            <input id="siblingCount" name="siblingCount" type="text" inputmode="numeric" placeholder="例：3">
-            <div class="err" data-err="siblingCount">人数を書いてください。</div>
-          </div>
-          <div class="field">
-            <label>兄弟姉妹の構成 <span>必須</span></label>
-            <div class="choices">
-              <label class="choice"><input type="radio" name="siblingType" value="一人っ子"><span class="choice-text">一人っ子</span></label>
-              <label class="choice"><input type="radio" name="siblingType" value="長女"><span class="choice-text">長女</span></label>
-              <label class="choice"><input type="radio" name="siblingType" value="次女"><span class="choice-text">次女</span></label>
-              <label class="choice"><input type="radio" name="siblingType" value="三女"><span class="choice-text">三女</span></label>
-              <label class="choice"><input type="radio" name="siblingType" value="その他"><span class="choice-text">その他</span></label>
-            </div>
-            <div class="other" id="siblingOtherWrap">
-              <input id="siblingOther" name="siblingOther" type="text" placeholder="その他の内容を書いてください">
-            </div>
-            <div class="err" data-err="siblingType">構成を1つ選んでください。</div>
-            <div class="err" data-err="siblingOther">その他の内容を書いてください。</div>
-          </div>
-          <div class="field">
-            <label>婚姻状況 <span>必須</span></label>
-            <div class="choices">
-              <label class="choice"><input type="radio" name="marital" value="未婚"><span class="choice-text">未婚</span></label>
-              <label class="choice"><input type="radio" name="marital" value="既婚"><span class="choice-text">既婚</span></label>
-            </div>
-            <div class="err" data-err="marital">婚姻状況を選んでください。</div>
-          </div>
-          <div class="field">
-            <label>過去の結婚歴 <span>必須</span></label>
-            <div class="choices">
-              <label class="choice"><input type="radio" name="pastMarriage" value="あり"><span class="choice-text">あり</span></label>
-              <label class="choice"><input type="radio" name="pastMarriage" value="なし"><span class="choice-text">なし</span></label>
-            </div>
-            <div class="err" data-err="pastMarriage">過去の結婚歴を選んでください。</div>
-          </div>
-          <div class="field">
-            <label>子ども <span>必須</span></label>
-            <div class="choices">
-              <label class="choice"><input type="radio" name="children" value="なし"><span class="choice-text">なし</span></label>
-              <label class="choice"><input type="radio" name="children" value="あり"><span class="choice-text">あり</span></label>
-            </div>
-            <div class="err" data-err="children">子どもについて選んでください。</div>
-          </div>
-          <div class="reveal" id="childrenWrap">
-            <div class="field">
-              <label for="childCount">子どもの人数 <span>必須</span></label>
-              <input id="childCount" name="childCount" type="text" inputmode="numeric">
-              <div class="err" data-err="childCount">人数を書いてください。</div>
-            </div>
-            <div class="field">
-              <label for="childAge">子どもの年齢 <span>必須</span></label>
-              <input id="childAge" name="childAge" type="text" placeholder="例：8歳、5歳">
-              <div class="err" data-err="childAge">年齢を書いてください。</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="sec">
-          <h2>③ 家族との関係性</h2>
-          <div class="field">
-            <label>父との関係 <span>必須</span></label>
-            <div class="pair">
-              <div class="sub">過去</div>
-              <div class="row">
-                <label class="choice"><input type="radio" name="fatherPast" value="良好"><span class="choice-text">良好</span></label>
-                <label class="choice"><input type="radio" name="fatherPast" value="普通"><span class="choice-text">普通</span></label>
-                <label class="choice"><input type="radio" name="fatherPast" value="あまり良好ではない"><span class="choice-text">あまり良好ではない</span></label>
-              </div>
-            </div>
-            <div class="pair">
-              <div class="sub">現在</div>
-              <div class="row">
-                <label class="choice"><input type="radio" name="fatherNow" value="良好"><span class="choice-text">良好</span></label>
-                <label class="choice"><input type="radio" name="fatherNow" value="普通"><span class="choice-text">普通</span></label>
-                <label class="choice"><input type="radio" name="fatherNow" value="あまり良好ではない"><span class="choice-text">あまり良好ではない</span></label>
-              </div>
-            </div>
-            <div class="err" data-err="fatherPast">父との過去の関係を選んでください。</div>
-            <div class="err" data-err="fatherNow">父との現在の関係を選んでください。</div>
-          </div>
-          <div class="field">
-            <label>母との関係 <span>必須</span></label>
-            <div class="pair">
-              <div class="sub">過去</div>
-              <div class="row">
-                <label class="choice"><input type="radio" name="motherPast" value="良好"><span class="choice-text">良好</span></label>
-                <label class="choice"><input type="radio" name="motherPast" value="普通"><span class="choice-text">普通</span></label>
-                <label class="choice"><input type="radio" name="motherPast" value="あまり良好ではない"><span class="choice-text">あまり良好ではない</span></label>
-              </div>
-            </div>
-            <div class="pair">
-              <div class="sub">現在</div>
-              <div class="row">
-                <label class="choice"><input type="radio" name="motherNow" value="良好"><span class="choice-text">良好</span></label>
-                <label class="choice"><input type="radio" name="motherNow" value="普通"><span class="choice-text">普通</span></label>
-                <label class="choice"><input type="radio" name="motherNow" value="あまり良好ではない"><span class="choice-text">あまり良好ではない</span></label>
-              </div>
-            </div>
-            <div class="err" data-err="motherPast">母との過去の関係を選んでください。</div>
-            <div class="err" data-err="motherNow">母との現在の関係を選んでください。</div>
-          </div>
-          <div class="reveal" id="childRelWrap">
-            <div class="field">
-              <label>子どもとの関係 <span>子どもがいる方のみ・必須</span></label>
-              <div class="pair">
-                <div class="sub">過去</div>
-                <div class="row">
-                  <label class="choice"><input type="radio" name="childRelPast" value="良好"><span class="choice-text">良好</span></label>
-                  <label class="choice"><input type="radio" name="childRelPast" value="普通"><span class="choice-text">普通</span></label>
-                  <label class="choice"><input type="radio" name="childRelPast" value="あまり良好ではない"><span class="choice-text">あまり良好ではない</span></label>
-                </div>
-              </div>
-              <div class="pair">
-                <div class="sub">現在</div>
-                <div class="row">
-                  <label class="choice"><input type="radio" name="childRelNow" value="良好"><span class="choice-text">良好</span></label>
-                  <label class="choice"><input type="radio" name="childRelNow" value="普通"><span class="choice-text">普通</span></label>
-                  <label class="choice"><input type="radio" name="childRelNow" value="あまり良好ではない"><span class="choice-text">あまり良好ではない</span></label>
-                </div>
-              </div>
-              <div class="err" data-err="childRelPast">子どもとの過去の関係を選んでください。</div>
-              <div class="err" data-err="childRelNow">子どもとの現在の関係を選んでください。</div>
-            </div>
-          </div>
-          <div class="field">
-            <label>主に育ててくれた・関わりが深かった人 <span>必須</span></label>
-            <div class="choices">
-              <label class="choice"><input type="radio" name="caregiver" value="父"><span class="choice-text">父</span></label>
-              <label class="choice"><input type="radio" name="caregiver" value="母"><span class="choice-text">母</span></label>
-              <label class="choice"><input type="radio" name="caregiver" value="祖父"><span class="choice-text">祖父</span></label>
-              <label class="choice"><input type="radio" name="caregiver" value="祖母"><span class="choice-text">祖母</span></label>
-              <label class="choice"><input type="radio" name="caregiver" value="その他"><span class="choice-text">その他</span></label>
-            </div>
-            <div class="other" id="caregiverOtherWrap">
-              <input id="caregiverOther" name="caregiverOther" type="text" placeholder="その他の内容を書いてください">
-            </div>
-            <div class="err" data-err="caregiver">1つ選んでください。</div>
-            <div class="err" data-err="caregiverOther">その他の内容を書いてください。</div>
-          </div>
-          <div class="field">
-            <label for="familyChange">過去から現在にかけて、家族や身近な人との関係で大きな変化があったこと <span>必須</span></label>
-            <p class="hint">例：「幼少期は祖母に育てられた」「母とは昔は仲が悪かったけど今は良好」「父とはほぼ関わりがなかった」</p>
-            <textarea id="familyChange" name="familyChange"></textarea>
-            <div class="err" data-err="familyChange">変化があったことを書いてください。なければ「特にない」と書いてください。</div>
-          </div>
-        </div>
-
-        <div class="sec">
-          <h2>④ 健康・服薬について</h2>
-          <div class="field">
-            <label>現在または過去に、病気・治療・通院等について共有しておきたいことはありますか？ <span>必須</span></label>
-            <div class="choices">
-              <label class="choice"><input type="radio" name="illness" value="なし"><span class="choice-text">なし</span></label>
-              <label class="choice"><input type="radio" name="illness" value="あり"><span class="choice-text">あり</span></label>
-            </div>
-            <div class="err" data-err="illness">なし・ありを選んでください。</div>
-          </div>
-          <div class="reveal" id="illnessWrap">
-            <div class="field">
-              <label for="illnessWhen">時期 <span>必須</span></label>
-              <input id="illnessWhen" name="illnessWhen" type="text">
-              <div class="err" data-err="illnessWhen">時期を書いてください。</div>
-            </div>
-            <div class="field">
-              <label for="illnessWhat">内容 <span>必須</span></label>
-              <textarea id="illnessWhat" name="illnessWhat"></textarea>
-              <div class="err" data-err="illnessWhat">内容を書いてください。</div>
-            </div>
-          </div>
-          <div class="field">
-            <label>現在、薬を服用していますか？ <span>必須</span></label>
-            <div class="choices">
-              <label class="choice"><input type="radio" name="medicine" value="いいえ"><span class="choice-text">いいえ</span></label>
-              <label class="choice"><input type="radio" name="medicine" value="はい"><span class="choice-text">はい</span></label>
-            </div>
-            <div class="err" data-err="medicine">服用の有無を選んでください。</div>
-          </div>
-          <div class="reveal" id="medicineWrap">
-            <div class="field">
-              <label for="medicineDetail">薬の内容・服用するタイミング・開始時期など <span>必須</span></label>
-              <textarea id="medicineDetail" name="medicineDetail"></textarea>
-              <div class="err" data-err="medicineDetail">薬の内容を書いてください。</div>
-            </div>
-            <div class="field">
-              <label>副作用 <span>必須</span></label>
-              <div class="choices">
-                <label class="choice"><input type="radio" name="sideEffect" value="なし"><span class="choice-text">なし</span></label>
-                <label class="choice"><input type="radio" name="sideEffect" value="あり"><span class="choice-text">あり</span></label>
-              </div>
-              <div class="err" data-err="sideEffect">副作用の有無を選んでください。</div>
-            </div>
-            <div class="field">
-              <label for="medicineNote">備考</label>
-              <textarea id="medicineNote" name="medicineNote"></textarea>
-            </div>
-          </div>
-        </div>
-
-        <div class="sec">
-          <h2>⑤ セルフイメージ</h2>
-          <div class="field">
-            <label>自信が持てないと感じること・気になっていること <span>必須・複数選択可</span></label>
-            <div class="choices" id="selfChoices">
-              <label class="choice"><input type="checkbox" name="selfImage" value="学歴・学力"><span class="choice-text">学歴・学力</span></label>
-              <label class="choice"><input type="checkbox" name="selfImage" value="仕事・キャリア"><span class="choice-text">仕事・キャリア</span></label>
-              <label class="choice"><input type="checkbox" name="selfImage" value="収入・経済面"><span class="choice-text">収入・経済面</span></label>
-              <label class="choice"><input type="checkbox" name="selfImage" value="容姿・顔"><span class="choice-text">容姿・顔</span></label>
-              <label class="choice"><input type="checkbox" name="selfImage" value="身長"><span class="choice-text">身長</span></label>
-              <label class="choice"><input type="checkbox" name="selfImage" value="体型・体重"><span class="choice-text">体型・体重</span></label>
-              <label class="choice"><input type="checkbox" name="selfImage" value="肌・髪・身体的特徴"><span class="choice-text">肌・髪・身体的特徴</span></label>
-              <label class="choice"><input type="checkbox" name="selfImage" value="ファッション・服装"><span class="choice-text">ファッション・服装</span></label>
-              <label class="choice"><input type="checkbox" name="selfImage" value="結婚歴"><span class="choice-text">結婚歴</span></label>
-              <label class="choice"><input type="checkbox" name="selfImage" value="家族・家庭環境"><span class="choice-text">家族・家庭環境</span></label>
-              <label class="choice"><input type="checkbox" name="selfImage" value="性格・人柄"><span class="choice-text">性格・人柄</span></label>
-              <label class="choice"><input type="checkbox" name="selfImage" value="コミュニケーション"><span class="choice-text">コミュニケーション</span></label>
-              <label class="choice"><input type="checkbox" name="selfImage" value="過去の経験"><span class="choice-text">過去の経験</span></label>
-              <label class="choice"><input type="checkbox" name="selfImage" value="育った環境"><span class="choice-text">育った環境</span></label>
-              <label class="choice"><input type="checkbox" name="selfImage" value="人間関係"><span class="choice-text">人間関係</span></label>
-              <label class="choice"><input type="checkbox" name="selfImage" value="その他"><span class="choice-text">その他</span></label>
-              <label class="choice"><input type="checkbox" name="selfImage" value="特にない" id="selfNone"><span class="choice-text">特にない</span></label>
-            </div>
-            <div class="other" id="selfOtherWrap">
-              <input id="selfOther" name="selfOther" type="text" placeholder="その他の内容を書いてください">
-            </div>
-            <div class="err" data-err="selfImage">当てはまるものを選んでください。</div>
-            <div class="err" data-err="selfOther">その他の内容を書いてください。</div>
-          </div>
-          <div class="field">
-            <label for="selfDetail">特に気になっていること・自信が持てないと感じることがあれば教えてください</label>
-            <textarea id="selfDetail" name="selfDetail"></textarea>
-          </div>
-        </div>
-
-        <input type="hidden" name="plan" id="plan">
-        <div class="btn-row">
-          <button class="back" id="backBtn" type="button">戻る</button>
-          <button class="submit" id="submitBtn" type="submit">送信する</button>
-        </div>
-        <div class="err" data-err="submit">送信できませんでした。もう一度押してください。</div>
+      <div class="field">
+        <label for="fullName">お名前 <span>必須</span></label>
+        <input id="fullName" name="fullName" type="text" autocomplete="name">
+        <div class="err" data-err="fullName">お名前を書いてください。</div>
       </div>
+      <div class="field">
+        <label for="age">年齢 <span>必須</span></label>
+        <input id="age" name="age" type="text" inputmode="numeric" autocomplete="off">
+        <div class="err" data-err="age">年齢を書いてください。</div>
+      </div>
+      <div class="field">
+        <label>いまの恋愛の状況 <span>必須</span></label>
+        <div class="choices">
+          <label class="choice"><input type="radio" name="worryType" value="交際中"><span class="choice-text">交際中</span></label>
+          <label class="choice"><input type="radio" name="worryType" value="復縁"><span class="choice-text">復縁</span></label>
+          <label class="choice"><input type="radio" name="worryType" value="不倫など複雑恋愛"><span class="choice-text">不倫など複雑恋愛</span></label>
+          <label class="choice"><input type="radio" name="worryType" value="出会いがない"><span class="choice-text">出会いがない</span></label>
+          <label class="choice"><input type="radio" name="worryType" value="その他"><span class="choice-text">その他</span></label>
+        </div>
+        <div class="other" id="otherWrap">
+          <input id="worryOther" name="worryOther" type="text" placeholder="その他の内容を書いてください">
+        </div>
+        <div class="err" data-err="worryType">いまの恋愛の状況を1つ選んでください。</div>
+        <div class="err" data-err="worryOther">その他の内容を書いてください。</div>
+      </div>
+      <div class="field">
+        <label for="pastEffort">過去の恋愛で努力したこと・試したこと <span>必須</span></label>
+        <textarea id="pastEffort" name="pastEffort" placeholder="外見を磨く、男性心理を学ぶなど"></textarea>
+        <div class="err" data-err="pastEffort">過去に試したことを書いてください。</div>
+      </div>
+      <div class="field">
+        <label for="worryNow">現在のお悩み <span class="long">必須・恋愛以外にもお金や仕事などのお悩みもお書きください</span></label>
+        <textarea id="worryNow" name="worryNow"></textarea>
+        <div class="err" data-err="worryNow">いま困っていることを書いてください。</div>
+      </div>
+      <div class="field">
+        <label for="ideal">あなたの理想 <span>必須</span></label>
+        <textarea id="ideal" name="ideal"></textarea>
+        <div class="err" data-err="ideal">理想の状態を書いてください。</div>
+      </div>
+      <div class="field">
+        <label for="reason">講座に参加した理由 <span>必須</span></label>
+        <textarea id="reason" name="reason"></textarea>
+        <div class="err" data-err="reason">参加した理由を書いてください。</div>
+      </div>
+      <div class="field">
+        <label for="motivation">講座への意気込み <span>必須</span></label>
+        <textarea id="motivation" name="motivation"></textarea>
+        <div class="err" data-err="motivation">意気込みを書いてください。</div>
+      </div>
+      <input type="hidden" name="plan" id="plan">
+      <button class="submit" id="enrollBtn" type="submit">送信する</button>
+      <div class="err" data-err="enrollSubmit">送信できませんでした。もう一度押してください。</div>
     </form>
 
-    <div class="done" id="done">
+    <form id="profileForm" class="form-hidden">
+      <div class="field">
+        <label for="profLineName">LINE名 <span>必須</span></label>
+        <input id="profLineName" name="profLineName" type="text" autocomplete="nickname">
+        <div class="err" data-err="profLineName">LINEで表示されている名前を書いてください。</div>
+      </div>
+      <div class="sec">
+        <h2>① 基本情報</h2>
+        <div class="field">
+          <label for="p2Name">名前 <span>必須</span></label>
+          <input id="p2Name" name="p2Name" type="text" autocomplete="name">
+          <div class="err" data-err="p2Name">名前を書いてください。</div>
+        </div>
+        <div class="field">
+          <label for="nickname">ニックネーム <span>必須</span></label>
+          <input id="nickname" name="nickname" type="text">
+          <div class="err" data-err="nickname">ニックネームを書いてください。</div>
+        </div>
+        <div class="field">
+          <label for="birthday">生年月日 <span>必須</span></label>
+          <input id="birthday" name="birthday" type="date">
+          <div class="err" data-err="birthday">生年月日を入れてください。</div>
+        </div>
+        <div class="field">
+          <label for="p2Age">年齢 <span>必須</span></label>
+          <input id="p2Age" name="p2Age" type="text" inputmode="numeric">
+          <div class="err" data-err="p2Age">年齢を書いてください。</div>
+        </div>
+        <div class="field">
+          <label for="birthplace">出身地（都道府県） <span>必須</span></label>
+          <select id="birthplace" name="birthplace"></select>
+          <div class="err" data-err="birthplace">出身地を選んでください。</div>
+        </div>
+        <div class="field">
+          <label for="residence">居住地（都道府県） <span>必須</span></label>
+          <select id="residence" name="residence"></select>
+          <div class="err" data-err="residence">居住地を選んでください。</div>
+        </div>
+      </div>
+
+      <div class="sec">
+        <h2>② 家族・婚姻・子ども</h2>
+        <div class="field">
+          <label for="siblingCount">自分の兄弟姉妹（自分を含む） <span>必須</span></label>
+          <input id="siblingCount" name="siblingCount" type="text" inputmode="numeric" placeholder="例：3">
+          <div class="err" data-err="siblingCount">人数を書いてください。</div>
+        </div>
+        <div class="field">
+          <label>兄弟姉妹の構成 <span>必須</span></label>
+          <div class="choices">
+            <label class="choice"><input type="radio" name="siblingType" value="一人っ子"><span class="choice-text">一人っ子</span></label>
+            <label class="choice"><input type="radio" name="siblingType" value="長女"><span class="choice-text">長女</span></label>
+            <label class="choice"><input type="radio" name="siblingType" value="次女"><span class="choice-text">次女</span></label>
+            <label class="choice"><input type="radio" name="siblingType" value="三女"><span class="choice-text">三女</span></label>
+            <label class="choice"><input type="radio" name="siblingType" value="その他"><span class="choice-text">その他</span></label>
+          </div>
+          <div class="other" id="siblingOtherWrap">
+            <input id="siblingOther" name="siblingOther" type="text" placeholder="その他の内容を書いてください">
+          </div>
+          <div class="err" data-err="siblingType">構成を1つ選んでください。</div>
+          <div class="err" data-err="siblingOther">その他の内容を書いてください。</div>
+        </div>
+        <div class="field">
+          <label>婚姻状況 <span>必須</span></label>
+          <div class="choices">
+            <label class="choice"><input type="radio" name="marital" value="未婚"><span class="choice-text">未婚</span></label>
+            <label class="choice"><input type="radio" name="marital" value="既婚"><span class="choice-text">既婚</span></label>
+          </div>
+          <div class="err" data-err="marital">婚姻状況を選んでください。</div>
+        </div>
+        <div class="field">
+          <label>過去の結婚歴 <span>必須</span></label>
+          <div class="choices">
+            <label class="choice"><input type="radio" name="pastMarriage" value="あり"><span class="choice-text">あり</span></label>
+            <label class="choice"><input type="radio" name="pastMarriage" value="なし"><span class="choice-text">なし</span></label>
+          </div>
+          <div class="err" data-err="pastMarriage">過去の結婚歴を選んでください。</div>
+        </div>
+        <div class="field">
+          <label>子ども <span>必須</span></label>
+          <div class="choices">
+            <label class="choice"><input type="radio" name="children" value="なし"><span class="choice-text">なし</span></label>
+            <label class="choice"><input type="radio" name="children" value="あり"><span class="choice-text">あり</span></label>
+          </div>
+          <div class="err" data-err="children">子どもについて選んでください。</div>
+        </div>
+        <div class="reveal" id="childrenWrap">
+          <div class="field">
+            <label for="childCount">子どもの人数 <span>必須</span></label>
+            <input id="childCount" name="childCount" type="text" inputmode="numeric">
+            <div class="err" data-err="childCount">人数を書いてください。</div>
+          </div>
+          <div class="field">
+            <label for="childAge">子どもの年齢 <span>必須</span></label>
+            <input id="childAge" name="childAge" type="text" placeholder="例：8歳、5歳">
+            <div class="err" data-err="childAge">年齢を書いてください。</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sec">
+        <h2>③ 家族との関係性</h2>
+        <div class="field">
+          <label>父との関係 <span>必須</span></label>
+          <div class="pair">
+            <div class="sub">過去</div>
+            <div class="row">
+              <label class="choice"><input type="radio" name="fatherPast" value="良好"><span class="choice-text">良好</span></label>
+              <label class="choice"><input type="radio" name="fatherPast" value="普通"><span class="choice-text">普通</span></label>
+              <label class="choice"><input type="radio" name="fatherPast" value="あまり良好ではない"><span class="choice-text">あまり良好ではない</span></label>
+            </div>
+          </div>
+          <div class="pair">
+            <div class="sub">現在</div>
+            <div class="row">
+              <label class="choice"><input type="radio" name="fatherNow" value="良好"><span class="choice-text">良好</span></label>
+              <label class="choice"><input type="radio" name="fatherNow" value="普通"><span class="choice-text">普通</span></label>
+              <label class="choice"><input type="radio" name="fatherNow" value="あまり良好ではない"><span class="choice-text">あまり良好ではない</span></label>
+            </div>
+          </div>
+          <div class="err" data-err="fatherPast">父との過去の関係を選んでください。</div>
+          <div class="err" data-err="fatherNow">父との現在の関係を選んでください。</div>
+        </div>
+        <div class="field">
+          <label>母との関係 <span>必須</span></label>
+          <div class="pair">
+            <div class="sub">過去</div>
+            <div class="row">
+              <label class="choice"><input type="radio" name="motherPast" value="良好"><span class="choice-text">良好</span></label>
+              <label class="choice"><input type="radio" name="motherPast" value="普通"><span class="choice-text">普通</span></label>
+              <label class="choice"><input type="radio" name="motherPast" value="あまり良好ではない"><span class="choice-text">あまり良好ではない</span></label>
+            </div>
+          </div>
+          <div class="pair">
+            <div class="sub">現在</div>
+            <div class="row">
+              <label class="choice"><input type="radio" name="motherNow" value="良好"><span class="choice-text">良好</span></label>
+              <label class="choice"><input type="radio" name="motherNow" value="普通"><span class="choice-text">普通</span></label>
+              <label class="choice"><input type="radio" name="motherNow" value="あまり良好ではない"><span class="choice-text">あまり良好ではない</span></label>
+            </div>
+          </div>
+          <div class="err" data-err="motherPast">母との過去の関係を選んでください。</div>
+          <div class="err" data-err="motherNow">母との現在の関係を選んでください。</div>
+        </div>
+        <div class="reveal" id="childRelWrap">
+          <div class="field">
+            <label>子どもとの関係 <span>子どもがいる方のみ・必須</span></label>
+            <div class="pair">
+              <div class="sub">過去</div>
+              <div class="row">
+                <label class="choice"><input type="radio" name="childRelPast" value="良好"><span class="choice-text">良好</span></label>
+                <label class="choice"><input type="radio" name="childRelPast" value="普通"><span class="choice-text">普通</span></label>
+                <label class="choice"><input type="radio" name="childRelPast" value="あまり良好ではない"><span class="choice-text">あまり良好ではない</span></label>
+              </div>
+            </div>
+            <div class="pair">
+              <div class="sub">現在</div>
+              <div class="row">
+                <label class="choice"><input type="radio" name="childRelNow" value="良好"><span class="choice-text">良好</span></label>
+                <label class="choice"><input type="radio" name="childRelNow" value="普通"><span class="choice-text">普通</span></label>
+                <label class="choice"><input type="radio" name="childRelNow" value="あまり良好ではない"><span class="choice-text">あまり良好ではない</span></label>
+              </div>
+            </div>
+            <div class="err" data-err="childRelPast">子どもとの過去の関係を選んでください。</div>
+            <div class="err" data-err="childRelNow">子どもとの現在の関係を選んでください。</div>
+          </div>
+        </div>
+        <div class="field">
+          <label>主に育ててくれた・関わりが深かった人 <span>必須</span></label>
+          <div class="choices">
+            <label class="choice"><input type="radio" name="caregiver" value="父"><span class="choice-text">父</span></label>
+            <label class="choice"><input type="radio" name="caregiver" value="母"><span class="choice-text">母</span></label>
+            <label class="choice"><input type="radio" name="caregiver" value="祖父"><span class="choice-text">祖父</span></label>
+            <label class="choice"><input type="radio" name="caregiver" value="祖母"><span class="choice-text">祖母</span></label>
+            <label class="choice"><input type="radio" name="caregiver" value="その他"><span class="choice-text">その他</span></label>
+          </div>
+          <div class="other" id="caregiverOtherWrap">
+            <input id="caregiverOther" name="caregiverOther" type="text" placeholder="その他の内容を書いてください">
+          </div>
+          <div class="err" data-err="caregiver">1つ選んでください。</div>
+          <div class="err" data-err="caregiverOther">その他の内容を書いてください。</div>
+        </div>
+        <div class="field">
+          <label for="familyChange">過去から現在にかけて、家族や身近な人との関係で大きな変化があったこと <span>必須</span></label>
+          <p class="hint">例：「幼少期は祖母に育てられた」「母とは昔は仲が悪かったけど今は良好」「父とはほぼ関わりがなかった」</p>
+          <textarea id="familyChange" name="familyChange"></textarea>
+          <div class="err" data-err="familyChange">変化があったことを書いてください。なければ「特にない」と書いてください。</div>
+        </div>
+      </div>
+
+      <div class="sec">
+        <h2>④ 健康・服薬について</h2>
+        <div class="field">
+          <label>現在または過去に、病気・治療・通院等について共有しておきたいことはありますか？ <span>必須</span></label>
+          <div class="choices">
+            <label class="choice"><input type="radio" name="illness" value="なし"><span class="choice-text">なし</span></label>
+            <label class="choice"><input type="radio" name="illness" value="あり"><span class="choice-text">あり</span></label>
+          </div>
+          <div class="err" data-err="illness">なし・ありを選んでください。</div>
+        </div>
+        <div class="reveal" id="illnessWrap">
+          <div class="field">
+            <label for="illnessWhen">時期 <span>必須</span></label>
+            <input id="illnessWhen" name="illnessWhen" type="text">
+            <div class="err" data-err="illnessWhen">時期を書いてください。</div>
+          </div>
+          <div class="field">
+            <label for="illnessWhat">内容 <span>必須</span></label>
+            <textarea id="illnessWhat" name="illnessWhat"></textarea>
+            <div class="err" data-err="illnessWhat">内容を書いてください。</div>
+          </div>
+        </div>
+        <div class="field">
+          <label>現在、薬を服用していますか？ <span>必須</span></label>
+          <div class="choices">
+            <label class="choice"><input type="radio" name="medicine" value="いいえ"><span class="choice-text">いいえ</span></label>
+            <label class="choice"><input type="radio" name="medicine" value="はい"><span class="choice-text">はい</span></label>
+          </div>
+          <div class="err" data-err="medicine">服用の有無を選んでください。</div>
+        </div>
+        <div class="reveal" id="medicineWrap">
+          <div class="field">
+            <label for="medicineDetail">薬の内容・服用するタイミング・開始時期など <span>必須</span></label>
+            <textarea id="medicineDetail" name="medicineDetail"></textarea>
+            <div class="err" data-err="medicineDetail">薬の内容を書いてください。</div>
+          </div>
+          <div class="field">
+            <label>副作用 <span>必須</span></label>
+            <div class="choices">
+              <label class="choice"><input type="radio" name="sideEffect" value="なし"><span class="choice-text">なし</span></label>
+              <label class="choice"><input type="radio" name="sideEffect" value="あり"><span class="choice-text">あり</span></label>
+            </div>
+            <div class="err" data-err="sideEffect">副作用の有無を選んでください。</div>
+          </div>
+          <div class="field">
+            <label for="medicineNote">備考</label>
+            <textarea id="medicineNote" name="medicineNote"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="sec">
+        <h2>⑤ セルフイメージ</h2>
+        <div class="field">
+          <label>自信が持てないと感じること・気になっていること <span>必須・複数選択可</span></label>
+          <div class="choices">
+            <label class="choice"><input type="checkbox" name="selfImage" value="学歴・学力"><span class="choice-text">学歴・学力</span></label>
+            <label class="choice"><input type="checkbox" name="selfImage" value="仕事・キャリア"><span class="choice-text">仕事・キャリア</span></label>
+            <label class="choice"><input type="checkbox" name="selfImage" value="収入・経済面"><span class="choice-text">収入・経済面</span></label>
+            <label class="choice"><input type="checkbox" name="selfImage" value="容姿・顔"><span class="choice-text">容姿・顔</span></label>
+            <label class="choice"><input type="checkbox" name="selfImage" value="身長"><span class="choice-text">身長</span></label>
+            <label class="choice"><input type="checkbox" name="selfImage" value="体型・体重"><span class="choice-text">体型・体重</span></label>
+            <label class="choice"><input type="checkbox" name="selfImage" value="肌・髪・身体的特徴"><span class="choice-text">肌・髪・身体的特徴</span></label>
+            <label class="choice"><input type="checkbox" name="selfImage" value="ファッション・服装"><span class="choice-text">ファッション・服装</span></label>
+            <label class="choice"><input type="checkbox" name="selfImage" value="結婚歴"><span class="choice-text">結婚歴</span></label>
+            <label class="choice"><input type="checkbox" name="selfImage" value="家族・家庭環境"><span class="choice-text">家族・家庭環境</span></label>
+            <label class="choice"><input type="checkbox" name="selfImage" value="性格・人柄"><span class="choice-text">性格・人柄</span></label>
+            <label class="choice"><input type="checkbox" name="selfImage" value="コミュニケーション"><span class="choice-text">コミュニケーション</span></label>
+            <label class="choice"><input type="checkbox" name="selfImage" value="過去の経験"><span class="choice-text">過去の経験</span></label>
+            <label class="choice"><input type="checkbox" name="selfImage" value="育った環境"><span class="choice-text">育った環境</span></label>
+            <label class="choice"><input type="checkbox" name="selfImage" value="人間関係"><span class="choice-text">人間関係</span></label>
+            <label class="choice"><input type="checkbox" name="selfImage" value="その他"><span class="choice-text">その他</span></label>
+            <label class="choice"><input type="checkbox" name="selfImage" value="特にない" id="selfNone"><span class="choice-text">特にない</span></label>
+          </div>
+          <div class="other" id="selfOtherWrap">
+            <input id="selfOther" name="selfOther" type="text" placeholder="その他の内容を書いてください">
+          </div>
+          <div class="err" data-err="selfImage">当てはまるものを選んでください。</div>
+          <div class="err" data-err="selfOther">その他の内容を書いてください。</div>
+        </div>
+        <div class="field">
+          <label for="selfDetail">特に気になっていること・自信が持てないと感じることがあれば教えてください</label>
+          <textarea id="selfDetail" name="selfDetail"></textarea>
+        </div>
+      </div>
+      <button class="submit" id="profileBtn" type="submit">送信する</button>
+      <div class="err" data-err="profileSubmit">送信できませんでした。もう一度押してください。</div>
+    </form>
+
+    <div class="done" id="doneEnroll">
       <div class="badge" id="doneBadge"></div>
       <h1>アンケートのご記入ありがとうございました！</h1>
       <p>初回セッションは、講師のはにぃが今回記載いただいたアンケートをもとに行います。</p>
@@ -629,32 +595,80 @@
 ・○月○日 ○時〜</div>
       <p>3つのうち、内面セッションが可能な日程を講師よりご返信いたします。</p>
     </div>
+
+    <div class="done" id="doneProfile">
+      <h1>ご記入ありがとうございました！</h1>
+      <p>いま書いていただいた内容は届いています。初回セッションで、はにぃがこの用紙を開いて話します。</p>
+      <p>この画面は閉じて大丈夫です。</p>
+    </div>
   </div>
 
 <script>
 (function () {
+  var GAS = "https://script.google.com/macros/s/AKfycbwQ9Q_SRfHoOlVkaXb0l3dFvxru5HNvr9l8q4-GyDuQSaYDsTjc4LnGm-xrgdsWsbhzlA/exec";
   var params = new URLSearchParams(location.search);
   var raw = (params.get("plan") || "").toLowerCase();
-  var showThanksFirst = params.get("thanks") === "1";
-  var plans = {
-    naimen: "内面セッションのみ",
-    douga: "動画講座＋セッション"
-  };
+  var isProfile = params.get("form") === "profile";
+  var showThanks = params.get("thanks") === "1";
+  var plans = { naimen: "内面セッションのみ", douga: "動画講座＋セッション" };
   var planName = plans[raw] || "";
-  var form = document.getElementById("form");
-  var planInput = document.getElementById("plan");
-  var noPlan = document.getElementById("noPlan");
-  var submitBtn = document.getElementById("submitBtn");
-  var nextBtn = document.getElementById("nextBtn");
-  var backBtn = document.getElementById("backBtn");
-  var worryOther = document.getElementById("worryOther");
+  var enrollForm = document.getElementById("enrollForm");
+  var profileForm = document.getElementById("profileForm");
   var hero = document.getElementById("hero");
-  var done = document.getElementById("done");
-  var doneBadge = document.getElementById("doneBadge");
-  var page1 = document.getElementById("page1");
-  var page2 = document.getElementById("page2");
-  var pager = document.getElementById("pager");
-  var lead = document.getElementById("lead");
+  var noPlan = document.getElementById("noPlan");
+  var enrollBtn = document.getElementById("enrollBtn");
+  var profileBtn = document.getElementById("profileBtn");
+
+  function val(id) {
+    var el = document.getElementById(id);
+    return el ? el.value.trim() : "";
+  }
+  function radio(name) {
+    var el = document.querySelector('input[name="' + name + '"]:checked');
+    return el ? el.value : "";
+  }
+  function checks(name) {
+    return Array.prototype.map.call(
+      document.querySelectorAll('input[name="' + name + '"]:checked'),
+      function (el) { return el.value; }
+    );
+  }
+  function showErr(name, on) {
+    var node = document.querySelector('[data-err="' + name + '"]');
+    if (node) node.classList.toggle("is-on", on);
+    return !on;
+  }
+  function toggle(id, on) {
+    document.getElementById(id).classList.toggle("is-on", !!on);
+  }
+  function relText(pastName, nowName) {
+    var past = radio(pastName);
+    var now = radio(nowName);
+    if (!past && !now) return "";
+    return "過去：" + past + "／現在：" + now;
+  }
+  function hideAll() {
+    enrollForm.classList.add("form-hidden");
+    profileForm.classList.add("form-hidden");
+    noPlan.classList.remove("is-on");
+  }
+  function showDone(id, title) {
+    hero.style.display = "none";
+    hideAll();
+    document.getElementById(id).classList.add("is-on");
+    document.title = title;
+  }
+  function send(payload, nextQuery, doneId, title) {
+    history.replaceState(null, "", nextQuery);
+    showDone(doneId, title);
+    fetch(GAS, {
+      method: "POST",
+      mode: "no-cors",
+      keepalive: true,
+      headers: { "Content-Type": "text/plain;charset=UTF-8" },
+      body: JSON.stringify(payload)
+    });
+  }
 
   var prefs = ["北海道","青森県","岩手県","宮城県","秋田県","山形県","福島県","茨城県","栃木県","群馬県","埼玉県","千葉県","東京都","神奈川県","新潟県","富山県","石川県","福井県","山梨県","長野県","岐阜県","静岡県","愛知県","三重県","滋賀県","京都府","大阪府","兵庫県","奈良県","和歌山県","鳥取県","島根県","岡山県","広島県","山口県","徳島県","香川県","愛媛県","高知県","福岡県","佐賀県","長崎県","熊本県","大分県","宮崎県","鹿児島県","沖縄県","海外"];
   function fillPrefs(id) {
@@ -666,108 +680,70 @@
   fillPrefs("birthplace");
   fillPrefs("residence");
 
-  function showThanks() {
-    hero.style.display = "none";
-    form.style.display = "none";
-    noPlan.classList.remove("is-on");
-    if (planName) {
-      doneBadge.textContent = planName;
-      doneBadge.style.display = "inline-block";
-    } else {
-      doneBadge.style.display = "none";
-    }
-    done.classList.add("is-on");
-    document.title = "送信完了｜オーダーノート現実創造プログラム";
+  if (showThanks && isProfile) {
+    showDone("doneProfile", "送信完了｜詳細アンケート");
+    return;
+  }
+  if (showThanks) {
+    if (planName) document.getElementById("doneBadge").textContent = planName;
+    showDone("doneEnroll", "送信完了｜オーダーノート現実創造プログラム");
+    return;
   }
 
-  function goPage(n) {
-    page1.classList.toggle("is-on", n === 1);
-    page2.classList.toggle("is-on", n === 2);
-    pager.textContent = n === 1 ? "2ページのうち 1ページ目" : "2ページのうち 2ページ目";
-    lead.innerHTML = n === 1
-      ? "講座のご入会、ありがとうございます。<br>初回セッションはこちらの内容を<br>もとに行いますので、ゆっくりご記入ください。"
-      : "家族・健康・自分についてのページです。<br>初回セッションで開く内容なので、<br>分かる範囲で書いてください。";
-    window.scrollTo(0, 0);
-  }
-
-  if (showThanksFirst) {
-    showThanks();
+  if (isProfile) {
+    document.getElementById("heroBadge").textContent = "基本情報・家族・健康";
+    document.getElementById("heroTitle").textContent = "詳細アンケート";
+    document.getElementById("lead").innerHTML = "初回セッションで開く内容です。<br>分かる範囲で、ゆっくりご記入ください。";
+    document.title = "詳細アンケート｜オーダーノート現実創造プログラム";
+    enrollForm.classList.add("form-hidden");
+    profileForm.classList.remove("form-hidden");
   } else if (planName) {
-    planInput.value = planName;
+    document.getElementById("plan").value = planName;
+    profileForm.classList.add("form-hidden");
   } else {
+    profileForm.classList.add("form-hidden");
     noPlan.classList.add("is-on");
-    nextBtn.disabled = true;
-    submitBtn.disabled = true;
+    enrollBtn.disabled = true;
   }
 
-  function showErr(name, on) {
-    var node = form.querySelector('[data-err="' + name + '"]');
-    if (node) node.classList.toggle("is-on", on);
-    return !on;
-  }
-  function val(id) {
-    var el = document.getElementById(id);
-    return el ? el.value.trim() : "";
-  }
-  function radio(name) {
-    var el = form.querySelector('input[name="' + name + '"]:checked');
-    return el ? el.value : "";
-  }
-  function checks(name) {
-    return Array.prototype.map.call(
-      form.querySelectorAll('input[name="' + name + '"]:checked'),
-      function (el) { return el.value; }
-    );
-  }
-  function relText(pastName, nowName) {
-    var past = radio(pastName);
-    var now = radio(nowName);
-    if (!past && !now) return "";
-    return "過去：" + past + "／現在：" + now;
-  }
-  function toggle(id, on) {
-    document.getElementById(id).classList.toggle("is-on", !!on);
-  }
-
-  form.querySelectorAll('input[name="worryType"]').forEach(function (el) {
+  enrollForm.querySelectorAll('input[name="worryType"]').forEach(function (el) {
     el.addEventListener("change", function () {
       toggle("otherWrap", el.value === "その他" && el.checked);
-      if (el.value !== "その他") worryOther.value = "";
+      if (el.value !== "その他") document.getElementById("worryOther").value = "";
     });
   });
-  form.querySelectorAll('input[name="siblingType"]').forEach(function (el) {
+  profileForm.querySelectorAll('input[name="siblingType"]').forEach(function (el) {
     el.addEventListener("change", function () {
       toggle("siblingOtherWrap", radio("siblingType") === "その他");
     });
   });
-  form.querySelectorAll('input[name="children"]').forEach(function (el) {
+  profileForm.querySelectorAll('input[name="children"]').forEach(function (el) {
     el.addEventListener("change", function () {
       var has = radio("children") === "あり";
       toggle("childrenWrap", has);
       toggle("childRelWrap", has);
     });
   });
-  form.querySelectorAll('input[name="caregiver"]').forEach(function (el) {
+  profileForm.querySelectorAll('input[name="caregiver"]').forEach(function (el) {
     el.addEventListener("change", function () {
       toggle("caregiverOtherWrap", radio("caregiver") === "その他");
     });
   });
-  form.querySelectorAll('input[name="illness"]').forEach(function (el) {
+  profileForm.querySelectorAll('input[name="illness"]').forEach(function (el) {
     el.addEventListener("change", function () {
       toggle("illnessWrap", radio("illness") === "あり");
     });
   });
-  form.querySelectorAll('input[name="medicine"]').forEach(function (el) {
+  profileForm.querySelectorAll('input[name="medicine"]').forEach(function (el) {
     el.addEventListener("change", function () {
       toggle("medicineWrap", radio("medicine") === "はい");
     });
   });
-
   var selfNone = document.getElementById("selfNone");
-  form.querySelectorAll('input[name="selfImage"]').forEach(function (el) {
+  profileForm.querySelectorAll('input[name="selfImage"]').forEach(function (el) {
     el.addEventListener("change", function () {
       if (el === selfNone && el.checked) {
-        form.querySelectorAll('input[name="selfImage"]').forEach(function (box) {
+        profileForm.querySelectorAll('input[name="selfImage"]').forEach(function (box) {
           if (box !== selfNone) box.checked = false;
         });
         document.getElementById("selfOther").value = "";
@@ -779,35 +755,48 @@
     });
   });
 
-  function validPage1() {
-    var lineName = val("lineName");
-    var fullName = val("fullName");
-    var age = val("age");
+  enrollForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+    if (!planName) return;
     var worryType = radio("worryType");
-    var other = val("worryOther");
-    var pastEffort = val("pastEffort");
-    var worryNow = val("worryNow");
-    var ideal = val("ideal");
-    var reason = val("reason");
-    var motivation = val("motivation");
     var ok = true;
-    ok = showErr("lineName", !lineName) && ok;
-    ok = showErr("fullName", !fullName) && ok;
-    ok = showErr("age", !age) && ok;
+    ok = showErr("lineName", !val("lineName")) && ok;
+    ok = showErr("fullName", !val("fullName")) && ok;
+    ok = showErr("age", !val("age")) && ok;
     ok = showErr("worryType", !worryType) && ok;
-    ok = showErr("worryOther", worryType === "その他" && !other) && ok;
-    ok = showErr("pastEffort", !pastEffort) && ok;
-    ok = showErr("worryNow", !worryNow) && ok;
-    ok = showErr("ideal", !ideal) && ok;
-    ok = showErr("reason", !reason) && ok;
-    ok = showErr("motivation", !motivation) && ok;
-    return ok;
-  }
+    ok = showErr("worryOther", worryType === "その他" && !val("worryOther")) && ok;
+    ok = showErr("pastEffort", !val("pastEffort")) && ok;
+    ok = showErr("worryNow", !val("worryNow")) && ok;
+    ok = showErr("ideal", !val("ideal")) && ok;
+    ok = showErr("reason", !val("reason")) && ok;
+    ok = showErr("motivation", !val("motivation")) && ok;
+    if (!ok) return;
+    showErr("enrollSubmit", false);
+    enrollBtn.disabled = true;
+    enrollBtn.textContent = "送信しています…";
+    send({
+      formType: "入会",
+      plan: planName,
+      lineName: val("lineName"),
+      fullName: val("fullName"),
+      age: val("age"),
+      worryType: worryType,
+      worryOther: val("worryOther"),
+      pastEffort: val("pastEffort"),
+      worryNow: val("worryNow"),
+      ideal: val("ideal"),
+      reason: val("reason"),
+      motivation: val("motivation")
+    }, "?plan=" + encodeURIComponent(raw) + "&thanks=1", "doneEnroll", "送信完了｜オーダーノート現実創造プログラム");
+    if (planName) document.getElementById("doneBadge").textContent = planName;
+  });
 
-  function validPage2() {
+  profileForm.addEventListener("submit", function (e) {
+    e.preventDefault();
     var hasChild = radio("children") === "あり";
     var self = checks("selfImage");
     var ok = true;
+    ok = showErr("profLineName", !val("profLineName")) && ok;
     ok = showErr("p2Name", !val("p2Name")) && ok;
     ok = showErr("nickname", !val("nickname")) && ok;
     ok = showErr("birthday", !val("birthday")) && ok;
@@ -839,57 +828,22 @@
     ok = showErr("sideEffect", radio("medicine") === "はい" && !radio("sideEffect")) && ok;
     ok = showErr("selfImage", self.length === 0) && ok;
     ok = showErr("selfOther", self.indexOf("その他") !== -1 && !val("selfOther")) && ok;
-    return ok;
-  }
-
-  nextBtn.addEventListener("click", function () {
-    if (!planName) return;
-    if (!validPage1()) {
-      var first = form.querySelector("#page1 .err.is-on");
+    if (!ok) {
+      var first = profileForm.querySelector(".err.is-on");
       if (first) first.scrollIntoView({ behavior: "smooth", block: "center" });
       return;
     }
-    if (!val("p2Name")) document.getElementById("p2Name").value = val("fullName");
-    if (!val("p2Age")) document.getElementById("p2Age").value = val("age");
-    goPage(2);
-  });
-
-  backBtn.addEventListener("click", function () {
-    goPage(1);
-  });
-
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
-    if (!planName) return;
-    if (!validPage1()) {
-      goPage(1);
-      return;
-    }
-    if (!validPage2()) {
-      var first = form.querySelector("#page2 .err.is-on");
-      if (first) first.scrollIntoView({ behavior: "smooth", block: "center" });
-      return;
-    }
-
-    showErr("submit", false);
-    submitBtn.disabled = true;
-    submitBtn.textContent = "送信しています…";
-
-    if (val("p2Name")) document.getElementById("fullName").value = val("p2Name");
-    if (val("p2Age")) document.getElementById("age").value = val("p2Age");
-
-    var payload = {
+    showErr("profileSubmit", false);
+    profileBtn.disabled = true;
+    profileBtn.textContent = "送信しています…";
+    var next = "?form=profile&thanks=1";
+    if (raw) next = "?form=profile&plan=" + encodeURIComponent(raw) + "&thanks=1";
+    send({
+      formType: "詳細",
       plan: planName,
-      lineName: val("lineName"),
-      fullName: val("fullName"),
-      age: val("age"),
-      worryType: radio("worryType"),
-      worryOther: val("worryOther"),
-      pastEffort: val("pastEffort"),
-      worryNow: val("worryNow"),
-      ideal: val("ideal"),
-      reason: val("reason"),
-      motivation: val("motivation"),
+      lineName: val("profLineName"),
+      fullName: val("p2Name"),
+      age: val("p2Age"),
       nickname: val("nickname"),
       birthday: val("birthday"),
       birthplace: val("birthplace"),
@@ -904,7 +858,7 @@
       childAge: val("childAge"),
       fatherRel: relText("fatherPast", "fatherNow"),
       motherRel: relText("motherPast", "motherNow"),
-      childRel: radio("children") === "あり" ? relText("childRelPast", "childRelNow") : "",
+      childRel: hasChild ? relText("childRelPast", "childRelNow") : "",
       caregiver: radio("caregiver"),
       caregiverOther: val("caregiverOther"),
       familyChange: val("familyChange"),
@@ -915,22 +869,10 @@
       medicineDetail: val("medicineDetail"),
       sideEffect: radio("sideEffect"),
       medicineNote: val("medicineNote"),
-      selfImage: checks("selfImage").join("、"),
+      selfImage: self.join("、"),
       selfOther: val("selfOther"),
       selfDetail: val("selfDetail")
-    };
-
-    var next = "?plan=" + encodeURIComponent(raw) + "&thanks=1";
-    history.replaceState(null, "", next);
-    showThanks();
-
-    fetch("https://script.google.com/macros/s/AKfycbwQ9Q_SRfHoOlVkaXb0l3dFvxru5HNvr9l8q4-GyDuQSaYDsTjc4LnGm-xrgdsWsbhzlA/exec", {
-      method: "POST",
-      mode: "no-cors",
-      keepalive: true,
-      headers: { "Content-Type": "text/plain;charset=UTF-8" },
-      body: JSON.stringify(payload)
-    });
+    }, next, "doneProfile", "送信完了｜詳細アンケート");
   });
 })();
 </script>
