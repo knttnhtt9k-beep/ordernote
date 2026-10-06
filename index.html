@@ -243,6 +243,7 @@
     </div>
 
     <form id="enrollForm">
+      <div id="enrollStep1">
       <div class="field">
         <label for="lineName">LINE名 <span>必須</span></label>
         <input id="lineName" name="lineName" type="text" autocomplete="nickname">
@@ -299,8 +300,31 @@
         <div class="err" data-err="motivation">意気込みを書いてください。</div>
       </div>
       <input type="hidden" name="plan" id="plan">
-      <button class="submit" id="enrollBtn" type="submit">送信する</button>
-      <div class="err" data-err="enrollSubmit">送信できませんでした。もう一度押してください。</div>
+      <button class="submit" id="enrollNext" type="button">次へ</button>
+      </div>
+      <div id="enrollStep2" class="form-hidden">
+        <div class="field">
+          <label for="slot1">第一候補 <span>必須</span></label>
+          <input id="slot1" name="slot1" type="text" placeholder="例：10月12日 11~20時">
+          <div class="err" data-err="slot1">第一候補の日時を書いてください。</div>
+        </div>
+        <div class="field">
+          <label for="slot2">第二候補 <span>必須</span></label>
+          <input id="slot2" name="slot2" type="text" placeholder="例：10月13日 21時以降">
+          <div class="err" data-err="slot2">第二候補の日時を書いてください。</div>
+        </div>
+        <div class="field">
+          <label for="slot3">第三候補 <span>必須</span></label>
+          <input id="slot3" name="slot3" type="text" placeholder="例：10月16日 終日">
+          <div class="err" data-err="slot3">第三候補の日時を書いてください。</div>
+        </div>
+        <div class="field">
+          <label for="slotOther">その他可能な時間帯があれば</label>
+          <textarea id="slotOther" name="slotOther" placeholder="ほかにも入れる時間帯があれば書いてください"></textarea>
+        </div>
+        <button class="submit" id="enrollBtn" type="submit">送信する</button>
+        <div class="err" data-err="enrollSubmit">送信できませんでした。もう一度押してください。</div>
+      </div>
     </form>
 
     <form id="profileForm" class="form-hidden">
@@ -585,15 +609,7 @@
     <div class="done" id="doneEnroll">
       <div class="badge" id="doneBadge"></div>
       <h1>ご記入ありがとうございました！</h1>
-      <p>初回セッションは、お申し込みから10日以内を目安に行います。</p>
-      <p class="cta">このアンケートが届いたLINEを開いて、お申し込みから5〜10日以内で、セッションができる日を日時つきで3つ送ってください。</p>
-      <p>準備と日程の調整もあるので、5日以上先の日程で書いてください。<br>例：10月12日 11~20時／10月13日 21時以降／10月16日 終日</p>
-      <span class="label">LINEに送る文</span>
-      <div class="msg">入れる日はこちらです。
-・○月○日 ○時〜
-・○月○日 ○時〜
-・○月○日 ○時〜</div>
-      <p>日程を確認したあと、はにぃからご連絡します。楽しみにお待ちください✨</p>
+      <p class="cta">このアンケートが届いたLINEを開いて、スタンプを送ってください。</p>
     </div>
 
     <div class="done" id="doneProfile">
@@ -616,6 +632,7 @@
   var hero = document.getElementById("hero");
   var noPlan = document.getElementById("noPlan");
   var enrollBtn = document.getElementById("enrollBtn");
+  var enrollNext = document.getElementById("enrollNext");
   var profileBtn = document.getElementById("profileBtn");
 
   function val(id) {
@@ -702,6 +719,7 @@
   } else {
     profileForm.classList.add("form-hidden");
     noPlan.classList.add("is-on");
+    enrollNext.disabled = true;
     enrollBtn.disabled = true;
   }
 
@@ -754,8 +772,7 @@
     });
   });
 
-  enrollForm.addEventListener("submit", function (e) {
-    e.preventDefault();
+  enrollNext.addEventListener("click", function () {
     if (!planName) return;
     var worryType = radio("worryType");
     var ok = true;
@@ -769,6 +786,22 @@
     ok = showErr("ideal", !val("ideal")) && ok;
     ok = showErr("reason", !val("reason")) && ok;
     ok = showErr("motivation", !val("motivation")) && ok;
+    if (!ok) return;
+    document.getElementById("enrollStep1").classList.add("form-hidden");
+    document.getElementById("enrollStep2").classList.remove("form-hidden");
+    document.getElementById("heroTitle").textContent = "初回セッションの日程";
+    document.getElementById("lead").innerHTML = "初回セッションは、お申し込みから10日以内を目安に実施しています。<br><br>そのため、お申し込みから5〜10日以内の日程を、複数候補でお知らせください。<br><br>セッションの準備・日程調整の時間も必要となるため、5日以上先の日程でご希望をお送りいただけますと幸いです✨<br><br>書き方の例：10月12日 11~20時／10月13日 21時以降／10月16日 終日";
+    window.scrollTo(0, 0);
+  });
+
+  enrollForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+    if (!planName) return;
+    var worryType = radio("worryType");
+    var ok = true;
+    ok = showErr("slot1", !val("slot1")) && ok;
+    ok = showErr("slot2", !val("slot2")) && ok;
+    ok = showErr("slot3", !val("slot3")) && ok;
     if (!ok) return;
     showErr("enrollSubmit", false);
     enrollBtn.disabled = true;
@@ -785,7 +818,11 @@
       worryNow: val("worryNow"),
       ideal: val("ideal"),
       reason: val("reason"),
-      motivation: val("motivation")
+      motivation: val("motivation"),
+      slot1: val("slot1"),
+      slot2: val("slot2"),
+      slot3: val("slot3"),
+      slotOther: val("slotOther")
     }, "?plan=" + encodeURIComponent(raw) + "&thanks=1", "doneEnroll", "送信完了｜オーダーノート現実創造プログラム");
     if (planName) document.getElementById("doneBadge").textContent = planName;
   });
