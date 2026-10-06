@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>入会アンケート｜オーダーノート現実創造プログラム</title>
+<title>お申し込みアンケート｜オーダーノート現実創造プログラム</title>
 <style>
   :root {
     --pink: #ff6b9d;
@@ -230,11 +230,11 @@
   <div class="app">
     <div class="hero" id="hero">
       <div class="badge" id="heroBadge">【恋愛特化版】オーダーノート現実創造プログラム</div>
-      <h1 id="heroTitle">入会アンケート</h1>
+      <h1 id="heroTitle">お申し込みアンケート</h1>
       <p class="lead" id="lead">
-        講座のご入会、ありがとうございます。<br>
-        初回セッションはこちらの内容を<br>
-        もとに行いますので、ゆっくりご記入ください。
+        現在のお悩み〜これから叶えたい未来などをお聞きします。<br><br>
+        初回セッションでは、こちらの内容をもとにお話を伺っていきますので、今の素直なお気持ちをお聞かせください☺️<br><br>
+        こちらは、【今日から3日以内】を目安にご回答をお願いいたします。
       </p>
     </div>
 
@@ -584,20 +584,20 @@
 
     <div class="done" id="doneEnroll">
       <div class="badge" id="doneBadge"></div>
-      <h1>アンケートのご記入ありがとうございました！</h1>
-      <p>初回セッションは、講師のはにぃが今回記載いただいたアンケートをもとに行います。</p>
-      <p class="cta">このアンケートが届いたLINEを開いて、内面セッションができる日を、日時つきで3つ送ってください。</p>
-      <p>日付と、その日に始められる時刻を書いてください。<br>例：10月8日 11~20時／10月9日 21時以降／10月12日 終日</p>
+      <h1>ご記入ありがとうございました！</h1>
+      <p>初回セッションは、お申し込みから10日以内を目安に行います。</p>
+      <p class="cta">このアンケートが届いたLINEを開いて、お申し込みから5〜10日以内で、セッションができる日を日時つきで3つ送ってください。</p>
+      <p>準備と日程の調整もあるので、5日以上先の日程で書いてください。<br>例：10月12日 11~20時／10月13日 21時以降／10月16日 終日</p>
       <span class="label">LINEに送る文</span>
       <div class="msg">入れる日はこちらです。
 ・○月○日 ○時〜
 ・○月○日 ○時〜
 ・○月○日 ○時〜</div>
-      <p>3つのうち、内面セッションが可能な日程を講師よりご返信いたします。</p>
+      <p>日程を確認したあと、はにぃからご連絡します。楽しみにお待ちください✨</p>
     </div>
 
     <div class="done" id="doneProfile">
-      <h1>詳細アンケート</h1>
+      <h1>パーソナルシート</h1>
       <p>いま書いていただいた内容を用いて、セッションを行いましょう！よろしくお願いします！</p>
     </div>
   </div>
@@ -680,7 +680,7 @@
   fillPrefs("residence");
 
   if (showThanks && isProfile) {
-    showDone("doneProfile", "送信完了｜詳細アンケート");
+    showDone("doneProfile", "送信完了｜パーソナルシート");
     return;
   }
   if (showThanks) {
@@ -690,10 +690,10 @@
   }
 
   if (isProfile) {
-    document.getElementById("heroBadge").textContent = "基本情報・家族・健康";
-    document.getElementById("heroTitle").textContent = "詳細アンケート";
-    document.getElementById("lead").innerHTML = "初回セッションで開く内容です。<br>分かる範囲で、ゆっくりご記入ください。";
-    document.title = "詳細アンケート｜オーダーノート現実創造プログラム";
+    document.getElementById("heroBadge").textContent = "【恋愛特化版】オーダーノート現実創造プログラム";
+    document.getElementById("heroTitle").textContent = "パーソナルシート";
+    document.getElementById("lead").innerHTML = "あなたのことを、もっと知るために<br><br>これまでどんな環境で過ごし、どんな価値観を持っているのかなど、今のあなたをつくった背景も大切にしながらお話を伺いたいと思っています。<br><br>そのため、セッション前にこちらのパーソナルシートへのご記入をお願いいたします。<br><br>少しプライベートな内容も含まれますので、どうしても回答したくない項目がある場合は、無理に記入せず「ー」などの印をつけていただいて構いません。<br><br>こちらも【今日から3日以内】を目安にご回答ください☺️";
+    document.title = "パーソナルシート｜オーダーノート現実創造プログラム";
     enrollForm.classList.add("form-hidden");
     profileForm.classList.remove("form-hidden");
   } else if (planName) {
@@ -868,7 +868,7 @@
       selfImage: self.join("、"),
       selfOther: val("selfOther"),
       selfDetail: val("selfDetail")
-    }, "?form=profile&thanks=1", "doneProfile", "送信完了｜詳細アンケート");
+    }, "?form=profile&thanks=1", "doneProfile", "送信完了｜パーソナルシート");
   });
 })();
 </script>
