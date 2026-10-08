@@ -47,19 +47,11 @@
     border-radius: 999px;
     padding: 8px 14px;
     margin-bottom: 14px;
-    line-height: 1.55;
+    line-height: 1.7;
     max-width: 100%;
   }
-  .badge.is-plan {
-    display: block;
-    font-size: 15px;
-    font-weight: 700;
-    letter-spacing: 0.02em;
-    padding: 8px 16px;
-    margin: -4px auto 16px;
-  }
-  .badge.is-plan[hidden] {
-    display: none;
+  .badge.is-combo {
+    padding: 10px 18px;
   }
   h1 {
     margin: 0 0 8px;
@@ -241,7 +233,6 @@
   <div class="app">
     <div class="hero" id="hero">
       <div class="badge" id="heroBadge">【恋愛特化版】オーダーノート現実創造プログラム</div>
-      <div class="badge is-plan" id="heroPlan" hidden></div>
       <h1 id="heroTitle">お申し込みアンケート</h1>
       <p class="lead" id="lead">
         現在のお悩み〜これから叶えたい未来などをお聞きします。<br><br>
@@ -625,7 +616,6 @@
 
     <div class="done" id="doneEnroll">
       <div class="badge" id="doneBadge">【恋愛特化版】オーダーノート現実創造プログラム</div>
-      <div class="badge is-plan" id="donePlan" hidden></div>
       <h1>ご記入ありがとうございました！</h1>
     </div>
 
@@ -652,6 +642,18 @@
   var planLabels = { naimen: "【内面セッションプラン】", douga: "【動画講座付きプラン】" };
   var planName = plans[raw] || "";
   var planLabel = planLabels[raw] || "";
+  var programName = "【恋愛特化版】オーダーノート現実創造プログラム";
+  function setProgramBadge(id, withPlan) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    if (withPlan && planLabel) {
+      el.innerHTML = programName + "<br>" + planLabel;
+      el.classList.add("is-combo");
+    } else {
+      el.textContent = programName;
+      el.classList.remove("is-combo");
+    }
+  }
   var enrollForm = document.getElementById("enrollForm");
   var scheduleForm = document.getElementById("scheduleForm");
   var profileForm = document.getElementById("profileForm");
@@ -732,18 +734,13 @@
     return;
   }
   if (showThanks) {
-    if (planLabel) {
-      document.getElementById("doneBadge").textContent = "【恋愛特化版】オーダーノート現実創造プログラム";
-      var donePlan = document.getElementById("donePlan");
-      donePlan.textContent = planLabel;
-      donePlan.hidden = false;
-    }
+    setProgramBadge("doneBadge", true);
     showDone("doneEnroll", "送信完了｜オーダーノート現実創造プログラム");
     return;
   }
 
   if (isProfile) {
-    document.getElementById("heroBadge").textContent = "【恋愛特化版】オーダーノート現実創造プログラム";
+    setProgramBadge("heroBadge", false);
     document.getElementById("heroTitle").textContent = "パーソナルシート";
     document.getElementById("lead").innerHTML = "あなたのことを、もっと知るために<br><br>これまでどんな環境で過ごし、どんな価値観を持っているのかなど、今のあなたをつくった背景も大切にしながらお話を伺いたいと思っています。<br><br>そのため、セッション前にこちらのパーソナルシートへのご記入をお願いいたします。<br><br>少しプライベートな内容も含まれますので、どうしても回答したくない項目がある場合は、無理に記入せず「ー」などの印をつけていただいて構いません。<br><br>こちらも【今日から3日以内】を目安にご回答ください☺️";
     document.title = "パーソナルシート｜オーダーノート現実創造プログラム";
@@ -751,7 +748,7 @@
     scheduleForm.classList.add("form-hidden");
     profileForm.classList.remove("form-hidden");
   } else if (isSchedule) {
-    document.getElementById("heroBadge").textContent = "【恋愛特化版】オーダーノート現実創造プログラム";
+    setProgramBadge("heroBadge", false);
     document.getElementById("heroTitle").textContent = "初回セッションの日程";
     document.getElementById("lead").innerHTML = "初回セッションは、お申し込みから10日以内を目安に実施しています。<br><br>そのため、お申し込みから5〜10日以内の日程を、複数候補でお知らせください。<br><br>セッションの準備・日程調整の時間も必要となるため、5日以上先の日程でご希望をお送りいただけますと幸いです✨<br><br>書き方の例：10月12日 11~20時／10月13日 21時以降／10月16日 終日";
     document.title = "初回セッションの日程｜オーダーノート現実創造プログラム";
@@ -760,10 +757,7 @@
     scheduleForm.classList.remove("form-hidden");
   } else if (planName) {
     document.getElementById("plan").value = planName;
-    document.getElementById("heroBadge").textContent = "【恋愛特化版】オーダーノート現実創造プログラム";
-    var heroPlan = document.getElementById("heroPlan");
-    heroPlan.textContent = planLabel;
-    heroPlan.hidden = false;
+    setProgramBadge("heroBadge", true);
     profileForm.classList.add("form-hidden");
     scheduleForm.classList.add("form-hidden");
   } else {
@@ -855,12 +849,7 @@
       reason: val("reason"),
       motivation: val("motivation")
     }, "?plan=" + encodeURIComponent(raw) + "&thanks=1", "doneEnroll", "送信完了｜オーダーノート現実創造プログラム");
-    if (planLabel) {
-      document.getElementById("doneBadge").textContent = "【恋愛特化版】オーダーノート現実創造プログラム";
-      var afterPlan = document.getElementById("donePlan");
-      afterPlan.textContent = planLabel;
-      afterPlan.hidden = false;
-    }
+    setProgramBadge("doneBadge", true);
   });
 
   scheduleForm.addEventListener("submit", function (e) {
