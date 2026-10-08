@@ -52,11 +52,14 @@
   }
   .badge.is-plan {
     display: block;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 700;
     letter-spacing: 0.02em;
-    padding: 10px 16px;
-    margin: 0 auto 16px;
+    padding: 8px 16px;
+    margin: -4px auto 16px;
+  }
+  .badge.is-plan[hidden] {
+    display: none;
   }
   h1 {
     margin: 0 0 8px;
@@ -238,6 +241,7 @@
   <div class="app">
     <div class="hero" id="hero">
       <div class="badge" id="heroBadge">【恋愛特化版】オーダーノート現実創造プログラム</div>
+      <div class="badge is-plan" id="heroPlan" hidden></div>
       <h1 id="heroTitle">お申し込みアンケート</h1>
       <p class="lead" id="lead">
         現在のお悩み〜これから叶えたい未来などをお聞きします。<br><br>
@@ -620,7 +624,8 @@
     </form>
 
     <div class="done" id="doneEnroll">
-      <div class="badge" id="doneBadge"></div>
+      <div class="badge" id="doneBadge">【恋愛特化版】オーダーノート現実創造プログラム</div>
+      <div class="badge is-plan" id="donePlan" hidden></div>
       <h1>ご記入ありがとうございました！</h1>
     </div>
 
@@ -728,9 +733,10 @@
   }
   if (showThanks) {
     if (planLabel) {
-      var doneBadge = document.getElementById("doneBadge");
-      doneBadge.textContent = planLabel;
-      doneBadge.classList.add("is-plan");
+      document.getElementById("doneBadge").textContent = "【恋愛特化版】オーダーノート現実創造プログラム";
+      var donePlan = document.getElementById("donePlan");
+      donePlan.textContent = planLabel;
+      donePlan.hidden = false;
     }
     showDone("doneEnroll", "送信完了｜オーダーノート現実創造プログラム");
     return;
@@ -754,9 +760,10 @@
     scheduleForm.classList.remove("form-hidden");
   } else if (planName) {
     document.getElementById("plan").value = planName;
-    var enrollBadge = document.getElementById("heroBadge");
-    enrollBadge.textContent = planLabel;
-    enrollBadge.classList.add("is-plan");
+    document.getElementById("heroBadge").textContent = "【恋愛特化版】オーダーノート現実創造プログラム";
+    var heroPlan = document.getElementById("heroPlan");
+    heroPlan.textContent = planLabel;
+    heroPlan.hidden = false;
     profileForm.classList.add("form-hidden");
     scheduleForm.classList.add("form-hidden");
   } else {
@@ -849,9 +856,10 @@
       motivation: val("motivation")
     }, "?plan=" + encodeURIComponent(raw) + "&thanks=1", "doneEnroll", "送信完了｜オーダーノート現実創造プログラム");
     if (planLabel) {
-      var afterBadge = document.getElementById("doneBadge");
-      afterBadge.textContent = planLabel;
-      afterBadge.classList.add("is-plan");
+      document.getElementById("doneBadge").textContent = "【恋愛特化版】オーダーノート現実創造プログラム";
+      var afterPlan = document.getElementById("donePlan");
+      afterPlan.textContent = planLabel;
+      afterPlan.hidden = false;
     }
   });
 
