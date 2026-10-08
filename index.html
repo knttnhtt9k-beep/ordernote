@@ -50,6 +50,14 @@
     line-height: 1.55;
     max-width: 100%;
   }
+  .badge.is-plan {
+    display: block;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    padding: 10px 16px;
+    margin: 0 auto 16px;
+  }
   h1 {
     margin: 0 0 8px;
     font-size: 18px;
@@ -243,7 +251,6 @@
     </div>
 
     <form id="enrollForm">
-      <div id="enrollStep1">
       <div class="field">
         <label for="lineName">LINE名 <span>必須</span></label>
         <input id="lineName" name="lineName" type="text" autocomplete="nickname">
@@ -300,31 +307,37 @@
         <div class="err" data-err="motivation">意気込みを書いてください。</div>
       </div>
       <input type="hidden" name="plan" id="plan">
-      <button class="submit" id="enrollNext" type="button">次へ</button>
+      <button class="submit" id="enrollBtn" type="submit">送信する</button>
+      <div class="err" data-err="enrollSubmit">送信できませんでした。もう一度押してください。</div>
+    </form>
+
+    <form id="scheduleForm" class="form-hidden">
+      <div class="field">
+        <label for="schLineName">LINE名 <span>必須</span></label>
+        <input id="schLineName" name="schLineName" type="text" autocomplete="nickname">
+        <div class="err" data-err="schLineName">LINEで表示されている名前を書いてください。</div>
       </div>
-      <div id="enrollStep2" class="form-hidden">
-        <div class="field">
-          <label for="slot1">第一候補 <span>必須</span></label>
-          <input id="slot1" name="slot1" type="text" placeholder="例：10月12日 11~20時">
-          <div class="err" data-err="slot1">第一候補の日時を書いてください。</div>
-        </div>
-        <div class="field">
-          <label for="slot2">第二候補 <span>必須</span></label>
-          <input id="slot2" name="slot2" type="text" placeholder="例：10月13日 21時以降">
-          <div class="err" data-err="slot2">第二候補の日時を書いてください。</div>
-        </div>
-        <div class="field">
-          <label for="slot3">第三候補 <span>必須</span></label>
-          <input id="slot3" name="slot3" type="text" placeholder="例：10月16日 終日">
-          <div class="err" data-err="slot3">第三候補の日時を書いてください。</div>
-        </div>
-        <div class="field">
-          <label for="slotOther">その他可能な時間帯があれば</label>
-          <textarea id="slotOther" name="slotOther" placeholder="ほかにも入れる時間帯があれば書いてください"></textarea>
-        </div>
-        <button class="submit" id="enrollBtn" type="submit">送信する</button>
-        <div class="err" data-err="enrollSubmit">送信できませんでした。もう一度押してください。</div>
+      <div class="field">
+        <label for="slot1">第一候補 <span>必須</span></label>
+        <input id="slot1" name="slot1" type="text" placeholder="例：10月12日 11~20時">
+        <div class="err" data-err="slot1">第一候補の日時を書いてください。</div>
       </div>
+      <div class="field">
+        <label for="slot2">第二候補 <span>必須</span></label>
+        <input id="slot2" name="slot2" type="text" placeholder="例：10月13日 21時以降">
+        <div class="err" data-err="slot2">第二候補の日時を書いてください。</div>
+      </div>
+      <div class="field">
+        <label for="slot3">第三候補 <span>必須</span></label>
+        <input id="slot3" name="slot3" type="text" placeholder="例：10月16日 終日">
+        <div class="err" data-err="slot3">第三候補の日時を書いてください。</div>
+      </div>
+      <div class="field">
+        <label for="slotOther">その他可能な時間帯があれば</label>
+        <textarea id="slotOther" name="slotOther" placeholder="ほかにも入れる時間帯があれば書いてください"></textarea>
+      </div>
+      <button class="submit" id="scheduleBtn" type="submit">送信する</button>
+      <div class="err" data-err="scheduleSubmit">送信できませんでした。もう一度押してください。</div>
     </form>
 
     <form id="profileForm" class="form-hidden">
@@ -609,6 +622,10 @@
     <div class="done" id="doneEnroll">
       <div class="badge" id="doneBadge"></div>
       <h1>ご記入ありがとうございました！</h1>
+    </div>
+
+    <div class="done" id="doneSchedule">
+      <h1>ご記入ありがとうございました！</h1>
       <p class="cta">このアンケートが届いたLINEを開いて、スタンプを送ってください。</p>
     </div>
 
@@ -624,15 +641,19 @@
   var params = new URLSearchParams(location.search);
   var raw = (params.get("plan") || "").toLowerCase();
   var isProfile = params.get("form") === "profile";
+  var isSchedule = params.get("form") === "schedule";
   var showThanks = params.get("thanks") === "1";
   var plans = { naimen: "内面セッションのみ", douga: "動画講座＋セッション" };
+  var planLabels = { naimen: "【内面セッションプラン】", douga: "【動画講座付きプラン】" };
   var planName = plans[raw] || "";
+  var planLabel = planLabels[raw] || "";
   var enrollForm = document.getElementById("enrollForm");
+  var scheduleForm = document.getElementById("scheduleForm");
   var profileForm = document.getElementById("profileForm");
   var hero = document.getElementById("hero");
   var noPlan = document.getElementById("noPlan");
   var enrollBtn = document.getElementById("enrollBtn");
-  var enrollNext = document.getElementById("enrollNext");
+  var scheduleBtn = document.getElementById("scheduleBtn");
   var profileBtn = document.getElementById("profileBtn");
 
   function val(id) {
@@ -665,6 +686,7 @@
   }
   function hideAll() {
     enrollForm.classList.add("form-hidden");
+    scheduleForm.classList.add("form-hidden");
     profileForm.classList.add("form-hidden");
     noPlan.classList.remove("is-on");
   }
@@ -700,8 +722,16 @@
     showDone("doneProfile", "送信完了｜パーソナルシート");
     return;
   }
+  if (showThanks && isSchedule) {
+    showDone("doneSchedule", "送信完了｜初回セッションの日程");
+    return;
+  }
   if (showThanks) {
-    if (planName) document.getElementById("doneBadge").textContent = planName;
+    if (planLabel) {
+      var doneBadge = document.getElementById("doneBadge");
+      doneBadge.textContent = planLabel;
+      doneBadge.classList.add("is-plan");
+    }
     showDone("doneEnroll", "送信完了｜オーダーノート現実創造プログラム");
     return;
   }
@@ -712,14 +742,27 @@
     document.getElementById("lead").innerHTML = "あなたのことを、もっと知るために<br><br>これまでどんな環境で過ごし、どんな価値観を持っているのかなど、今のあなたをつくった背景も大切にしながらお話を伺いたいと思っています。<br><br>そのため、セッション前にこちらのパーソナルシートへのご記入をお願いいたします。<br><br>少しプライベートな内容も含まれますので、どうしても回答したくない項目がある場合は、無理に記入せず「ー」などの印をつけていただいて構いません。<br><br>こちらも【今日から3日以内】を目安にご回答ください☺️";
     document.title = "パーソナルシート｜オーダーノート現実創造プログラム";
     enrollForm.classList.add("form-hidden");
+    scheduleForm.classList.add("form-hidden");
     profileForm.classList.remove("form-hidden");
+  } else if (isSchedule) {
+    document.getElementById("heroBadge").textContent = "【恋愛特化版】オーダーノート現実創造プログラム";
+    document.getElementById("heroTitle").textContent = "初回セッションの日程";
+    document.getElementById("lead").innerHTML = "初回セッションは、お申し込みから10日以内を目安に実施しています。<br><br>そのため、お申し込みから5〜10日以内の日程を、複数候補でお知らせください。<br><br>セッションの準備・日程調整の時間も必要となるため、5日以上先の日程でご希望をお送りいただけますと幸いです✨<br><br>書き方の例：10月12日 11~20時／10月13日 21時以降／10月16日 終日";
+    document.title = "初回セッションの日程｜オーダーノート現実創造プログラム";
+    enrollForm.classList.add("form-hidden");
+    profileForm.classList.add("form-hidden");
+    scheduleForm.classList.remove("form-hidden");
   } else if (planName) {
     document.getElementById("plan").value = planName;
+    var enrollBadge = document.getElementById("heroBadge");
+    enrollBadge.textContent = planLabel;
+    enrollBadge.classList.add("is-plan");
     profileForm.classList.add("form-hidden");
+    scheduleForm.classList.add("form-hidden");
   } else {
     profileForm.classList.add("form-hidden");
+    scheduleForm.classList.add("form-hidden");
     noPlan.classList.add("is-on");
-    enrollNext.disabled = true;
     enrollBtn.disabled = true;
   }
 
@@ -772,7 +815,8 @@
     });
   });
 
-  enrollNext.addEventListener("click", function () {
+  enrollForm.addEventListener("submit", function (e) {
+    e.preventDefault();
     if (!planName) return;
     var worryType = radio("worryType");
     var ok = true;
@@ -786,22 +830,6 @@
     ok = showErr("ideal", !val("ideal")) && ok;
     ok = showErr("reason", !val("reason")) && ok;
     ok = showErr("motivation", !val("motivation")) && ok;
-    if (!ok) return;
-    document.getElementById("enrollStep1").classList.add("form-hidden");
-    document.getElementById("enrollStep2").classList.remove("form-hidden");
-    document.getElementById("heroTitle").textContent = "初回セッションの日程";
-    document.getElementById("lead").innerHTML = "初回セッションは、お申し込みから10日以内を目安に実施しています。<br><br>そのため、お申し込みから5〜10日以内の日程を、複数候補でお知らせください。<br><br>セッションの準備・日程調整の時間も必要となるため、5日以上先の日程でご希望をお送りいただけますと幸いです✨<br><br>書き方の例：10月12日 11~20時／10月13日 21時以降／10月16日 終日";
-    window.scrollTo(0, 0);
-  });
-
-  enrollForm.addEventListener("submit", function (e) {
-    e.preventDefault();
-    if (!planName) return;
-    var worryType = radio("worryType");
-    var ok = true;
-    ok = showErr("slot1", !val("slot1")) && ok;
-    ok = showErr("slot2", !val("slot2")) && ok;
-    ok = showErr("slot3", !val("slot3")) && ok;
     if (!ok) return;
     showErr("enrollSubmit", false);
     enrollBtn.disabled = true;
@@ -818,13 +846,34 @@
       worryNow: val("worryNow"),
       ideal: val("ideal"),
       reason: val("reason"),
-      motivation: val("motivation"),
+      motivation: val("motivation")
+    }, "?plan=" + encodeURIComponent(raw) + "&thanks=1", "doneEnroll", "送信完了｜オーダーノート現実創造プログラム");
+    if (planLabel) {
+      var afterBadge = document.getElementById("doneBadge");
+      afterBadge.textContent = planLabel;
+      afterBadge.classList.add("is-plan");
+    }
+  });
+
+  scheduleForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var ok = true;
+    ok = showErr("schLineName", !val("schLineName")) && ok;
+    ok = showErr("slot1", !val("slot1")) && ok;
+    ok = showErr("slot2", !val("slot2")) && ok;
+    ok = showErr("slot3", !val("slot3")) && ok;
+    if (!ok) return;
+    showErr("scheduleSubmit", false);
+    scheduleBtn.disabled = true;
+    scheduleBtn.textContent = "送信しています…";
+    send({
+      formType: "日程",
+      lineName: val("schLineName"),
       slot1: val("slot1"),
       slot2: val("slot2"),
       slot3: val("slot3"),
       slotOther: val("slotOther")
-    }, "?plan=" + encodeURIComponent(raw) + "&thanks=1", "doneEnroll", "送信完了｜オーダーノート現実創造プログラム");
-    if (planName) document.getElementById("doneBadge").textContent = planName;
+    }, "?form=schedule&thanks=1", "doneSchedule", "送信完了｜初回セッションの日程");
   });
 
   profileForm.addEventListener("submit", function (e) {
