@@ -647,6 +647,7 @@
   var planName = plans[raw] || "";
   var planLabel = planLabels[raw] || "";
   var programName = "【恋愛特化版】オーダーノート現実創造プログラム";
+  var scheduleLead = "セッションの準備・日程調整の時間も必要となるため、<br><span class=\"mark\">3日後〜14日以内の日程</span>でご希望をお送りいただけますと幸いです✨<br>※もし日程が難しい場合は、14日後以降の日程を記載し、<br>チャットでその旨をお伝えいただけますと幸いです。<br><br>セッションは毎回、<span class=\"mark\">約90分</span>を想定しております。<br><br>書き方の例：10月12日 11~20時／10月13日 21時以降／10月16日 終日";
   function setProgramBadge(id, withPlan) {
     var el = document.getElementById(id);
     if (!el) return;
@@ -707,6 +708,18 @@
     document.getElementById(id).classList.add("is-on");
     document.title = title;
   }
+  function showSchedulePage() {
+    hero.style.display = "";
+    hideAll();
+    document.getElementById("doneEnroll").classList.remove("is-on");
+    document.getElementById("doneSchedule").classList.remove("is-on");
+    setProgramBadge("heroBadge", !!planLabel);
+    document.getElementById("heroTitle").textContent = "初回セッションの日程";
+    document.getElementById("lead").innerHTML = scheduleLead;
+    document.title = "初回セッションの日程｜オーダーノート現実創造プログラム";
+    scheduleForm.classList.remove("form-hidden");
+    window.scrollTo(0, 0);
+  }
   function send(payload, nextQuery, doneId, title) {
     history.replaceState(null, "", nextQuery);
     showDone(doneId, title);
@@ -752,13 +765,7 @@
     scheduleForm.classList.add("form-hidden");
     profileForm.classList.remove("form-hidden");
   } else if (isSchedule) {
-    setProgramBadge("heroBadge", false);
-    document.getElementById("heroTitle").textContent = "初回セッションの日程";
-    document.getElementById("lead").innerHTML = "セッションの準備・日程調整の時間も必要となるため、<br><span class=\"mark\">3日後〜14日以内の日程</span>でご希望をお送りいただけますと幸いです✨<br>※もし日程が難しい場合は、14日後以降の日程を記載し、<br>チャットでその旨をお伝えいただけますと幸いです。<br><br>セッションは毎回、<span class=\"mark\">約90分</span>を想定しております。<br><br>書き方の例：10月12日 11~20時／10月13日 21時以降／10月16日 終日";
-    document.title = "初回セッションの日程｜オーダーノート現実創造プログラム";
-    enrollForm.classList.add("form-hidden");
-    profileForm.classList.add("form-hidden");
-    scheduleForm.classList.remove("form-hidden");
+    showSchedulePage();
   } else if (planName) {
     document.getElementById("plan").value = planName;
     setProgramBadge("heroBadge", true);
@@ -839,21 +846,29 @@
     showErr("enrollSubmit", false);
     enrollBtn.disabled = true;
     enrollBtn.textContent = "送信しています…";
-    send({
-      formType: "入会",
-      plan: planName,
-      lineName: val("lineName"),
-      fullName: val("fullName"),
-      age: val("age"),
-      worryType: worryType,
-      worryOther: val("worryOther"),
-      pastEffort: val("pastEffort"),
-      worryNow: val("worryNow"),
-      ideal: val("ideal"),
-      reason: val("reason"),
-      motivation: val("motivation")
-    }, "?plan=" + encodeURIComponent(raw) + "&thanks=1", "doneEnroll", "送信完了｜オーダーノート現実創造プログラム");
-    setProgramBadge("doneBadge", true);
+    fetch(GAS, {
+      method: "POST",
+      mode: "no-cors",
+      keepalive: true,
+      headers: { "Content-Type": "text/plain;charset=UTF-8" },
+      body: JSON.stringify({
+        formType: "入会",
+        plan: planName,
+        lineName: val("lineName"),
+        fullName: val("fullName"),
+        age: val("age"),
+        worryType: worryType,
+        worryOther: val("worryOther"),
+        pastEffort: val("pastEffort"),
+        worryNow: val("worryNow"),
+        ideal: val("ideal"),
+        reason: val("reason"),
+        motivation: val("motivation")
+      })
+    });
+    if (!val("schLineName")) document.getElementById("schLineName").value = val("lineName");
+    history.replaceState(null, "", "?plan=" + encodeURIComponent(raw) + "&form=schedule");
+    showSchedulePage();
   });
 
   scheduleForm.addEventListener("submit", function (e) {
