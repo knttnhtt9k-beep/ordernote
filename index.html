@@ -312,11 +312,6 @@
 
     <form id="scheduleForm" class="form-hidden">
       <div class="field">
-        <label for="schLineName">LINE名 <span>必須</span></label>
-        <input id="schLineName" name="schLineName" type="text" autocomplete="nickname">
-        <div class="err" data-err="schLineName">LINEで表示されている名前を書いてください。</div>
-      </div>
-      <div class="field">
         <label for="slot1">第一候補 <span>必須</span></label>
         <input id="slot1" name="slot1" type="text" placeholder="例：10月12日 11~20時">
         <div class="err" data-err="slot1">第一候補の日時を書いてください。</div>
@@ -648,6 +643,53 @@
   var planLabel = planLabels[raw] || "";
   var programName = "【恋愛特化版】オーダーノート現実創造プログラム";
   var scheduleLead = "セッションの準備・日程調整の時間も必要となるため、<br><span class=\"mark\">3日後〜14日以内の日程</span>でご希望をお送りいただけますと幸いです✨<br>※もし日程が難しい場合は、14日後以降の日程を記載し、<br>チャットでその旨をお伝えいただけますと幸いです。<br><br>セッションは毎回、<span class=\"mark\">約90分</span>を想定しております。<br><br>書き方の例：10月12日 11~20時／10月13日 21時以降／10月16日 終日";
+  var draftKey = "ordernote-enroll";
+  function saveEnrollDraft(data) {
+    try { sessionStorage.setItem(draftKey, JSON.stringify(data)); } catch (err) {}
+  }
+  function loadEnrollDraft() {
+    try {
+      var rawDraft = sessionStorage.getItem(draftKey);
+      return rawDraft ? JSON.parse(rawDraft) : null;
+    } catch (err) {
+      return null;
+    }
+  }
+  function clearEnrollDraft() {
+    try { sessionStorage.removeItem(draftKey); } catch (err) {}
+  }
+  function fillEnrollDraft(data) {
+    if (!data) return;
+    ["lineName", "fullName", "age", "worryOther", "pastEffort", "worryNow", "ideal", "reason", "motivation"].forEach(function (id) {
+      if (data[id] != null) document.getElementById(id).value = data[id];
+    });
+    if (data.worryType) {
+      var worry = document.querySelector('input[name="worryType"][value="' + data.worryType + '"]');
+      if (worry) worry.checked = true;
+      toggle("otherWrap", data.worryType === "その他");
+    }
+    if (data.plan) document.getElementById("plan").value = data.plan;
+  }
+  function enrollPayload(slots) {
+    return {
+      formType: "入会",
+      plan: planName || (document.getElementById("plan").value || ""),
+      lineName: val("lineName"),
+      fullName: val("fullName"),
+      age: val("age"),
+      worryType: radio("worryType"),
+      worryOther: val("worryOther"),
+      pastEffort: val("pastEffort"),
+      worryNow: val("worryNow"),
+      ideal: val("ideal"),
+      reason: val("reason"),
+      motivation: val("motivation"),
+      slot1: slots ? slots.slot1 : "",
+      slot2: slots ? slots.slot2 : "",
+      slot3: slots ? slots.slot3 : "",
+      slotOther: slots ? slots.slotOther : ""
+    };
+  }
   function setProgramBadge(id, withPlan) {
     var el = document.getElementById(id);
     if (!el) return;
@@ -765,6 +807,7 @@
     scheduleForm.classList.add("form-hidden");
     profileForm.classList.remove("form-hidden");
   } else if (isSchedule) {
+    fillEnrollDraft(loadEnrollDraft());
     showSchedulePage();
   } else if (planName) {
     document.getElementById("plan").value = planName;
@@ -844,52 +887,37 @@
     ok = showErr("motivation", !val("motivation")) && ok;
     if (!ok) return;
     showErr("enrollSubmit", false);
-    enrollBtn.disabled = true;
-    enrollBtn.textContent = "送信しています…";
-    fetch(GAS, {
-      method: "POST",
-      mode: "no-cors",
-      keepalive: true,
-      headers: { "Content-Type": "text/plain;charset=UTF-8" },
-      body: JSON.stringify({
-        formType: "入会",
-        plan: planName,
-        lineName: val("lineName"),
-        fullName: val("fullName"),
-        age: val("age"),
-        worryType: worryType,
-        worryOther: val("worryOther"),
-        pastEffort: val("pastEffort"),
-        worryNow: val("worryNow"),
-        ideal: val("ideal"),
-        reason: val("reason"),
-        motivation: val("motivation")
-      })
-    });
-    if (!val("schLineName")) document.getElementById("schLineName").value = val("lineName");
+    saveEnrollDraft(enrollPayload());
     history.replaceState(null, "", "?plan=" + encodeURIComponent(raw) + "&form=schedule");
     showSchedulePage();
   });
 
   scheduleForm.addEventListener("submit", function (e) {
     e.preventDefault();
+    var draft = loadEnrollDraft();
+    if (draft) fillEnrollDraft(draft);
     var ok = true;
-    ok = showErr("schLineName", !val("schLineName")) && ok;
     ok = showErr("slot1", !val("slot1")) && ok;
     ok = showErr("slot2", !val("slot2")) && ok;
     ok = showErr("slot3", !val("slot3")) && ok;
+    if (!val("lineName")) {
+      showErr("scheduleSubmit", true);
+      return;
+    }
     if (!ok) return;
     showErr("scheduleSubmit", false);
     scheduleBtn.disabled = true;
     scheduleBtn.textContent = "送信しています…";
-    send({
-      formType: "日程",
-      lineName: val("schLineName"),
+    var thanksQuery = raw
+      ? "?plan=" + encodeURIComponent(raw) + "&form=schedule&thanks=1"
+      : "?form=schedule&thanks=1";
+    send(enrollPayload({
       slot1: val("slot1"),
       slot2: val("slot2"),
       slot3: val("slot3"),
       slotOther: val("slotOther")
-    }, "?form=schedule&thanks=1", "doneSchedule", "送信完了｜初回セッションの日程");
+    }), thanksQuery, "doneSchedule", "送信完了｜初回セッションの日程");
+    clearEnrollDraft();
   });
 
   profileForm.addEventListener("submit", function (e) {
