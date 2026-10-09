@@ -1,16 +1,17 @@
-■ アップロードのしかた（毎回これだけ）
+■ 上げ方（ordernote リポジトリ）
 
-1. このリンクを開く
-   https://github.com/knttnhtt9k-beep/ordernote/upload/main
-2. このフォルダの中身を全選択（command + A）してドラッグ
-   ※ フォルダごとでOK。10phrases / propose / reset / benefits は
-     名前がそのまま置き場所になるので、正しい場所に入ります
-3. Commit changes を押す
-4. 1〜2分待つと反映される
+https://github.com/knttnhtt9k-beep/ordernote/upload/main
+このフォルダの中身を全選択してドラッグ → Commit changes
 
-■ 中身
-  ルート直下の5ファイル … 診断サイト
-  10phrases/ … 特典①10フレーズ
-  propose/   … 特典②プロポーズ
-  reset/     … 特典③周波数リセット
-  benefits/  … 特典一覧ハブ
+■ 分かれているもの
+  ルート直下 … 愛され周波数診断（index.html / type.html など）
+  enroll/   … 申し込みアンケート・日程・パーソナルシート
+
+■ 公開URL
+  診断: https://knttnhtt9k-beep.github.io/ordernote/
+  内面セッション: https://knttnhtt9k-beep.github.io/ordernote/enroll/?plan=naimen
+  動画講座付き: https://knttnhtt9k-beep.github.io/ordernote/enroll/?plan=douga
+  日程: https://knttnhtt9k-beep.github.io/ordernote/enroll/?form=schedule
+  パーソナルシート: https://knttnhtt9k-beep.github.io/ordernote/enroll/?form=profile
+
+※ 以前の申し込みリンク（?plan= がルート）も、診断トップから enroll へ自動で飛びます。
