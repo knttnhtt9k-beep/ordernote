@@ -66,6 +66,10 @@
     color: #4a3f4c;
     text-align: left;
   }
+  .mark {
+    font-weight: 700;
+    color: #d63d7a;
+  }
   .warn {
     display: none;
     margin: 16px 22px 0;
@@ -206,7 +210,7 @@
     color: #4a3f4c;
   }
   .done .cta {
-    font-weight: 700;
+    font-weight: 500;
     color: var(--text);
   }
   .done .label {
@@ -621,7 +625,7 @@
 
     <div class="done" id="doneSchedule">
       <h1>ご記入ありがとうございました！</h1>
-      <p class="cta">このアンケートが届いたLINEを開いて、スタンプを送ってください。</p>
+      <p class="cta">このアンケートが届いたLINEのチャットに、<span class="mark">お好きなスタンプ</span>を1つを送ってください。</p>
     </div>
 
     <div class="done" id="doneProfile">
@@ -750,7 +754,7 @@
   } else if (isSchedule) {
     setProgramBadge("heroBadge", false);
     document.getElementById("heroTitle").textContent = "初回セッションの日程";
-    document.getElementById("lead").innerHTML = "初回セッションは、お申し込みから10日以内を目安に実施しています。<br><br>そのため、お申し込みから5〜10日以内の日程を、複数候補でお知らせください。<br><br>セッションの準備・日程調整の時間も必要となるため、5日以上先の日程でご希望をお送りいただけますと幸いです✨<br><br>書き方の例：10月12日 11~20時／10月13日 21時以降／10月16日 終日";
+    document.getElementById("lead").innerHTML = "セッションの準備・日程調整の時間も必要となるため、<br><span class=\"mark\">3日後〜14日以内の日程</span>でご希望をお送りいただけますと幸いです✨<br>※もし日程が難しい場合は、14日後以降の日程を記載し、<br>チャットでその旨をお伝えいただけますと幸いです。<br><br>セッションは毎回、<span class=\"mark\">約90分</span>を想定しております。<br><br>書き方の例：10月12日 11~20時／10月13日 21時以降／10月16日 終日";
     document.title = "初回セッションの日程｜オーダーノート現実創造プログラム";
     enrollForm.classList.add("form-hidden");
     profileForm.classList.add("form-hidden");
