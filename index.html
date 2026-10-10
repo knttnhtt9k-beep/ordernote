@@ -170,11 +170,26 @@
   .scene-list li:last-child { border-bottom: none; }
   .teacher-box {
     margin: 0 0 28px;
-    padding: 16px 14px;
+    padding: 18px 14px 16px;
     border-radius: 16px;
     background: rgba(255,255,255,.85);
     border: 1px solid var(--line);
     text-align: left;
+  }
+  .teacher-box .teacher-photo {
+    width: 92px;
+    height: 92px;
+    margin: 0 auto 12px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: linear-gradient(145deg, #f3e4f0 0%, #e8d4f5 45%, #f0c8d8 100%);
+    border: 3px solid rgba(232, 160, 184, .55);
+  }
+  .teacher-box .teacher-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
   }
   .teacher-box h3 {
     margin: 0 0 10px;
@@ -397,6 +412,9 @@
       </li>
     </ul>
     <div class="teacher-box">
+      <div class="teacher-photo">
+        <img src="images/teacher-mochizuki.jpg?v=2" alt="望月俊亮" width="160" height="160">
+      </div>
       <h3>望月俊亮<br>オーダーノート開発者<br>この周波数診断の製作者</h3>
       <p>裁判離婚からオーダーノートに33項目を書き、7日後に出会い結婚。借金2000万・収入ゼロから3年で年商6億へ。恋愛でも追う側から選ばれる側へ変わった順番を、恋愛版オーダーノートとしてまとめました。</p>
     </div>
