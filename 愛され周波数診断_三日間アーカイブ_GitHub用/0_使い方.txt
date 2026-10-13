@@ -1,0 +1,30 @@
+このフォルダの「archive-shindan」だけを、GitHubの ordernote リポジトリへ上げてください。
+
+【置く場所】
+knttnhtt9k-beep / ordernote の中に、archive-shindan フォルダごと置く
+
+ordernote/
+  index.html          ← 触らない（今の愛され周波数タイプ診断のまま）
+  enroll/             ← 触らない
+  archive-shindan/    ← 今回上げるフォルダ（中に index.html がある）
+
+【公開リンク】（上げたあとに開く）
+https://knttnhtt9k-beep.github.io/ordernote/archive-shindan/
+
+結果ページの例
+https://knttnhtt9k-beep.github.io/ordernote/archive-shindan/type.html?id=T1
+https://knttnhtt9k-beep.github.io/ordernote/archive-shindan/type.html?id=T2
+https://knttnhtt9k-beep.github.io/ordernote/archive-shindan/type.html?id=T3
+
+視聴ページ
+https://knttnhtt9k-beep.github.io/ordernote/archive-shindan/watch.html?id=T1
+
+【やってはいけないこと】
+- 今公開中の
+  https://knttnhtt9k-beep.github.io/ordernote/
+  の index.html を、このファイルで上書きしない
+- archive-shindan の中身だけをリポジトリの一番上にばらまかない
+
+【まだ入っていないもの】
+アーカイブ動画のURL。届いたら types-data.js の SEMINAR_ARCHIVE_URL に入れます。
+今は視聴ページにセミナー画像が出て、再生はまだ始まりません。
