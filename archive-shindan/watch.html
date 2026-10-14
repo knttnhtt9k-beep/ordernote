@@ -86,7 +86,7 @@
   <p class="btn-note">講師 はにぃ｜進行役 望月｜500名即完の回です。</p>
   <a class="ghost-btn" href="index.html">診断トップへ戻る</a>
 </div>
-<script src="types-data.js?v=archive8"></script>
+<script src="types-data.js?v=archive9"></script>
 <script src="archive-window.js"></script>
 <script>
 (function () {
@@ -106,12 +106,10 @@
 
   if (result) {
     typeLine.textContent = "あなたのタイプ：" + result.name;
-    copy.innerHTML =
-      "<p>" + (result.ctaMid || "").replace(/<br>/g, "") + "</p>" +
-      "<p>このセミナーは、500名の募集がすぐに埋まりました。診断のあと、三日間だけ見られます。</p>";
+    copy.innerHTML = "<p>500名の募集がすぐに埋まった回です。見られるのは、診断した日から三日間です。</p>";
   } else {
     typeLine.textContent = "診断結果を手元に置いて、見てください。";
-    copy.innerHTML = "<p>このセミナーは、500名の募集がすぐに埋まりました。診断のあと、三日間だけ見られます。</p>";
+    copy.innerHTML = "<p>500名の募集がすぐに埋まった回です。見られるのは、診断した日から三日間です。</p>";
   }
 
   function toEmbed(src) {
