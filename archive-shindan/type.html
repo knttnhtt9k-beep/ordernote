@@ -93,7 +93,6 @@
     <div class="rich" id="seminarText"></div>
     <p class="action-warn" id="seminarScene"></p>
     <a class="primary-btn js-seminar" href="https://s.lmes.jp/landing-qr/2000413683-9n7nxLdw?uLand=tzGd9J" target="_blank" rel="noopener">三日間限定で<br>アーカイブを見る</a>
-    <p class="btn-note">アーカイブは、約120分です。</p>
   </section>
 
   <section class="sec">
@@ -173,9 +172,9 @@
     <a class="seminar-banner seminar-banner-sm seminar-banner-cta js-seminar" href="https://s.lmes.jp/landing-qr/2000413683-9n7nxLdw?uLand=tzGd9J" target="_blank" rel="noopener" aria-label="三日間限定のアーカイブを見る">
       <img src="images/seminar-archive.jpg" alt="恋愛オーダーノート完全攻略セミナー" width="1920" height="1080" loading="lazy">
     </a>
-    <p class="final-line" id="finalLine">タイプが分かった今から、三日間だけアーカイブを見られます。</p>
+    <p class="final-line" id="finalLine"></p>
     <a class="primary-btn primary-btn-lg js-seminar" href="https://s.lmes.jp/landing-qr/2000413683-9n7nxLdw?uLand=tzGd9J" target="_blank" rel="noopener">今すぐアーカイブを見る</a>
-    <p class="btn-note" id="finalNote">500名の枠が即完した回です。三日を過ぎると、この画面からは見られません。</p>
+    <p class="btn-note" id="finalNote"></p>
     <a class="ghost-btn" href="index.html">診断トップへ戻る</a>
     <div class="nav-links">
       <a href="gallery.html">全タイプ一覧を見る</a>
@@ -184,10 +183,10 @@
 </div>
 
 <div class="sticky-cta" id="stickyCta">
-  <a class="primary-btn js-seminar" href="https://s.lmes.jp/landing-qr/2000413683-9n7nxLdw?uLand=tzGd9J" target="_blank" rel="noopener">三日間限定でアーカイブを見る</a>
+  <a class="primary-btn js-seminar" href="https://s.lmes.jp/landing-qr/2000413683-9n7nxLdw?uLand=tzGd9J" target="_blank" rel="noopener">アーカイブを見る</a>
 </div>
 
-<script src="types-data.js?v=archive9"></script>
+<script src="types-data.js?v=archive11"></script>
 <script src="archive-window.js"></script>
 <script src="images-embed.js?v=61"></script>
 <script>
@@ -345,8 +344,16 @@
   if (mid2) mid2.textContent = window.SEMINAR_CTA_BUTTON || "今すぐアーカイブを見る";
   var finalBtn = document.querySelector(".sec-final .js-seminar.primary-btn");
   if (finalBtn) finalBtn.textContent = window.FINAL_BTN || "今すぐアーカイブを見る";
-  if (window.FINAL_LINE) document.getElementById("finalLine").textContent = window.FINAL_LINE;
-  if (window.FINAL_NOTE) document.getElementById("finalNote").textContent = window.FINAL_NOTE;
+  var finalLine = document.getElementById("finalLine");
+  var finalNote = document.getElementById("finalNote");
+  if (finalLine) {
+    if (window.FINAL_LINE) finalLine.textContent = window.FINAL_LINE;
+    else finalLine.style.display = "none";
+  }
+  if (finalNote) {
+    if (window.FINAL_NOTE) finalNote.textContent = window.FINAL_NOTE;
+    else finalNote.style.display = "none";
+  }
 
   var kw = document.getElementById("typeKeywords");
   (result.keywords || []).forEach(function (k) {
