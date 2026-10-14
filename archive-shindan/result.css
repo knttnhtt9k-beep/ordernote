@@ -251,6 +251,9 @@ body {
   margin-top: 4px;
   margin-bottom: 16px;
 }
+.sec-seminar > .primary-btn {
+  margin-top: 28px;
+}
 .cta-mid {
   margin: 8px 22px 0;
   padding: 8px 0 16px;
@@ -407,7 +410,7 @@ body {
   margin: 0 0 .35em;
   line-height: 1.8;
   word-break: normal;
-  overflow-wrap: anywhere;
+  overflow-wrap: normal;
   font-size: .94rem;
 }
 .para:last-child { margin-bottom: 0; }
