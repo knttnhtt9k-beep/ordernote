@@ -638,6 +638,10 @@
   var isSchedule = params.get("form") === "schedule";
   var showThanks = params.get("thanks") === "1";
   var plans = { naimen: "内面セッションのみ", douga: "動画講座＋セッション" };
+  var thanksLine = {
+    naimen: "https://utage-system.com/line/open/1kInmQ6wKArH",
+    douga: "https://utage-system.com/line/open/gAx6qTEjAl8Q"
+  };
   var planLabels = { naimen: "【内面セッションプラン】", douga: "【動画講座付きプラン】" };
   var planName = plans[raw] || "";
   var planLabel = planLabels[raw] || "";
@@ -789,6 +793,10 @@
     return;
   }
   if (showThanks && isSchedule) {
+    if (thanksLine[raw]) {
+      location.replace(thanksLine[raw]);
+      return;
+    }
     showDone("doneSchedule", "送信完了｜初回セッションの日程");
     return;
   }
@@ -918,6 +926,7 @@
       slotOther: val("slotOther")
     }), thanksQuery, "doneSchedule", "送信完了｜初回セッションの日程");
     clearEnrollDraft();
+    if (thanksLine[raw]) location.replace(thanksLine[raw]);
   });
 
   profileForm.addEventListener("submit", function (e) {
