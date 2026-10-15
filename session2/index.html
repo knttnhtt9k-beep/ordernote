@@ -20,235 +20,397 @@
   * { box-sizing: border-box; }
   body {
     margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", sans-serif;
-    background:
-      radial-gradient(circle at 12% 8%, rgba(255, 214, 232, .9), transparent 32%),
-      radial-gradient(circle at 90% 0%, rgba(230, 220, 255, .75), transparent 28%),
-      var(--bg);
+    font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
+    background: var(--bg);
     color: var(--text);
+    -webkit-font-smoothing: antialiased;
   }
-  .wrap {
+  .app {
+    min-height: 100vh;
     max-width: 430px;
     margin: 0 auto;
-    padding: 28px 20px 48px;
+    background: var(--card);
+    box-shadow: 0 0 40px rgba(80, 40, 70, 0.06);
+    padding: 0 0 64px;
+  }
+  .hero {
+    padding: 36px 22px 20px;
+    background: linear-gradient(180deg, #fff0f6 0%, #fff 72%);
+    text-align: center;
+  }
+  .badge {
+    display: inline-block;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    color: #c44d7a;
+    background: var(--pink-soft);
+    border-radius: 999px;
+    padding: 8px 14px;
+    margin-bottom: 14px;
+    line-height: 1.7;
   }
   h1 {
-    margin: 0 0 12px;
-    font-size: 1.35rem;
-    line-height: 1.45;
-  }
-  .lead, .note, .hint {
-    margin: 0 0 14px;
-    font-size: .92rem;
-    line-height: 1.8;
-  }
-  .note { color: var(--muted); }
-  h2 {
-    margin: 28px 0 12px;
-    font-size: 1.05rem;
-    line-height: 1.5;
-  }
-  fieldset {
-    margin: 0 0 16px;
-    padding: 16px 14px 8px;
-    border: 1px solid var(--line);
-    border-radius: 16px;
-    background: rgba(255,255,255,.88);
-    box-shadow: var(--shadow);
-  }
-  legend {
-    padding: 0 6px;
-    font-weight: 800;
-    font-size: .95rem;
-  }
-  .choice {
-    display: block;
-    margin: 0 0 10px;
-    padding: 12px 12px;
-    border: 1.5px solid var(--line);
-    border-radius: 14px;
-    background: #fff;
-    font-size: .92rem;
+    margin: 0 0 8px;
+    font-size: 18px;
     line-height: 1.55;
-    cursor: pointer;
-  }
-  .choice:has(input:checked) {
-    border-color: var(--pink);
-    background: var(--pink-soft);
-  }
-  .choice input { margin-right: 8px; }
-  label.q {
-    display: block;
-    margin: 14px 0 6px;
-    font-size: .9rem;
     font-weight: 700;
+  }
+  .lead {
+    margin: 14px 0 0;
+    font-size: 14px;
+    line-height: 1.85;
+    color: #4a3f4c;
+    text-align: left;
+  }
+  form { padding: 8px 22px 0; }
+  .sec {
+    margin: 10px 0 22px;
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
+  }
+  .sec:first-child { border-top: 0; padding-top: 0; }
+  .sec h2, .subhead {
+    margin: 0 0 14px;
+    font-size: 15px;
+    line-height: 1.5;
+    font-weight: 700;
+  }
+  .subhead { margin-top: 8px; }
+  .ask {
+    margin: 0 0 14px;
+    font-size: 14px;
+    line-height: 1.85;
+    color: #4a3f4c;
+  }
+  .field { margin: 0 0 18px; }
+  label {
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 8px;
     line-height: 1.7;
+  }
+  label span {
+    font-weight: 500;
+    color: var(--muted);
+    font-size: 12px;
+    margin-left: 6px;
+  }
+  label span.long {
+    display: block;
+    margin-left: 0;
+    margin-top: 4px;
+    line-height: 1.7;
+  }
+  .hint {
+    margin: 0 0 14px;
+    font-size: 14px;
+    line-height: 1.85;
+    color: #4a3f4c;
+    font-weight: 500;
   }
   textarea {
     width: 100%;
-    min-height: 88px;
-    padding: 12px;
-    border: 1.5px solid var(--line);
-    border-radius: 12px;
-    font: inherit;
-    font-size: .92rem;
-    line-height: 1.7;
-    resize: vertical;
-    background: #fff;
-  }
-  textarea:focus { outline: 2px solid #ffd0e2; border-color: var(--pink); }
-  .opt { color: var(--muted); font-weight: 600; }
-  button {
-    display: block;
-    width: 100%;
-    margin-top: 28px;
-    border: none;
-    border-radius: 999px;
-    padding: 15px 14px;
-    font: inherit;
-    font-size: .95rem;
-    font-weight: 800;
-    color: #fff;
-    background: linear-gradient(90deg, var(--pink), #c86bff);
-    box-shadow: 0 8px 20px rgba(232, 90, 138, .25);
-    cursor: pointer;
-  }
-  .error {
-    margin: 16px 0 0;
-    color: #c43b62;
-    font-size: .88rem;
-    line-height: 1.7;
-  }
-  .summary {
-    margin-top: 8px;
-    padding: 16px 14px;
-    border-radius: 16px;
-    background: #fff;
     border: 1px solid var(--line);
-    white-space: pre-wrap;
-    font-size: .9rem;
-    line-height: 1.75;
-  }
-  .ghost {
-    margin-top: 12px;
+    border-radius: 12px;
+    padding: 12px 14px;
+    font-size: 16px;
+    font-family: inherit;
     color: var(--text);
     background: #fff;
-    border: 1.5px solid var(--line);
-    box-shadow: none;
+    outline: none;
+    min-height: 96px;
+    resize: vertical;
+    line-height: 1.6;
   }
+  textarea:focus {
+    border-color: #f3a0bd;
+    box-shadow: 0 0 0 3px rgba(255, 107, 157, 0.15);
+  }
+  .choices { display: grid; gap: 8px; }
+  .choice {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 12px 12px;
+    background: #fff;
+    cursor: pointer;
+    font-weight: 500;
+  }
+  .choice:has(input:checked) {
+    border-color: #f3a0bd;
+    background: #fff7fa;
+  }
+  .choice input { margin-top: 3px; accent-color: var(--pink); }
+  .choice-text { font-size: 14px; line-height: 1.5; font-weight: 500; }
+  .reveal { display: none; }
+  .reveal.is-on { display: block; }
+  #after.is-on { display: flex; flex-direction: column; }
+  .add {
+    width: 100%;
+    margin: 0 0 18px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 14px 18px;
+    font-size: 15px;
+    font-weight: 700;
+    font-family: inherit;
+    color: var(--text);
+    background: #fff;
+    cursor: pointer;
+  }
+  .submit {
+    width: 100%;
+    border: 0;
+    border-radius: 999px;
+    padding: 16px 18px;
+    margin-top: 28px;
+    font-size: 16px;
+    font-weight: 700;
+    font-family: inherit;
+    color: #fff;
+    background: linear-gradient(90deg, var(--pink), var(--purple));
+    box-shadow: var(--shadow);
+    cursor: pointer;
+  }
+  .err {
+    display: none;
+    margin-top: 6px;
+    font-size: 12px;
+    color: #c0392b;
+    line-height: 1.7;
+  }
+  .err.is-on { display: block; }
+  .done { display: none; padding: 36px 22px 24px; }
+  .done.is-on { display: block; }
+  .done h1 { font-size: 18px; line-height: 1.6; margin: 0 0 16px; }
+  .done p {
+    font-size: 14px;
+    line-height: 1.85;
+    margin: 0 0 14px;
+    color: #4a3f4c;
+  }
+  .done .msg {
+    margin: 0;
+    padding: 14px 16px;
+    border-radius: 12px;
+    background: #fff7fa;
+    border: 1px solid var(--line);
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--text);
+    white-space: pre-wrap;
+  }
+  .done .add { margin-top: 12px; }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <form id="sheet">
-    <h1>セッション2の事前ワーク</h1>
-    <p class="lead">自分でパターンを<br>まとめなくて大丈夫です。</p>
-    <p class="lead">起きたことと、<br>そのとき思ったことを<br>書いてください。<br>セッションで一緒に見ます。</p>
+  <div class="app">
+    <div class="hero">
+      <div class="badge">セッション2</div>
+      <h1>事前ワーク</h1>
+      <p class="lead">
+        自分でパターンを<br>
+        まとめなくて大丈夫です。<br><br>
+        起きたことと、<br>
+        そのとき思ったことを<br>
+        書いてください。<br>
+        セッションで一緒に見ます。
+      </p>
+    </div>
 
-    <h2>1. 最初の質問</h2>
-    <p class="lead">これまでの恋愛や、<br>誰かを好きになった経験で、<br>今でもふと思い出すものは<br>ありますか？</p>
-    <label class="choice"><input type="radio" name="gate" value="1"> ① 思い浮かぶ経験がある</label>
-    <label class="choice"><input type="radio" name="gate" value="2"> ② 少しはあるけれど、何を書けばいいか迷う</label>
-    <label class="choice"><input type="radio" name="gate" value="3"> ③ 思い浮かぶ経験がほとんどない</label>
-    <p class="hint" id="hint2" hidden>②を選んだ人も、下の1つ目を書いてください。完璧な恋の話でなくて大丈夫です。</p>
-    <p class="hint" id="hint3" hidden>③を選んだ人は、名前を出さなくて大丈夫です。好きになりかけた人、曖昧なまま終わった人が一人でもいれば、その人を1つ目に書いてください。一人もいなければ、1つ目は空のまま、最後の質問だけ答えてください。</p>
+    <form id="sheet">
+      <div class="sec">
+        <h2>最初の質問</h2>
+        <p class="ask">これまでの恋愛や、<br>誰かを好きになった経験で、<br>今でもふと思い出すものは<br>ありますか？</p>
+        <div class="choices">
+          <label class="choice"><input type="radio" name="gate" value="1"><span class="choice-text">① 思い浮かぶ経験がある</span></label>
+          <label class="choice"><input type="radio" name="gate" value="2"><span class="choice-text">② 少しはあるけれど、何を書けばいいか迷う</span></label>
+          <label class="choice"><input type="radio" name="gate" value="3"><span class="choice-text">③ 思い浮かぶ経験がほとんどない</span></label>
+        </div>
+      </div>
 
-    <h2>2. 過去の経験</h2>
-    <p class="note">付き合った相手だけではありません。<br>片思い、曖昧なまま終わった関係も入れてください。<br>最大3つです。<br>①か②を選んだ人は、1つ目を書いてください。<br>③を選んだ人は、1つ目が空でも進めます。<br>2つ目と3つ目は、なければ空で大丈夫です。</p>
+      <div id="after" class="reveal">
+        <div class="sec" id="expSec">
+          <h2 id="expHead" hidden>1つ目</h2>
+          <p class="hint reveal" id="expNote">付き合った相手だけではありません。<br>片思い、曖昧なまま終わった<br>関係の方も踏まえ、ご記入ください。</p>
+          <button type="button" class="add reveal" id="open1">好きになりかけた人を書く</button>
+          <div id="block1" class="reveal"></div>
+          <button type="button" class="add reveal" id="open2">2つ目を書く</button>
+          <div id="block2" class="reveal">
+            <p class="subhead" id="sub2">2つ目</p>
+          </div>
+          <button type="button" class="add reveal" id="open3">3つ目を書く</button>
+          <div id="block3" class="reveal">
+            <p class="subhead" id="sub3">3つ目</p>
+          </div>
+        </div>
 
-    <fieldset id="exp1">
-      <legend id="leg1">1つ目</legend>
-      <label class="q" for="r1">その人とは、どんな関係でしたか。<br>付き合っていた、片思い、曖昧なまま、など、自分の言葉で書いてください。</label>
-      <textarea id="r1" name="r1"></textarea>
-      <label class="q" for="e1">そのとき、何がありましたか。<br>どこで、相手は何をして、自分は何をしましたか。</label>
-      <textarea id="e1" name="e1"></textarea>
-      <label class="q" for="f1">そのとき、自分は何と思っていましたか。<br>「嫌われた」「私ばっかり」など、頭に浮かんだ言葉をそのまま書いてください。</label>
-      <textarea id="f1" name="f1"></textarea>
-      <label class="q" for="w1">そのとき、本当は何をしたかったですか。<br>送りたかった文、言いたかったこと、やめたかったこと。</label>
-      <textarea id="w1" name="w1"></textarea>
-      <label class="q" for="b1">そのあと、恋愛や自分について、自分にどんな言葉を言うようになりましたか。<br>例は、「本音を出したら嫌われる」「どうせまたいなくなる」です。</label>
-      <textarea id="b1" name="b1"></textarea>
-    </fieldset>
+        <div class="sec" id="lastSec">
+          <h2>最後の質問</h2>
+          <div class="field">
+            <label for="now">今の恋や、<br>友人・家族とのやりとりで、<br>昔と同じことをしていると<br>感じる場面はありますか。 <span>必須</span>
+              <span class="long">あれば、最近の場面を<br>1つ書いてください。<br>誰が、何をして、<br>自分は何をしましたか。<br>なければ、「ない」で大丈夫です。</span>
+            </label>
+            <textarea id="now" name="now"></textarea>
+          </div>
+        </div>
 
-    <fieldset>
-      <legend>2つ目 <span class="opt">（なければ空で大丈夫）</span></legend>
-      <label class="q" for="r2">その人とは、どんな関係でしたか。</label>
-      <textarea id="r2" name="r2"></textarea>
-      <label class="q" for="e2">そのとき、何がありましたか。</label>
-      <textarea id="e2" name="e2"></textarea>
-      <label class="q" for="f2">そのとき、自分は何と思っていましたか。</label>
-      <textarea id="f2" name="f2"></textarea>
-      <label class="q" for="w2">そのとき、本当は何をしたかったですか。</label>
-      <textarea id="w2" name="w2"></textarea>
-      <label class="q" for="b2">そのあと、自分にどんな言葉を言うようになりましたか。</label>
-      <textarea id="b2" name="b2"></textarea>
-    </fieldset>
+        <div class="err" id="error"></div>
+        <button class="submit" id="submitBtn" type="submit">書いた内容を確認する</button>
+      </div>
+    </form>
 
-    <fieldset>
-      <legend>3つ目 <span class="opt">（なければ空で大丈夫）</span></legend>
-      <label class="q" for="r3">その人とは、どんな関係でしたか。</label>
-      <textarea id="r3" name="r3"></textarea>
-      <label class="q" for="e3">そのとき、何がありましたか。</label>
-      <textarea id="e3" name="e3"></textarea>
-      <label class="q" for="f3">そのとき、自分は何と思っていましたか。</label>
-      <textarea id="f3" name="f3"></textarea>
-      <label class="q" for="w3">そのとき、本当は何をしたかったですか。</label>
-      <textarea id="w3" name="w3"></textarea>
-      <label class="q" for="b3">そのあと、自分にどんな言葉を言うようになりましたか。</label>
-      <textarea id="b3" name="b3"></textarea>
-    </fieldset>
-
-    <h2>3. 最後の質問</h2>
-    <label class="q" for="now">今の恋や、友人・家族とのやりとりで、昔と同じことをしていると感じる場面はありますか。<br>あれば、最近の場面を1つ書いてください。誰が、何をして、自分は何をしましたか。<br>なければ、「ない」で大丈夫です。</label>
-    <textarea id="now" name="now"></textarea>
-
-    <p class="error" id="error" hidden></p>
-    <button type="submit">書いた内容を確認する</button>
-  </form>
-
-  <section id="done" hidden>
-    <h1>書けました</h1>
-    <p class="lead">この内容を、セッション2に持ってきてください。<br>このページを閉じても、この端末には残します。</p>
-    <div class="summary" id="summary"></div>
-    <button type="button" class="ghost" id="copy">この内容をコピーする</button>
-    <button type="button" class="ghost" id="back">書き直す</button>
-  </section>
-</div>
+    <div class="done" id="done">
+      <h1>書けました</h1>
+      <p>この内容を、<br>セッション2に持ってきてください。<br>このページを閉じても、<br>このスマホの中に保存します。</p>
+      <div class="msg" id="summary"></div>
+      <button type="button" class="submit" id="copy">この内容をコピーする</button>
+      <button type="button" class="add" id="back">書き直す</button>
+    </div>
+  </div>
 <script>
 (function () {
   var form = document.getElementById("sheet");
   var done = document.getElementById("done");
   var error = document.getElementById("error");
-  var KEY = "session2-prep-v1";
+  var after = document.getElementById("after");
+  var KEY = "session2-prep-v2";
   var keys = ["r1","e1","f1","w1","b1","r2","e2","f2","w2","b2","r3","e3","f3","w3","b3","now"];
+  var opened = {
+    "1": { b2: false, b3: false },
+    "2": { b2: false, b3: false },
+    "3": { b1: false, b2: false, b3: false }
+  };
+  var qTitle = {
+    r: "その人とは、どんな関係でしたか。",
+    e: "そのとき、何がありましたか。",
+    f: "そのとき、自分は何と思っていましたか。",
+    w: "そのとき、本当は何をしたかったですか。",
+    b: "そのあと、自分にどんな言葉を言うようになりましたか。"
+  };
+  var qHelp = {
+    "1": {
+      r: ["付き合っていた、片思い、", "曖昧なまま、など、", "自分の言葉で書いてください。"],
+      e: ["どこで、相手は何をして、", "自分は何をしましたか。"],
+      f: ["「嫌われた」", "「私ばっかり」など、", "頭に浮かんだ言葉をそのまま。"],
+      w: ["送りたかった文、", "言いたかったこと、", "やめたかったこと。"],
+      b: ["例は、", "「本音を出したら嫌われる」", "「どうせまたいなくなる」です。"]
+    },
+    "2": {
+      r: ["元彼、片思い、", "曖昧なまま、のどれに近いか", "書いてください。"],
+      e: ["場所はどこでしたか。", "相手は何をしましたか。", "自分は何をしましたか。"],
+      f: ["浮かんだ言葉を、", "そのまま書いてください。"],
+      w: ["送りたかった文を、", "そのまま書いてください。"],
+      b: ["あとから自分に言う言葉を、", "そのまま書いてください。"]
+    },
+    "3": {
+      r: ["付き合っていた、片思い、", "曖昧なまま、など、", "自分の言葉で書いてください。"],
+      e: ["どこで、相手は何をして、", "自分は何をしましたか。"],
+      f: ["頭に浮かんだ言葉を、", "そのまま書いてください。"],
+      w: ["送りたかった文、", "言いたかったこと、", "やめたかったこと。"],
+      b: ["あとから自分に言う言葉を、", "そのまま書いてください。"]
+    }
+  };
+  var parts = ["r", "e", "f", "w", "b"];
+
+  function fieldHtml(n, part, helpLines) {
+    var id = part + n;
+    return '<div class="field"><label for="' + id + '">' + qTitle[part] + ' <span>必須</span><span class="long">' + helpLines.join("<br>") + '</span></label><textarea id="' + id + '" name="' + id + '"></textarea></div>';
+  }
+  function paintBlock(n, help) {
+    var html = parts.map(function (part) { return fieldHtml(n, part, help[part]); }).join("");
+    var box = document.getElementById("block" + n);
+    var head = box.querySelector(".subhead");
+    if (head) html = head.outerHTML + html;
+    box.innerHTML = html;
+  }
+  function paintAll(g) {
+    [1, 2, 3].forEach(function (n) { paintBlock(n, qHelp[g]); });
+  }
 
   function gate() {
     var picked = form.querySelector("input[name=gate]:checked");
     return picked ? picked.value : "";
   }
-  function syncHint() {
-    var g = gate();
-    document.getElementById("hint2").hidden = g !== "2";
-    document.getElementById("hint3").hidden = g !== "3";
-    var leg = document.getElementById("leg1");
-    if (g === "3") leg.textContent = "1つ目（空でも進めます）";
-    else if (g === "1" || g === "2") leg.textContent = "1つ目（書いてください）";
-    else leg.textContent = "1つ目";
+  function show(el, on) { el.classList.toggle("is-on", !!on); }
+  function blockOn(g, n) {
+    if (!g) return false;
+    if (n === 1) return g !== "3" || opened["3"].b1;
+    if (n === 2) return !!opened[g].b2;
+    return !!opened[g].b3;
   }
-  form.addEventListener("change", syncHint);
 
-  function val(id) { return document.getElementById(id).value.trim(); }
-  function block(n) {
-    return {
-      relation: val("r" + n),
-      event: val("e" + n),
-      feeling: val("f" + n),
-      wanted: val("w" + n),
-      after: val("b" + n)
-    };
+  function capture() {
+    var data = {};
+    keys.forEach(function (k) {
+      var el = document.getElementById(k);
+      if (el) data[k] = el.value;
+    });
+    return data;
   }
-  function filled(b) {
-    return b.relation || b.event || b.feeling || b.wanted || b.after;
+  function restore(data) {
+    keys.forEach(function (k) {
+      var el = document.getElementById(k);
+      if (el && data[k]) el.value = data[k];
+    });
+  }
+  function sync() {
+    var g = gate();
+    var prev = capture();
+    show(after, !!g);
+    error.classList.remove("is-on");
+    if (!g) return;
+    paintAll(g);
+    restore(prev);
+    var b1 = blockOn(g, 1);
+    var b2 = blockOn(g, 2);
+    var b3 = blockOn(g, 3);
+    document.getElementById("expHead").hidden = !b1;
+    document.getElementById("expHead").textContent = g === "1" ? "1つ目" : (g === "2" ? "思い出した人" : "その人");
+    show(document.getElementById("expNote"), b1);
+    show(document.getElementById("open1"), g === "3" && !opened["3"].b1);
+    show(document.getElementById("block1"), b1);
+    show(document.getElementById("open2"), b1 && !b2);
+    show(document.getElementById("block2"), b2);
+    show(document.getElementById("open3"), b2 && !b3);
+    show(document.getElementById("block3"), b3);
+    document.getElementById("open2").textContent = g === "1" ? "2つ目を書く" : "もう1人書く";
+    document.getElementById("open3").textContent = g === "1" ? "3つ目を書く" : "もう1人書く";
+    document.getElementById("sub2").textContent = g === "1" ? "2つ目" : "2人目";
+    document.getElementById("sub3").textContent = g === "1" ? "3つ目" : "3人目";
+    document.getElementById("expSec").style.order = g === "3" ? "2" : "1";
+    document.getElementById("lastSec").style.order = g === "3" ? "1" : "2";
+    document.getElementById("error").style.order = "3";
+    document.getElementById("submitBtn").style.order = "4";
+  }
+
+  document.getElementById("open1").addEventListener("click", function () {
+    opened["3"].b1 = true;
+    sync();
+  });
+  document.getElementById("open2").addEventListener("click", function () {
+    var g = gate();
+    if (g) opened[g].b2 = true;
+    sync();
+  });
+  document.getElementById("open3").addEventListener("click", function () {
+    var g = gate();
+    if (g) opened[g].b3 = true;
+    sync();
+  });
+  form.addEventListener("change", function (ev) {
+    if (ev.target && ev.target.name === "gate") sync();
+  });
+
+  function val(id) {
+    var el = document.getElementById(id);
+    return el ? el.value.trim() : "";
+  }
+  function block(n) {
+    return { relation: val("r" + n), event: val("e" + n), feeling: val("f" + n), wanted: val("w" + n), after: val("b" + n) };
   }
   function complete(b) {
     return b.relation && b.event && b.feeling && b.wanted && b.after;
@@ -258,88 +420,85 @@
     try {
       var saved = JSON.parse(localStorage.getItem(KEY) || "null");
       if (!saved) return;
+      if (saved.opened) opened = saved.opened;
       if (saved.gate) {
         var radio = form.querySelector("input[name=gate][value='" + saved.gate + "']");
         if (radio) radio.checked = true;
       }
+      sync();
       keys.forEach(function (k) {
-        if (saved[k]) document.getElementById(k).value = saved[k];
+        if (saved[k] && document.getElementById(k)) document.getElementById(k).value = saved[k];
       });
-      syncHint();
     } catch (e) {}
   }
 
   function payload() {
-    var data = { gate: gate() };
+    var data = { gate: gate(), opened: opened };
     keys.forEach(function (k) { data[k] = val(k); });
     return data;
   }
 
   function textOf(data) {
-    var gateLabel = { "1": "① 思い浮かぶ経験がある", "2": "② 少しはあるけれど、何を書けばいいか迷う", "3": "③ 思い浮かぶ経験がほとんどない" };
+    var gateLabel = {
+      "1": "① 思い浮かぶ経験がある",
+      "2": "② 少しはあるけれど、何を書けばいいか迷う",
+      "3": "③ 思い浮かぶ経験がほとんどない"
+    };
     var lines = ["セッション2の事前ワーク", "", "最初の質問", gateLabel[data.gate] || ""];
     [1, 2, 3].forEach(function (n) {
-      var b = {
-        relation: data["r" + n],
-        event: data["e" + n],
-        feeling: data["f" + n],
-        wanted: data["w" + n],
-        after: data["b" + n]
-      };
-      if (n > 1 && !filled(b)) return;
-      lines.push("", n + "つ目");
-      lines.push("関係：" + (b.relation || "（空）"));
-      lines.push("出来事：" + (b.event || "（空）"));
-      lines.push("そのとき思ったこと：" + (b.feeling || "（空）"));
-      lines.push("本当は何をしたかったか：" + (b.wanted || "（空）"));
-      lines.push("そのあと自分に言う言葉：" + (b.after || "（空）"));
+      if (!blockOn(data.gate, n)) return;
+      var b = { relation: data["r" + n], event: data["e" + n], feeling: data["f" + n], wanted: data["w" + n], after: data["b" + n] };
+      var title = n === 1 ? (data.gate === "2" ? "思い出した人" : (data.gate === "3" ? "その人" : "1つ目")) : (n === 2 ? (data.gate === "1" ? "2つ目" : "2人目") : (data.gate === "1" ? "3つ目" : "3人目"));
+      lines.push("", title);
+      lines.push("関係：" + b.relation);
+      lines.push("出来事：" + b.event);
+      lines.push("そのとき思ったこと：" + b.feeling);
+      lines.push("本当は何をしたかったか：" + b.wanted);
+      lines.push("そのあと自分に言う言葉：" + b.after);
     });
-    lines.push("", "今も同じことをしている場面", data.now || "（空）");
+    lines.push("", "今も同じことをしている場面", data.now);
     return lines.join("\n");
   }
 
   form.addEventListener("submit", function (ev) {
     ev.preventDefault();
-    error.hidden = true;
+    error.classList.remove("is-on");
     var g = gate();
     if (!g) return fail("最初の質問を選んでください。");
-    var first = block(1);
-    if (g !== "3" && !complete(first)) {
-      return fail("1つ目は、5つの欄をすべて書いてください。");
+    var names = { 1: "1つ目", 2: "2つ目", 3: "3つ目" };
+    if (g === "2") names = { 1: "思い出した人", 2: "2人目", 3: "3人目" };
+    if (g === "3") names = { 1: "その人", 2: "2人目", 3: "3人目" };
+    for (var n = 1; n <= 3; n++) {
+      if (blockOn(g, n) && !complete(block(n))) {
+        return fail(names[n] + "は、5つの欄をすべて書いてください。");
+      }
     }
-    if (g === "3" && filled(first) && !complete(first)) {
-      return fail("1つ目を書くなら、5つの欄をすべて書いてください。空のまま進むこともできます。");
-    }
-    var second = block(2);
-    var third = block(3);
-    if (filled(second) && !complete(second)) return fail("2つ目を書くなら、5つの欄をすべて書いてください。");
-    if (filled(third) && !complete(third)) return fail("3つ目を書くなら、5つの欄をすべて書いてください。");
     if (!val("now")) return fail("最後の質問を書いてください。なければ「ない」と書いてください。");
-
     var data = payload();
     try { localStorage.setItem(KEY, JSON.stringify(data)); } catch (e) {}
     document.getElementById("summary").textContent = textOf(data);
     form.hidden = true;
-    done.hidden = false;
+    document.querySelector(".hero").hidden = true;
+    done.classList.add("is-on");
     window.scrollTo(0, 0);
   });
 
   function fail(msg) {
-    error.hidden = false;
+    error.classList.add("is-on");
     error.textContent = msg;
     error.scrollIntoView({ behavior: "smooth", block: "center" });
   }
 
   document.getElementById("copy").addEventListener("click", function () {
     var text = document.getElementById("summary").textContent;
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(text);
-    }
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text);
     this.textContent = "コピーしました";
   });
   document.getElementById("back").addEventListener("click", function () {
-    done.hidden = true;
+    done.classList.remove("is-on");
     form.hidden = false;
+    document.querySelector(".hero").hidden = false;
+    document.getElementById("copy").textContent = "この内容をコピーする";
   });
 
   load();
