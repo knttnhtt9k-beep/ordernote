@@ -234,17 +234,18 @@
 
       <div id="after" class="reveal">
         <div class="sec" id="expSec">
-          <h2 id="expHead" hidden>1つ目</h2>
+          <p class="hint reveal" id="countNote">合計3名のことを書いてください。</p>
+          <h2 id="expHead" hidden>1人目</h2>
           <p class="hint reveal" id="expNote">付き合った相手だけではありません。<br>片思い、曖昧なまま終わった<br>関係の方も踏まえ、ご記入ください。</p>
           <button type="button" class="add reveal" id="open1">好きになりかけた人を書く</button>
           <div id="block1" class="reveal"></div>
-          <button type="button" class="add reveal" id="open2">2つ目を書く</button>
+          <button type="button" class="add reveal" id="open2">2人目を書く</button>
           <div id="block2" class="reveal">
-            <p class="subhead" id="sub2">2つ目</p>
+            <p class="subhead" id="sub2">2人目</p>
           </div>
-          <button type="button" class="add reveal" id="open3">3つ目を書く</button>
+          <button type="button" class="add reveal" id="open3">3人目を書く</button>
           <div id="block3" class="reveal">
-            <p class="subhead" id="sub3">3つ目</p>
+            <p class="subhead" id="sub3">3人目</p>
           </div>
         </div>
 
@@ -369,7 +370,8 @@
     var b2 = blockOn(g, 2);
     var b3 = blockOn(g, 3);
     document.getElementById("expHead").hidden = !b1;
-    document.getElementById("expHead").textContent = g === "1" ? "1つ目" : (g === "2" ? "思い出した人" : "その人");
+    document.getElementById("expHead").textContent = g === "1" ? "1人目" : (g === "2" ? "1人目" : "その人");
+    show(document.getElementById("countNote"), (g === "1" || g === "2") && b1);
     show(document.getElementById("expNote"), b1);
     show(document.getElementById("open1"), g === "3" && !opened["3"].b1);
     show(document.getElementById("block1"), b1);
@@ -377,10 +379,10 @@
     show(document.getElementById("block2"), b2);
     show(document.getElementById("open3"), b2 && !b3);
     show(document.getElementById("block3"), b3);
-    document.getElementById("open2").textContent = g === "1" ? "2つ目を書く" : "もう1人書く";
-    document.getElementById("open3").textContent = g === "1" ? "3つ目を書く" : "もう1人書く";
-    document.getElementById("sub2").textContent = g === "1" ? "2つ目" : "2人目";
-    document.getElementById("sub3").textContent = g === "1" ? "3つ目" : "3人目";
+    document.getElementById("open2").textContent = "2人目を書く";
+    document.getElementById("open3").textContent = "3人目を書く";
+    document.getElementById("sub2").textContent = "2人目";
+    document.getElementById("sub3").textContent = "3人目";
     document.getElementById("expSec").style.order = g === "3" ? "2" : "1";
     document.getElementById("lastSec").style.order = g === "3" ? "1" : "2";
     document.getElementById("error").style.order = "3";
@@ -448,7 +450,7 @@
     [1, 2, 3].forEach(function (n) {
       if (!blockOn(data.gate, n)) return;
       var b = { relation: data["r" + n], event: data["e" + n], feeling: data["f" + n], wanted: data["w" + n], after: data["b" + n] };
-      var title = n === 1 ? (data.gate === "2" ? "思い出した人" : (data.gate === "3" ? "その人" : "1つ目")) : (n === 2 ? (data.gate === "1" ? "2つ目" : "2人目") : (data.gate === "1" ? "3つ目" : "3人目"));
+      var title = n === 1 ? (data.gate === "3" ? "その人" : "1人目") : (n + "人目");
       lines.push("", title);
       lines.push("関係：" + b.relation);
       lines.push("出来事：" + b.event);
@@ -465,8 +467,7 @@
     error.classList.remove("is-on");
     var g = gate();
     if (!g) return fail("最初の質問を選んでください。");
-    var names = { 1: "1つ目", 2: "2つ目", 3: "3つ目" };
-    if (g === "2") names = { 1: "思い出した人", 2: "2人目", 3: "3人目" };
+    var names = { 1: "1人目", 2: "2人目", 3: "3人目" };
     if (g === "3") names = { 1: "その人", 2: "2人目", 3: "3人目" };
     for (var n = 1; n <= 3; n++) {
       if (blockOn(g, n) && !complete(block(n))) {
