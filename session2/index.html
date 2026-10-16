@@ -276,7 +276,7 @@
         </div>
 
         <div class="sec reveal" id="expSec">
-          <p class="hint" id="countNote">過去の恋愛で印象に残っている経験を、最大3つまで振り返ってください。<br>1人目は必須です。2人目・3人目は任意です。</p>
+          <p class="hint" id="countNote">過去の恋愛で印象に残っている経験を、最大3つまで振り返ってください。<br>1人目は必須で、2,3人目は任意になります。</p>
           <h2 id="expHead">1人目</h2>
           <p class="hint" id="expNote">交際相手・片思い・曖昧な関係など、関係の方も踏まえ、ご記入ください。</p>
           <div id="block1"></div>
@@ -381,7 +381,8 @@
 
   function fieldHtml(n, part) {
     var id = part + n;
-    return '<div class="field"><label for="' + id + '">' + qTitle[part] + ' <span>必須</span><span class="long">' + qHelp[part] + '</span></label><textarea id="' + id + '" name="' + id + '"></textarea></div>';
+    var req = n === 1 ? "必須" : "任意";
+    return '<div class="field"><label for="' + id + '">' + qTitle[part] + ' <span>' + req + '</span><span class="long">' + qHelp[part] + '</span></label><textarea id="' + id + '" name="' + id + '"></textarea></div>';
   }
   function paintBlock(n) {
     var html = parts.map(function (part) { return fieldHtml(n, part); }).join("");
@@ -517,6 +518,8 @@
     if (isExp(data.gate)) {
       [1, 2, 3].forEach(function (n) {
         if (!blockOn(data.gate, n)) return;
+        var filled = [data["r" + n], data["e" + n], data["f" + n], data["w" + n], data["b" + n]].some(function (v) { return !!(v && String(v).trim()); });
+        if (n > 1 && !filled) return;
         lines.push("", n + "人目");
         lines.push("関係：" + data["r" + n]);
         lines.push("心に残っている出来事：" + data["e" + n]);
@@ -547,11 +550,8 @@
     if (!g) return fail("最初の質問を選んでください。");
 
     if (isExp(g)) {
-      var names = { 1: "1人目", 2: "2人目", 3: "3人目" };
-      for (var n = 1; n <= 3; n++) {
-        if (blockOn(g, n) && !complete(block(n))) {
-          return fail(names[n] + "は、5つの欄をすべて書いてください。分からない場合は「分からない」と書いてください。");
-        }
+      if (!complete(block(1))) {
+        return fail("1人目は、5つの欄をすべて書いてください。分からない場合は「分からない」と書いてください。");
       }
     }
 
