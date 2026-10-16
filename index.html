@@ -8,7 +8,7 @@
 (function () {
   var params = new URLSearchParams(location.search);
   if (params.get("form") || params.get("plan")) {
-    location.replace("./enroll/" + location.search + location.hash);
+    location.replace("/ordernote/enroll/" + location.search + location.hash);
   }
 })();
 </script>
