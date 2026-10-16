@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>セッション2の事前ワーク</title>
-<meta name="description" content="セッション2の前に、過去の恋愛で起きたことと思ったことを書いてもらうシートです。">
+<meta name="description" content="セッション2の前に、具体的な経験や気持ちを整理してもらうシートです。">
 <style>
   :root {
     --pink: #ff6b9d;
@@ -108,6 +108,34 @@
     line-height: 1.85;
     color: #4a3f4c;
     font-weight: 500;
+  }
+  .hint-box {
+    margin: 0 0 18px;
+    padding: 14px 16px;
+    border-radius: 12px;
+    background: #fff7fa;
+    border: 1px solid var(--line);
+  }
+  .hint-box .hint-title {
+    margin: 0 0 10px;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.7;
+    color: var(--text);
+  }
+  .hint-box ul {
+    margin: 0 0 12px;
+    padding-left: 1.2em;
+    font-size: 14px;
+    line-height: 1.85;
+    color: #4a3f4c;
+  }
+  .hint-box li { margin-bottom: 6px; }
+  .hint-box .hint-foot {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.85;
+    color: #4a3f4c;
   }
   textarea {
     width: 100%;
@@ -213,11 +241,11 @@
       <h1>事前ワーク</h1>
       <p class="lead">
         自分でパターンを<br>
-        まとめなくて大丈夫です。<br><br>
-        起きたことと、<br>
-        そのとき思ったことを<br>
+        分析しなくて大丈夫です。<br><br>
+        起きたことや、<br>
+        そのとき感じたことを<br>
         書いてください。<br>
-        セッションで一緒に見ます。
+        セッション2で一緒に深掘りします。
       </p>
     </div>
 
@@ -233,12 +261,25 @@
       </div>
 
       <div id="after" class="reveal">
-        <div class="sec" id="expSec">
-          <p class="hint reveal" id="countNote">合計3名のことを書いてください。</p>
-          <h2 id="expHead" hidden>1人目</h2>
-          <p class="hint reveal" id="expNote">付き合った相手だけではありません。<br>片思い、曖昧なまま終わった<br>関係の方も踏まえ、ご記入ください。</p>
-          <button type="button" class="add reveal" id="open1">好きになりかけた人を書く</button>
-          <div id="block1" class="reveal"></div>
+        <div class="sec reveal" id="hintSec">
+          <div class="hint-box">
+            <p class="hint-title">例えば、こんな経験はありませんか？</p>
+            <ul>
+              <li>好きだったのに、うまくいかなかった恋愛</li>
+              <li>相手に合わせすぎたり、自分の気持ちを言えなかった経験</li>
+              <li>相手の言動に一喜一憂した経験</li>
+              <li>大切にされて嬉しかった、安心できた経験</li>
+              <li>今でも思い出すと、悲しい・悔しい・嬉しいなど、気持ちが動く経験</li>
+            </ul>
+            <p class="hint-foot">この中に当てはまるものがなくても大丈夫です。今も心に残っている経験があれば、1つ選んで振り返ってみてください。</p>
+          </div>
+        </div>
+
+        <div class="sec reveal" id="expSec">
+          <p class="hint" id="countNote">過去の恋愛で印象に残っている経験を、最大3つまで振り返ってください。<br>1人目は必須です。2人目・3人目は任意です。</p>
+          <h2 id="expHead">1人目</h2>
+          <p class="hint" id="expNote">交際相手・片思い・曖昧な関係など、関係の方も踏まえ、ご記入ください。</p>
+          <div id="block1"></div>
           <button type="button" class="add reveal" id="open2">2人目を書く</button>
           <div id="block2" class="reveal">
             <p class="subhead" id="sub2">2人目</p>
@@ -249,13 +290,48 @@
           </div>
         </div>
 
+        <div class="sec reveal" id="feelSec">
+          <h2>今の恋愛への気持ち</h2>
+          <p class="hint">過去の恋愛を無理に書かなくて大丈夫です。今の気持ちを振り返ってください。</p>
+          <div class="field">
+            <label for="c1">今、恋愛に対してどんな気持ちがありますか？ <span>必須</span>
+              <span class="long">分からない場合は「分からない」と書いてください。</span>
+            </label>
+            <textarea id="c1" name="c1"></textarea>
+          </div>
+          <div class="field">
+            <label for="c2">恋愛に対して、不安や抵抗を感じることはありますか？ ある場合、どんなことですか？ <span>必須</span>
+              <span class="long">なければ「ない」、分からない場合は「分からない」と書いてください。</span>
+            </label>
+            <textarea id="c2" name="c2"></textarea>
+          </div>
+          <div class="field">
+            <label for="c3">本当はどんな恋愛や関係性を望んでいますか？ <span>必須</span>
+              <span class="long">分からない場合は「分からない」と書いてください。</span>
+            </label>
+            <textarea id="c3" name="c3"></textarea>
+          </div>
+          <div class="field">
+            <label for="c4">恋愛をするうえで、難しそう・怖いと感じることはありますか？ <span>必須</span>
+              <span class="long">なければ「ない」、分からない場合は「分からない」と書いてください。</span>
+            </label>
+            <textarea id="c4" name="c4"></textarea>
+          </div>
+        </div>
+
         <div class="sec" id="lastSec">
           <h2>最後の質問</h2>
           <div class="field">
-            <label for="now">今の恋や、<br>友人・家族とのやりとりで、<br>昔と同じことをしていると<br>感じる場面はありますか。 <span>必須</span>
-              <span class="long">あれば、最近の場面を<br>1つ書いてください。<br>誰が、何をして、<br>自分は何をしましたか。<br>なければ、「ない」で大丈夫です。</span>
+            <label for="common1">今の恋愛や人間関係でも、過去と似たような気持ちになることはありますか？ <span>必須</span>
+              <span class="long">分からない場合は「分からない」と書いてください。</span>
             </label>
-            <textarea id="now" name="now"></textarea>
+            <textarea id="common1" name="common1"></textarea>
+          </div>
+          <div class="field">
+            <label for="common2">これまでの経験や今の気持ちが、現在の考え方や行動につながっていると感じることはありますか？ <span>必須</span>
+              <span class="long">分からない場合は「分からない」と書いてください。</span>
+            </label>
+            <textarea id="common2" name="common2"></textarea>
           </div>
         </div>
 
@@ -278,58 +354,44 @@
   var done = document.getElementById("done");
   var error = document.getElementById("error");
   var after = document.getElementById("after");
-  var KEY = "session2-prep-v2";
-  var keys = ["r1","e1","f1","w1","b1","r2","e2","f2","w2","b2","r3","e3","f3","w3","b3","now"];
-  var opened = {
-    "1": { b2: false, b3: false },
-    "2": { b2: false, b3: false },
-    "3": { b1: false, b2: false, b3: false }
-  };
+  var KEY = "session2-prep-v3";
+  var keys = [
+    "r1","e1","f1","w1","b1",
+    "r2","e2","f2","w2","b2",
+    "r3","e3","f3","w3","b3",
+    "c1","c2","c3","c4",
+    "common1","common2"
+  ];
+  var opened = { "1": { b2: false, b3: false }, "2": { b2: false, b3: false } };
   var qTitle = {
-    r: "その人とは、どんな関係でしたか。",
-    e: "そのとき、何がありましたか。",
-    f: "そのとき、自分は何と思っていましたか。",
-    w: "そのとき、本当は何をしたかったですか。",
-    b: "そのあと、自分にどんな言葉を言うようになりましたか。"
+    r: "その人とはどんな関係でしたか？",
+    e: "どんな出来事が心に残っていますか？",
+    f: "そのとき、どんな気持ちでしたか？",
+    w: "本当はどうしたかったですか？",
+    b: "その経験から、恋愛や自分自身について何を思うようになりましたか？"
   };
   var qHelp = {
-    "1": {
-      r: ["付き合っていた、片思い、", "曖昧なまま、など、", "自分の言葉で書いてください。"],
-      e: ["どこで、相手は何をして、", "自分は何をしましたか。"],
-      f: ["「嫌われた」", "「私ばっかり」など、", "頭に浮かんだ言葉をそのまま。"],
-      w: ["送りたかった文、", "言いたかったこと、", "やめたかったこと。"],
-      b: ["例は、", "「本音を出したら嫌われる」", "「どうせまたいなくなる」です。"]
-    },
-    "2": {
-      r: ["元彼、片思い、", "曖昧なまま、のどれに近いか", "書いてください。"],
-      e: ["場所はどこでしたか。", "相手は何をしましたか。", "自分は何をしましたか。"],
-      f: ["浮かんだ言葉を、", "そのまま書いてください。"],
-      w: ["送りたかった文を、", "そのまま書いてください。"],
-      b: ["あとから自分に言う言葉を、", "そのまま書いてください。"]
-    },
-    "3": {
-      r: ["付き合っていた、片思い、", "曖昧なまま、など、", "自分の言葉で書いてください。"],
-      e: ["どこで、相手は何をして、", "自分は何をしましたか。"],
-      f: ["頭に浮かんだ言葉を、", "そのまま書いてください。"],
-      w: ["送りたかった文、", "言いたかったこと、", "やめたかったこと。"],
-      b: ["あとから自分に言う言葉を、", "そのまま書いてください。"]
-    }
+    r: "交際相手・片思い・曖昧な関係など、自分の言葉で書いてください。分からない場合は「分からない」と書いてください。",
+    e: "心に残っている出来事を、そのまま書いてください。分からない場合は「分からない」と書いてください。",
+    f: "そのときの気持ちを、そのまま書いてください。分からない場合は「分からない」と書いてください。",
+    w: "本当にしたかったこと、言いたかったことを書いてください。分からない場合は「分からない」と書いてください。",
+    b: "そのあと、恋愛や自分について思うようになったことを書いてください。分からない場合は「分からない」と書いてください。"
   };
   var parts = ["r", "e", "f", "w", "b"];
 
-  function fieldHtml(n, part, helpLines) {
+  function fieldHtml(n, part) {
     var id = part + n;
-    return '<div class="field"><label for="' + id + '">' + qTitle[part] + ' <span>必須</span><span class="long">' + helpLines.join("<br>") + '</span></label><textarea id="' + id + '" name="' + id + '"></textarea></div>';
+    return '<div class="field"><label for="' + id + '">' + qTitle[part] + ' <span>必須</span><span class="long">' + qHelp[part] + '</span></label><textarea id="' + id + '" name="' + id + '"></textarea></div>';
   }
-  function paintBlock(n, help) {
-    var html = parts.map(function (part) { return fieldHtml(n, part, help[part]); }).join("");
+  function paintBlock(n) {
+    var html = parts.map(function (part) { return fieldHtml(n, part); }).join("");
     var box = document.getElementById("block" + n);
     var head = box.querySelector(".subhead");
     if (head) html = head.outerHTML + html;
     box.innerHTML = html;
   }
-  function paintAll(g) {
-    [1, 2, 3].forEach(function (n) { paintBlock(n, qHelp[g]); });
+  function paintAll() {
+    [1, 2, 3].forEach(paintBlock);
   }
 
   function gate() {
@@ -337,9 +399,10 @@
     return picked ? picked.value : "";
   }
   function show(el, on) { el.classList.toggle("is-on", !!on); }
+  function isExp(g) { return g === "1" || g === "2"; }
   function blockOn(g, n) {
-    if (!g) return false;
-    if (n === 1) return g !== "3" || opened["3"].b1;
+    if (!isExp(g)) return false;
+    if (n === 1) return true;
     if (n === 2) return !!opened[g].b2;
     return !!opened[g].b3;
   }
@@ -358,49 +421,46 @@
       if (el && data[k]) el.value = data[k];
     });
   }
+
   function sync() {
     var g = gate();
     var prev = capture();
     show(after, !!g);
     error.classList.remove("is-on");
     if (!g) return;
-    paintAll(g);
+    paintAll();
     restore(prev);
-    var b1 = blockOn(g, 1);
-    var b2 = blockOn(g, 2);
-    var b3 = blockOn(g, 3);
-    document.getElementById("expHead").hidden = !b1;
-    document.getElementById("expHead").textContent = g === "1" ? "1人目" : (g === "2" ? "1人目" : "その人");
-    show(document.getElementById("countNote"), (g === "1" || g === "2") && b1);
-    show(document.getElementById("expNote"), b1);
-    show(document.getElementById("open1"), g === "3" && !opened["3"].b1);
-    show(document.getElementById("block1"), b1);
-    show(document.getElementById("open2"), b1 && !b2);
-    show(document.getElementById("block2"), b2);
-    show(document.getElementById("open3"), b2 && !b3);
-    show(document.getElementById("block3"), b3);
-    document.getElementById("open2").textContent = "2人目を書く";
-    document.getElementById("open3").textContent = "3人目を書く";
-    document.getElementById("sub2").textContent = "2人目";
-    document.getElementById("sub3").textContent = "3人目";
-    document.getElementById("expSec").style.order = g === "3" ? "2" : "1";
-    document.getElementById("lastSec").style.order = g === "3" ? "1" : "2";
-    document.getElementById("error").style.order = "3";
-    document.getElementById("submitBtn").style.order = "4";
+
+    show(document.getElementById("hintSec"), g === "2");
+    show(document.getElementById("expSec"), isExp(g));
+    show(document.getElementById("feelSec"), g === "3");
+
+    if (isExp(g)) {
+      var b2 = blockOn(g, 2);
+      var b3 = blockOn(g, 3);
+      show(document.getElementById("block1"), true);
+      show(document.getElementById("open2"), !b2);
+      show(document.getElementById("block2"), b2);
+      show(document.getElementById("open3"), b2 && !b3);
+      show(document.getElementById("block3"), b3);
+    }
+
+    document.getElementById("hintSec").style.order = "1";
+    document.getElementById("expSec").style.order = "2";
+    document.getElementById("feelSec").style.order = "2";
+    document.getElementById("lastSec").style.order = "3";
+    document.getElementById("error").style.order = "4";
+    document.getElementById("submitBtn").style.order = "5";
   }
 
-  document.getElementById("open1").addEventListener("click", function () {
-    opened["3"].b1 = true;
-    sync();
-  });
   document.getElementById("open2").addEventListener("click", function () {
     var g = gate();
-    if (g) opened[g].b2 = true;
+    if (isExp(g)) opened[g].b2 = true;
     sync();
   });
   document.getElementById("open3").addEventListener("click", function () {
     var g = gate();
-    if (g) opened[g].b3 = true;
+    if (isExp(g)) opened[g].b3 = true;
     sync();
   });
   form.addEventListener("change", function (ev) {
@@ -412,7 +472,13 @@
     return el ? el.value.trim() : "";
   }
   function block(n) {
-    return { relation: val("r" + n), event: val("e" + n), feeling: val("f" + n), wanted: val("w" + n), after: val("b" + n) };
+    return {
+      relation: val("r" + n),
+      event: val("e" + n),
+      feeling: val("f" + n),
+      wanted: val("w" + n),
+      after: val("b" + n)
+    };
   }
   function complete(b) {
     return b.relation && b.event && b.feeling && b.wanted && b.after;
@@ -447,18 +513,30 @@
       "3": "③ 思い浮かぶ経験がほとんどない"
     };
     var lines = ["セッション2の事前ワーク", "", "最初の質問", gateLabel[data.gate] || ""];
-    [1, 2, 3].forEach(function (n) {
-      if (!blockOn(data.gate, n)) return;
-      var b = { relation: data["r" + n], event: data["e" + n], feeling: data["f" + n], wanted: data["w" + n], after: data["b" + n] };
-      var title = n === 1 ? (data.gate === "3" ? "その人" : "1人目") : (n + "人目");
-      lines.push("", title);
-      lines.push("関係：" + b.relation);
-      lines.push("出来事：" + b.event);
-      lines.push("そのとき思ったこと：" + b.feeling);
-      lines.push("本当は何をしたかったか：" + b.wanted);
-      lines.push("そのあと自分に言う言葉：" + b.after);
-    });
-    lines.push("", "今も同じことをしている場面", data.now);
+
+    if (isExp(data.gate)) {
+      [1, 2, 3].forEach(function (n) {
+        if (!blockOn(data.gate, n)) return;
+        lines.push("", n + "人目");
+        lines.push("関係：" + data["r" + n]);
+        lines.push("心に残っている出来事：" + data["e" + n]);
+        lines.push("そのときの気持ち：" + data["f" + n]);
+        lines.push("本当はどうしたかったか：" + data["w" + n]);
+        lines.push("その経験から思うようになったこと：" + data["b" + n]);
+      });
+    }
+
+    if (data.gate === "3") {
+      lines.push("", "今の恋愛への気持ち");
+      lines.push("今の恋愛への気持ち：" + data.c1);
+      lines.push("不安や抵抗：" + data.c2);
+      lines.push("望む恋愛や関係性：" + data.c3);
+      lines.push("難しそう・怖いと感じること：" + data.c4);
+    }
+
+    lines.push("", "最後の質問");
+    lines.push("今も過去と似た気持ちになるか：" + data.common1);
+    lines.push("経験や気持ちが今につながっているか：" + data.common2);
     return lines.join("\n");
   }
 
@@ -467,14 +545,26 @@
     error.classList.remove("is-on");
     var g = gate();
     if (!g) return fail("最初の質問を選んでください。");
-    var names = { 1: "1人目", 2: "2人目", 3: "3人目" };
-    if (g === "3") names = { 1: "その人", 2: "2人目", 3: "3人目" };
-    for (var n = 1; n <= 3; n++) {
-      if (blockOn(g, n) && !complete(block(n))) {
-        return fail(names[n] + "は、5つの欄をすべて書いてください。");
+
+    if (isExp(g)) {
+      var names = { 1: "1人目", 2: "2人目", 3: "3人目" };
+      for (var n = 1; n <= 3; n++) {
+        if (blockOn(g, n) && !complete(block(n))) {
+          return fail(names[n] + "は、5つの欄をすべて書いてください。分からない場合は「分からない」と書いてください。");
+        }
       }
     }
-    if (!val("now")) return fail("最後の質問を書いてください。なければ「ない」と書いてください。");
+
+    if (g === "3") {
+      if (!val("c1") || !val("c2") || !val("c3") || !val("c4")) {
+        return fail("今の恋愛への気持ちは、4つの欄をすべて書いてください。分からない場合は「分からない」と書いてください。");
+      }
+    }
+
+    if (!val("common1") || !val("common2")) {
+      return fail("最後の質問を書いてください。分からない場合は「分からない」と書いてください。");
+    }
+
     var data = payload();
     try { localStorage.setItem(KEY, JSON.stringify(data)); } catch (e) {}
     document.getElementById("summary").textContent = textOf(data);
@@ -502,6 +592,7 @@
     document.getElementById("copy").textContent = "この内容をコピーする";
   });
 
+  paintAll();
   load();
 })();
 </script>
