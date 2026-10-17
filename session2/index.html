@@ -151,7 +151,18 @@
     resize: vertical;
     line-height: 1.6;
   }
-  textarea:focus {
+  input[type="text"] {
+    width: 100%;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 12px 14px;
+    font-size: 16px;
+    font-family: inherit;
+    color: var(--text);
+    background: #fff;
+    outline: none;
+  }
+  textarea:focus, input[type="text"]:focus {
     border-color: #f3a0bd;
     box-shadow: 0 0 0 3px rgba(255, 107, 157, 0.15);
   }
@@ -251,6 +262,20 @@
 
     <form id="sheet">
       <div class="sec">
+        <h2>氏名とLINE名</h2>
+        <div class="field">
+          <label for="fullName">氏名 <span>必須</span></label>
+          <input type="text" id="fullName" name="fullName" autocomplete="name">
+        </div>
+        <div class="field">
+          <label for="lineName">LINE名 <span>必須</span>
+            <span class="long">このワークが届いたLINEに<br>表示されているお名前を<br>書いてください。</span>
+          </label>
+          <input type="text" id="lineName" name="lineName" autocomplete="nickname">
+        </div>
+      </div>
+
+      <div class="sec">
         <h2>最初の質問</h2>
         <p class="ask">これまでの恋愛や、<br>誰かを好きになった経験で、<br>今でもふと思い出すものは<br>ありますか？</p>
         <div class="choices">
@@ -336,13 +361,13 @@
         </div>
 
         <div class="err" id="error"></div>
-        <button class="submit" id="submitBtn" type="submit">書いた内容を確認する</button>
+        <button class="submit" id="submitBtn" type="submit">送信する</button>
       </div>
     </form>
 
     <div class="done" id="done">
-      <h1>書けました</h1>
-      <p>この内容を、<br>セッション2に持ってきてください。<br>このページを閉じても、<br>このスマホの中に保存します。</p>
+      <h1>ご記入ありがとうございました！</h1>
+      <p>書いていただいた内容は、<br>セッション2で一緒に<br>深掘りしていきます。<br><br>下の内容は、<br>ご自身の控えとして<br>コピーしておくこともできます。</p>
       <div class="msg" id="summary"></div>
       <button type="button" class="submit" id="copy">この内容をコピーする</button>
       <button type="button" class="add" id="back">書き直す</button>
@@ -354,8 +379,10 @@
   var done = document.getElementById("done");
   var error = document.getElementById("error");
   var after = document.getElementById("after");
+  var GAS = "";
   var KEY = "session2-prep-v3";
   var keys = [
+    "lineName","fullName",
     "r1","e1","f1","w1","b1",
     "r2","e2","f2","w2","b2",
     "r3","e3","f3","w3","b3",
@@ -502,9 +529,34 @@
   }
 
   function payload() {
-    var data = { gate: gate(), opened: opened };
+    var g = gate();
+    var data = { gate: g, opened: opened };
     keys.forEach(function (k) { data[k] = val(k); });
+    [1, 2, 3].forEach(function (n) {
+      if (blockOn(g, n)) return;
+      parts.forEach(function (p) { data[p + n] = ""; });
+    });
+    if (g !== "3") ["c1", "c2", "c3", "c4"].forEach(function (k) { data[k] = ""; });
     return data;
+  }
+
+  function send(data) {
+    if (!GAS) return;
+    var gateLabel = {
+      "1": "① 思い浮かぶ経験がある",
+      "2": "② 少しはあるけれど、何を書けばいいか迷う",
+      "3": "③ 思い浮かぶ経験がほとんどない"
+    };
+    var body = {};
+    keys.forEach(function (k) { body[k] = data[k] || ""; });
+    body.gate = gateLabel[data.gate] || "";
+    fetch(GAS, {
+      method: "POST",
+      mode: "no-cors",
+      keepalive: true,
+      headers: { "Content-Type": "text/plain;charset=UTF-8" },
+      body: JSON.stringify(body)
+    });
   }
 
   function textOf(data) {
@@ -513,7 +565,7 @@
       "2": "② 少しはあるけれど、何を書けばいいか迷う",
       "3": "③ 思い浮かぶ経験がほとんどない"
     };
-    var lines = ["セッション2の事前ワーク", "", "最初の質問", gateLabel[data.gate] || ""];
+    var lines = ["セッション2の事前ワーク", "", "氏名：" + data.fullName, "LINE名：" + data.lineName, "", "最初の質問", gateLabel[data.gate] || ""];
 
     if (isExp(data.gate)) {
       [1, 2, 3].forEach(function (n) {
@@ -546,6 +598,9 @@
   form.addEventListener("submit", function (ev) {
     ev.preventDefault();
     error.classList.remove("is-on");
+    if (!val("lineName") || !val("fullName")) {
+      return fail("氏名とLINE名を書いてください。");
+    }
     var g = gate();
     if (!g) return fail("最初の質問を選んでください。");
 
@@ -567,6 +622,7 @@
 
     var data = payload();
     try { localStorage.setItem(KEY, JSON.stringify(data)); } catch (e) {}
+    send(data);
     document.getElementById("summary").textContent = textOf(data);
     form.hidden = true;
     document.querySelector(".hero").hidden = true;
