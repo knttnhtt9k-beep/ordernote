@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>セッション3の事前ワーク</title>
+<meta name="description" content="セッション3の事前ワーク。自分を守るためにしてきたことを振り返ります。">
+<style>
+  :root {
+    --pink: #ff6b9d;
+    --pink-soft: #ffe4ef;
+    --purple: #7c5cff;
+    --bg: #fff7fa;
+    --card: #ffffff;
+    --text: #2b2430;
+    --muted: #8a7f8f;
+    --line: #f0dce6;
+    --shadow: 0 10px 30px rgba(255, 107, 157, 0.12);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+  }
+  .app {
+    min-height: 100vh;
+    max-width: 430px;
+    margin: 0 auto;
+    background: var(--card);
+    box-shadow: 0 0 40px rgba(80, 40, 70, 0.06);
+    padding: 0 0 64px;
+  }
+  .hero {
+    padding: 36px 22px 20px;
+    background: linear-gradient(180deg, #fff0f6 0%, #fff 72%);
+    text-align: center;
+  }
+  .badge {
+    display: inline-block;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    color: #c44d7a;
+    background: var(--pink-soft);
+    border-radius: 999px;
+    padding: 8px 14px;
+    margin-bottom: 14px;
+    line-height: 1.7;
+  }
+  h1 {
+    margin: 0 0 8px;
+    font-size: 18px;
+    line-height: 1.55;
+    font-weight: 700;
+  }
+  .lead {
+    margin: 14px 0 0;
+    font-size: 14px;
+    line-height: 1.85;
+    color: #4a3f4c;
+    text-align: left;
+  }
+  form { padding: 8px 22px 0; }
+  .sec {
+    margin: 10px 0 22px;
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
+  }
+  .sec:first-child { border-top: 0; padding-top: 0; }
+  .sec h2, .subhead {
+    margin: 0 0 14px;
+    font-size: 15px;
+    line-height: 1.5;
+    font-weight: 700;
+  }
+  .subhead { margin-top: 8px; }
+  .ask {
+    margin: 0 0 14px;
+    font-size: 14px;
+    line-height: 1.85;
+    color: #4a3f4c;
+  }
+  .field { margin: 0 0 18px; }
+  label {
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    line-height: 1.7;
+  }
+  label span {
+    font-weight: 500;
+    color: var(--muted);
+    font-size: 12px;
+    margin-left: 6px;
+  }
+  label span.long {
+    display: block;
+    margin-left: 0;
+    margin-top: 4px;
+    line-height: 1.7;
+  }
+  .hint {
+    margin: 0 0 14px;
+    font-size: 14px;
+    line-height: 1.85;
+    color: #4a3f4c;
+    font-weight: 500;
+  }
+  .hint-box {
+    margin: 0 0 18px;
+    padding: 14px 16px;
+    border-radius: 12px;
+    background: #fff7fa;
+    border: 1px solid var(--line);
+  }
+  .hint-box .hint-title {
+    margin: 0 0 10px;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.7;
+    color: var(--text);
+  }
+  .hint-box ul {
+    margin: 0 0 12px;
+    padding-left: 1.2em;
+    font-size: 14px;
+    line-height: 1.85;
+    color: #4a3f4c;
+  }
+  .hint-box li { margin-bottom: 6px; }
+  .hint-box .hint-foot {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.85;
+    color: #4a3f4c;
+  }
+  textarea {
+    width: 100%;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 12px 14px;
+    font-size: 16px;
+    font-family: inherit;
+    color: var(--text);
+    background: #fff;
+    outline: none;
+    min-height: 96px;
+    resize: vertical;
+    line-height: 1.6;
+  }
+  input[type="text"] {
+    width: 100%;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 12px 14px;
+    font-size: 16px;
+    font-family: inherit;
+    color: var(--text);
+    background: #fff;
+    outline: none;
+  }
+  textarea:focus, input[type="text"]:focus {
+    border-color: #f3a0bd;
+    box-shadow: 0 0 0 3px rgba(255, 107, 157, 0.15);
+  }
+  .choices { display: grid; gap: 8px; }
+  .choice {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 12px 12px;
+    background: #fff;
+    cursor: pointer;
+    font-weight: 500;
+  }
+  .choice:has(input:checked) {
+    border-color: #f3a0bd;
+    background: #fff7fa;
+  }
+  .choice input { margin-top: 3px; accent-color: var(--pink); }
+  .choice-text { font-size: 14px; line-height: 1.5; font-weight: 500; }
+  .reveal { display: none; }
+  .reveal.is-on { display: block; }
+  #after.is-on { display: flex; flex-direction: column; }
+  .add {
+    width: 100%;
+    margin: 0 0 18px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 14px 18px;
+    font-size: 15px;
+    font-weight: 700;
+    font-family: inherit;
+    color: var(--text);
+    background: #fff;
+    cursor: pointer;
+  }
+  .submit {
+    width: 100%;
+    border: 0;
+    border-radius: 999px;
+    padding: 16px 18px;
+    margin-top: 28px;
+    font-size: 16px;
+    font-weight: 700;
+    font-family: inherit;
+    color: #fff;
+    background: linear-gradient(90deg, var(--pink), var(--purple));
+    box-shadow: var(--shadow);
+    cursor: pointer;
+  }
+  .err {
+    display: none;
+    margin-top: 6px;
+    font-size: 12px;
+    color: #c0392b;
+    line-height: 1.7;
+  }
+  .err.is-on { display: block; }
+  .done { display: none; padding: 36px 22px 24px; }
+  .done.is-on { display: block; }
+  .done h1 { font-size: 18px; line-height: 1.6; margin: 0 0 16px; }
+  .done p {
+    font-size: 14px;
+    line-height: 1.85;
+    margin: 0 0 14px;
+    color: #4a3f4c;
+  }
+  .done .msg {
+    margin: 0;
+    padding: 14px 16px;
+    border-radius: 12px;
+    background: #fff7fa;
+    border: 1px solid var(--line);
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--text);
+    white-space: pre-wrap;
+  }
+  .done .add { margin-top: 12px; }
+.examples { padding-left: 1.4em; line-height: 1.8; }
+  .submit:disabled { opacity: .6; cursor: wait; }
+  .msg { overflow-wrap: anywhere; }
+</style>
+</head>
+<body>
+  <div class="app">
+
+<div class="hero">
+  <div class="badge">セッション3</div><h1>事前ワーク</h1>
+  <p class="lead">自分を守るためにしてきたこと</p>
+</div>
+<section class="sec"><p class="ask">今回のワークでは、普段の自分の考え方や行動を少し違う角度から見つめてみましょう。</p>
+<p class="ask">私たちは日々、さまざまな場面で自分なりの判断をして行動しています。</p>
+<p class="ask">その行動には、自分でも気づいていない気持ちや、大切にしているものが隠れていることがあります。</p>
+<p class="ask">正解を探すのではなく、自分の内側を観察するつもりで取り組んでみてください。</p></section>
+<form id="sheet">
+  <section class="sec">
+    <h2>氏名とLINE名</h2>
+    <div class="field"><label for="fullName">氏名 <span>必須</span></label><input type="text" id="fullName" name="fullName" autocomplete="name" required maxlength="150"></div>
+    <div class="field"><label for="lineName">LINE名 <span>必須</span></label><p class="ask">このワークが届いたLINEに表示されているお名前を書いてください。</p><input type="text" id="lineName" name="lineName" autocomplete="nickname" required maxlength="150"></div>
+  </section>
+  <section class="sec">
+    <h2><label for="q1">① 自分がよくしてしまう反応は？</label></h2>
+    <p class="ask">人との関わりの中で、ついしてしまう行動や反応はありますか？</p>
+    <p class="ask">例えば、</p>
+    <ul class="examples"><li>相手に合わせてしまう</li><li>自分から話しかけられない</li><li>嫌なことがあっても我慢する</li><li>怒りたいのに怒れない</li><li>人と距離を置いてしまう</li><li>自分の意見を言わずに相手に委ねる</li></ul>
+    <p id="hint1" class="ask">自分に当てはまるものや、ほかに思い当たることを書いてみましょう。</p>
+    <textarea id="q1" name="q1" aria-describedby="hint1" required maxlength="10000" rows="4"></textarea>
+  </section>
+  <section class="sec">
+    <h2><label for="q2">② そのとき、何を考えている？</label></h2>
+    <p class="ask">その行動をするとき、頭の中ではどんなことを考えていますか？</p>
+    <p class="ask">例えば、</p>
+    <ul class="examples"><li>嫌われたくない</li><li>迷惑をかけたくない</li><li>私が我慢すればいい</li><li>どうせ分かってもらえない</li><li>自分が入ると邪魔かもしれない</li></ul>
+    <p id="hint2" class="ask">自分の中に浮かんでいる言葉を、そのまま書いてみましょう。</p>
+    <textarea id="q2" name="q2" aria-describedby="hint2" required maxlength="10000" rows="4"></textarea>
+  </section>
+  <section class="sec">
+    <h2><label for="q3">③ 本当はどんな気持ちだった？</label></h2>
+    <p class="ask">その行動の裏側には、どんな感情があるでしょうか？</p>
+    <p class="ask">例えば、</p>
+    <ul class="examples"><li>寂しかった</li><li>悲しかった</li><li>悔しかった</li><li>羨ましかった</li><li>怖かった</li><li>分かってほしかった</li><li>一緒に楽しみたかった</li></ul>
+    <p id="hint3" class="ask">表に出していた態度と、本当の気持ちが違っていたことはありますか？</p>
+    <textarea id="q3" name="q3" aria-describedby="hint3" required maxlength="10000" rows="4"></textarea>
+  </section>
+  <section class="sec">
+    <h2><label for="q4">④ その行動によって、何を守っていた？</label></h2>
+    <p class="ask">少し視点を変えて考えてみましょう。その行動をすることで、自分にとってどんなメリットがありましたか？</p>
+    <p class="ask">例えば、</p>
+    <ul class="examples"><li>傷つかずに済んだ</li><li>相手との関係を保てた</li><li>自分のペースを守れた</li><li>否定されずに済んだ</li><li>安心できた</li></ul>
+    <p id="hint4" class="ask">その行動によって守れていたものや、避けられていたことは何でしょうか？</p>
+    <textarea id="q4" name="q4" aria-describedby="hint4" required maxlength="10000" rows="4"></textarea>
+  </section>
+  <section class="sec">
+    <h2><label for="q5">⑤ 本当はどうしたかった？</label></h2>
+    <p class="ask">もし、周りの反応や評価を気にしなくていいとしたら、本当はどうしたかったでしょうか？</p>
+    
+    <ul class="examples"><li>誰と、どんな関係を築きたい？</li><li>どんな自分でいたい？</li><li>どんな気持ちを大切にしたい？</li></ul>
+    <p id="hint5" class="ask">今の自分が望んでいることを、自由に書いてみてください。</p>
+    <textarea id="q5" name="q5" aria-describedby="hint5" required maxlength="10000" rows="4"></textarea>
+  </section>
+  <div class="sec"><button class="submit" id="submit" type="submit">回答を送信する</button>
+  <p id="status" role="status" aria-live="polite"></p></div>
+</form>
+<section id="done" class="done" tabindex="-1">
+  <h1>回答を受け付けました</h1>
+  <pre class="msg" id="receipt"></pre>
+</section>
+</div>
+<script>
+const endpoint = "https://script.google.com/macros/s/AKfycbySALgotQS4kcMJe7uhTzxLnrAS8mJxzm4UTBJAufdIlhgSnBqFk7fJ0e0cFyXpG8Cb6g/exec";
+const form = document.getElementById("sheet");
+const button = document.getElementById("submit");
+const status = document.getElementById("status");
+
+form.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  if (button.disabled) return;
+  const answers = Object.fromEntries(Array.from(new FormData(form), ([key, value]) => [key, value.trim()]));
+  if (Object.values(answers).some(value => !value)) {
+    status.textContent = "空欄があります。すべての項目をご確認ください。";
+    return;
+  }
+  button.disabled = true;
+  status.textContent = "送信しています…";
+  try {
+    // Check the live version before sending answers. Older deployments default to Session 2.
+    const ready = await fetch(endpoint + "?session3Ready=1", { cache: "no-store" });
+    if (!ready.ok || (await ready.json()).session3Ready !== true) throw new Error("not-ready");
+    const response = await fetch(endpoint, {
+      method: "POST",
+      headers: { "Content-Type": "text/plain;charset=UTF-8" },
+      body: JSON.stringify({ ...answers, session: 3 })
+    });
+    if (!response.ok) throw new Error("request");
+    const result = await response.json();
+    if (result.ok !== true || result.session !== 3) throw new Error("save");
+    const receipt = ["氏名：" + answers.fullName, "LINE名：" + answers.lineName];
+    for (let i = 1; i <= 5; i++) {
+      receipt.push(document.querySelector('label[for="q' + i + '"]').textContent + "\n" + answers["q" + i]);
+    }
+    document.getElementById("receipt").textContent = receipt.join("\n\n");
+    form.hidden = true;
+    const done = document.getElementById("done");
+    done.classList.add("is-on");
+    done.focus();
+  } catch (error) {
+    status.textContent = "送信を確認できませんでした。入力内容を残しています。時間をおいて再度お試しください。";
+    button.disabled = false;
+  }
+});
+</script>
+</body>
+</html>
