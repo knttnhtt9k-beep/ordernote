@@ -68,6 +68,8 @@
     padding-top: 16px;
     border-top: 1px solid var(--line);
   }
+  .intro { margin-inline: 22px; }
+  .ask { text-wrap: pretty; }
   .sec:first-child { border-top: 0; padding-top: 0; }
   .sec h2, .subhead {
     margin: 0 0 14px;
@@ -255,54 +257,54 @@
   <div class="badge">セッション3</div><h1>事前ワーク</h1>
   <p class="lead">自分を守るためにしてきたこと</p>
 </div>
-<section class="sec"><p class="ask">今回のワークでは、普段の自分の考え方や行動を少し違う角度から見つめてみましょう。</p>
-<p class="ask">私たちは日々、さまざまな場面で自分なりの判断をして行動しています。</p>
-<p class="ask">その行動には、自分でも気づいていない気持ちや、大切にしているものが隠れていることがあります。</p>
-<p class="ask">正解を探すのではなく、自分の内側を観察するつもりで取り組んでみてください。</p></section>
+<section class="sec intro"><p class="ask">今回のワークでは、<br>普段の自分の考え方や行動を<br>少し違う角度から見つめてみましょう。</p>
+<p class="ask">私たちは日々、<br>さまざまな場面で<br>自分なりの判断をして行動しています。</p>
+<p class="ask">その行動には、<br>自分でも気づいていない気持ちや、<br>大切にしているものが隠れていることがあります。</p>
+<p class="ask">正解を探すのではなく、<br>自分の内側を観察するつもりで<br>取り組んでみてください。</p></section>
 <form id="sheet">
   <section class="sec">
     <h2>氏名とLINE名</h2>
     <div class="field"><label for="fullName">氏名 <span>必須</span></label><input type="text" id="fullName" name="fullName" autocomplete="name" required maxlength="150"></div>
-    <div class="field"><label for="lineName">LINE名 <span>必須</span></label><p class="ask">このワークが届いたLINEに表示されているお名前を書いてください。</p><input type="text" id="lineName" name="lineName" autocomplete="nickname" required maxlength="150"></div>
+    <div class="field"><label for="lineName">LINE名 <span>必須</span></label><p class="ask">このワークが届いたLINEに<br>表示されているお名前を書いてください。</p><input type="text" id="lineName" name="lineName" autocomplete="nickname" required maxlength="150"></div>
   </section>
   <section class="sec">
     <h2><label for="q1">① 自分がよくしてしまう反応は？</label></h2>
-    <p class="ask">人との関わりの中で、ついしてしまう行動や反応はありますか？</p>
+    <p class="ask">人との関わりの中で、<br>ついしてしまう行動や反応はありますか？</p>
     <p class="ask">例えば、</p>
     <ul class="examples"><li>相手に合わせてしまう</li><li>自分から話しかけられない</li><li>嫌なことがあっても我慢する</li><li>怒りたいのに怒れない</li><li>人と距離を置いてしまう</li><li>自分の意見を言わずに相手に委ねる</li></ul>
-    <p id="hint1" class="ask">自分に当てはまるものや、ほかに思い当たることを書いてみましょう。</p>
+    <p id="hint1" class="ask">自分に当てはまるものや、<br>ほかに思い当たることを書いてみましょう。</p>
     <textarea id="q1" name="q1" aria-describedby="hint1" required maxlength="10000" rows="4"></textarea>
   </section>
   <section class="sec">
     <h2><label for="q2">② そのとき、何を考えている？</label></h2>
-    <p class="ask">その行動をするとき、頭の中ではどんなことを考えていますか？</p>
+    <p class="ask">その行動をするとき、<br>頭の中ではどんなことを考えていますか？</p>
     <p class="ask">例えば、</p>
     <ul class="examples"><li>嫌われたくない</li><li>迷惑をかけたくない</li><li>私が我慢すればいい</li><li>どうせ分かってもらえない</li><li>自分が入ると邪魔かもしれない</li></ul>
-    <p id="hint2" class="ask">自分の中に浮かんでいる言葉を、そのまま書いてみましょう。</p>
+    <p id="hint2" class="ask">自分の中に浮かんでいる言葉を、<br>そのまま書いてみましょう。</p>
     <textarea id="q2" name="q2" aria-describedby="hint2" required maxlength="10000" rows="4"></textarea>
   </section>
   <section class="sec">
     <h2><label for="q3">③ 本当はどんな気持ちだった？</label></h2>
-    <p class="ask">その行動の裏側には、どんな感情があるでしょうか？</p>
+    <p class="ask">その行動の裏側には、<br>どんな感情があるでしょうか？</p>
     <p class="ask">例えば、</p>
     <ul class="examples"><li>寂しかった</li><li>悲しかった</li><li>悔しかった</li><li>羨ましかった</li><li>怖かった</li><li>分かってほしかった</li><li>一緒に楽しみたかった</li></ul>
-    <p id="hint3" class="ask">表に出していた態度と、本当の気持ちが違っていたことはありますか？</p>
+    <p id="hint3" class="ask">表に出していた態度と、<br>本当の気持ちが違っていたことはありますか？</p>
     <textarea id="q3" name="q3" aria-describedby="hint3" required maxlength="10000" rows="4"></textarea>
   </section>
   <section class="sec">
     <h2><label for="q4">④ その行動によって、何を守っていた？</label></h2>
-    <p class="ask">少し視点を変えて考えてみましょう。その行動をすることで、自分にとってどんなメリットがありましたか？</p>
+    <p class="ask">少し視点を変えて考えてみましょう。<br>その行動をすることで、<br>自分にとってどんなメリットがありましたか？</p>
     <p class="ask">例えば、</p>
     <ul class="examples"><li>傷つかずに済んだ</li><li>相手との関係を保てた</li><li>自分のペースを守れた</li><li>否定されずに済んだ</li><li>安心できた</li></ul>
-    <p id="hint4" class="ask">その行動によって守れていたものや、避けられていたことは何でしょうか？</p>
+    <p id="hint4" class="ask">その行動によって守れていたものや、<br>避けられていたことは何でしょうか？</p>
     <textarea id="q4" name="q4" aria-describedby="hint4" required maxlength="10000" rows="4"></textarea>
   </section>
   <section class="sec">
     <h2><label for="q5">⑤ 本当はどうしたかった？</label></h2>
-    <p class="ask">もし、周りの反応や評価を気にしなくていいとしたら、本当はどうしたかったでしょうか？</p>
+    <p class="ask">もし、周りの反応や評価を気にしなくていいとしたら、<br>本当はどうしたかったでしょうか？</p>
     
     <ul class="examples"><li>誰と、どんな関係を築きたい？</li><li>どんな自分でいたい？</li><li>どんな気持ちを大切にしたい？</li></ul>
-    <p id="hint5" class="ask">今の自分が望んでいることを、自由に書いてみてください。</p>
+    <p id="hint5" class="ask">今の自分が望んでいることを、<br>自由に書いてみてください。</p>
     <textarea id="q5" name="q5" aria-describedby="hint5" required maxlength="10000" rows="4"></textarea>
   </section>
   <div class="sec"><button class="submit" id="submit" type="submit">回答を送信する</button>
