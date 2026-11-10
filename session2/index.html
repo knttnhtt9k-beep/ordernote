@@ -374,6 +374,21 @@
     </div>
   </div>
 <script>
+if (new URLSearchParams(window.location.search).get("thanks") === "preview") {
+  const completion = document.getElementById("done");
+  for (const section of document.querySelectorAll(".hero, .intro, #sheet")) {
+    section.hidden = true;
+  }
+  const previewNotice = document.createElement("p");
+  previewNotice.textContent = "確認用プレビュー（回答は送信されていません）";
+  completion.prepend(previewNotice);
+  document.getElementById("summary").textContent = "ここに送信した回答が表示されます。";
+  document.getElementById("copy").disabled = true;
+  document.getElementById("back").disabled = true;
+  completion.classList.add("is-on");
+}
+</script>
+<script>
 (function () {
   var form = document.getElementById("sheet");
   var done = document.getElementById("done");
