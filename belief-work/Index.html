@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="ja"><head><base target="_top"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>
+*{box-sizing:border-box}body{margin:0;background:#f8f4f8;color:#392638;font:16px/1.75 system-ui,sans-serif}main{max-width:780px;margin:auto;padding:40px 18px}header{border-bottom:1px solid #dacbdc;margin-bottom:24px}h1,h2{line-height:1.35}h1{font-family:serif;font-size:clamp(26px,5vw,42px)}section,details{background:white;border:1px solid #e3d7e4;border-radius:14px;padding:18px;margin:12px 0}label{display:block;margin:14px 0}input,textarea{display:block;width:100%;font:inherit;padding:9px;border:1px solid #a890ad;border-radius:7px;color:inherit}textarea{min-height:110px}button{font:inherit;background:#68466d;color:white;border:0;border-radius:8px;padding:9px 16px;cursor:pointer;margin:4px 6px 4px 0}button:disabled{opacity:.55}summary{cursor:pointer;font-weight:bold}.submitted{color:#27614e}.copy{overflow-wrap:anywhere}pre{white-space:pre-wrap;font:inherit}#message{color:#982540}[hidden]{display:none!important}
+</style></head><body><main>
+<header><p>恋愛オーダー</p><h1>思い込みを手放す14日ワーク</h1></header>
+<p id="message" role="alert"></p>
+<section id="entry"><form id="access">
+<h2 id="entryTitle">ワークを始める</h2>
+<label id="nameLabel">氏名<input id="name" maxlength="80" autocomplete="name"></label>
+<label id="codeLabel" hidden>参加者コード<input id="code" autocomplete="off"></label>
+<label>4桁の暗証番号<input id="pin" type="password" inputmode="numeric" pattern="[0-9]{4}" maxlength="4" required></label>
+<button id="enter">ワークを始める</button><button id="switchMode" type="button">続きから開く</button>
+</form></section>
+<div id="work" hidden><section>
+<p>別の端末で続けるときに使う参加者コードです。控えておいてください。</p>
+<code class="copy" id="participant"></code>
+<p id="progress"></p><button id="refresh" type="button">最新の状態を表示</button><button id="exit" type="button">閉じる</button>
+</section><div id="days"></div><section id="review" hidden><h2>ワークの振り返り</h2><div id="answers"></div></section></div>
+</main><script>
+const by = id => document.getElementById(id);
+let resume = false;
+let participant = '';
+let secret = '';
+let pending = false;
+const saved = () => { try { return localStorage.getItem('belief-participant') || ''; } catch { return ''; } };
+function mode(value) {
+  resume = value;
+  by('nameLabel').hidden = resume;
+  by('name').required = !resume;
+  by('codeLabel').hidden = !resume;
+  by('code').required = resume;
+  by('entryTitle').textContent = by('enter').textContent = resume ? '続きから開く' : 'ワークを始める';
+  by('switchMode').textContent = resume ? 'はじめての方はこちら' : '続きから開く';
+}
+function request(action, args, success) {
+  if (pending) return;
+  pending = true;
+  by('message').textContent = '';
+  document.querySelectorAll('button').forEach(button => button.disabled = true);
+  function finish() {
+    pending = false;
+    document.querySelectorAll('button').forEach(button => button.disabled = false);
+  }
+  google.script.run.withSuccessHandler(data => { finish(); success(data); })
+    .withFailureHandler(error => { finish(); by('message').textContent = error.message; })[action](...args);
+}
+function add(parent, tag, value) {
+  const element = document.createElement(tag);
+  element.textContent = value;
+  parent.append(element);
+  return element;
+}
+function render(data) {
+  by('entry').hidden = true;
+  by('work').hidden = false;
+  by('participant').textContent = participant;
+  const days = by('days');
+  const review = by('answers');
+  days.replaceChildren();
+  review.replaceChildren();
+  const count = data.entries.filter(day => day.submitted).length;
+  by('review').hidden = count === 0;
+  by('progress').textContent = count + ' / 14日 提出済み';
+  data.entries.forEach((day, index) => {
+    const number = index + 1;
+    const block = add(days, 'details', '');
+    const label = 'Day ' + number + ' ｜ ' + day.title;
+    if (day.submitted) {
+      add(block, 'summary', '✓ 提出済み　' + label).className = 'submitted';
+      const group = add(review, 'article', '');
+      add(group, 'h3', label);
+      day.questions.forEach((question, i) => {
+        [block, group].forEach(container => {
+          add(container, 'strong', question);
+          add(container, 'pre', day.answers[i]);
+        });
+      });
+    } else if (number === data.next && data.available) {
+      add(block, 'summary', label);
+      block.open = true;
+      day.body.forEach(paragraph => add(block, 'pre', paragraph));
+      const form = add(block, 'form', '');
+      const fields = day.questions.map(question => {
+        const input = add(add(form, 'label', question), 'textarea', '');
+        input.required = true;
+        input.maxLength = 3000;
+        return input;
+      });
+      add(form, 'button', '提出する');
+      form.onsubmit = event => {
+        event.preventDefault();
+        request('submitWork', [participant, secret, number, fields.map(field => field.value)], render);
+      };
+    } else {
+      add(block, 'summary', label);
+      add(block, 'p', number === data.next
+        ? new Intl.DateTimeFormat('ja-JP', {timeZone:'Asia/Tokyo', month:'long', day:'numeric'}).format(data.unlockAt) + ' 0:00から回答できます'
+        : '前日のワークを提出した翌日から回答できます。');
+    }
+  });
+}
+by('switchMode').onclick = () => mode(!resume);
+by('refresh').onclick = () => request('loadWork', [participant, secret], render);
+by('exit').onclick = () => {
+  secret = '';
+  by('pin').value = '';
+  by('work').hidden = true;
+  by('entry').hidden = false;
+  by('message').textContent = '';
+  by('code').value = participant;
+  mode(true);
+};
+by('access').onsubmit = event => {
+  event.preventDefault();
+  const pin = by('pin').value;
+  const code = by('code').value.trim();
+  request(resume ? 'loadWork' : 'start', resume ? [code,pin] : [by('name').value,pin], data => {
+    participant = data.id || code;
+    secret = pin;
+    try { localStorage.setItem('belief-participant', participant); } catch {}
+    render(data);
+  });
+};
+by('code').value = saved();
+mode(Boolean(by('code').value));
+</script></body></html>
