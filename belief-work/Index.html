@@ -54,6 +54,7 @@ function add(parent, tag, value) {
   return element;
 }
 function renderBody(parent, day) {
+  if (!Array.isArray(day.body)) return;
   const copy = add(parent, 'div', '');
   copy.className = 'source-copy';
   for (const line of day.body.flatMap(paragraph => paragraph.split('\n'))) {
@@ -127,6 +128,7 @@ function render(data) {
       add(block, 'p', number === data.next
         ? new Intl.DateTimeFormat('ja-JP', {timeZone:'Asia/Tokyo', month:'long', day:'numeric'}).format(data.unlockAt) + ' 0:00から回答できます'
         : '前日のワークを提出した翌日から回答できます。');
+      renderBody(block, day);
     }
   });
 }
