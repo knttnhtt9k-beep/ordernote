@@ -777,3 +777,25 @@ function summarize_(book, id, name, state) {
   if (row) sheet.getRange(row.getRow(), 1, 1, values.length).setValues([values]);
   else sheet.appendRow(values);
 }
+
+function doPost(event) {
+  try {
+    const body = event && event.postData && event.postData.contents;
+    if (!body || body.length > 24000) throw new Error('送信内容をご確認ください。');
+    const { action, args } = JSON.parse(body);
+    if (!Array.isArray(args)) throw new Error('送信内容をご確認ください。');
+    let data;
+    switch (action) {
+      case 'start': data = start(...args); break;
+      case 'loadWork': data = loadWork(...args); break;
+      case 'submitWork': data = submitWork(...args); break;
+      default: throw new Error('送信内容をご確認ください。');
+    }
+    return workJson_({ ok: true, data });
+  } catch (error) {
+    return workJson_({ ok: false, message: error.message || '処理に失敗しました。' });
+  }
+}
+function workJson_(value) {
+  return ContentService.createTextOutput(JSON.stringify(value)).setMimeType(ContentService.MimeType.JSON);
+}
