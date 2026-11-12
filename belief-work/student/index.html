@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>
+*{box-sizing:border-box}body{margin:0;background:#f8f4f8;color:#392638;font:16px/1.75 system-ui,sans-serif}main{max-width:780px;margin:auto;padding:40px 18px}header{border-bottom:1px solid #dacbdc;margin-bottom:24px}h1,h2{line-height:1.35}h1{font-family:serif;font-size:clamp(26px,5vw,42px)}section,details{background:white;border:1px solid #e3d7e4;border-radius:14px;padding:18px;margin:12px 0}label{display:block;margin:14px 0}input,textarea{display:block;width:100%;font:inherit;padding:9px;border:1px solid #a890ad;border-radius:7px;color:inherit}textarea{min-height:110px}button{font:inherit;background:#68466d;color:white;border:0;border-radius:8px;padding:9px 16px;cursor:pointer;margin:4px 6px 4px 0}button:disabled{opacity:.55}summary{cursor:pointer;font-weight:bold}.submitted{color:#27614e}.copy{overflow-wrap:anywhere}pre{white-space:pre-wrap;font:inherit}#message{color:#982540}[hidden]{display:none!important}
+.source-copy p{white-space:pre-wrap;margin:0;line-height:1.65}.source-copy .sentence{margin-bottom:.42em}.source-copy .key{color:#a52138;font-weight:700;margin-top:.65em}.saved-copy{background:#f6f0f6;padding:12px;border-radius:8px;margin-top:12px}pre{overflow-wrap:anywhere}nav{display:flex;flex-wrap:wrap}nav button[aria-pressed=false]{background:#eee3ef;color:#392638}</style></head><body><main>
+<header><p>恋愛オーダー</p><h1>思い込みを手放す14日ワーク</h1></header>
+<p id="message" role="alert"></p>
+<section id="entry"><form id="access">
+<h2 id="entryTitle">アカウントを作成</h2>
+<label id="nameLabel">氏名<input id="name" maxlength="80" autocomplete="name"></label>
+<label>メールアドレス<input id="email" type="email" maxlength="254" autocomplete="email" required></label>
+<label>4桁の暗証番号<input id="pin" type="password" inputmode="numeric" pattern="[0-9]{4}" maxlength="4" required></label>
+<button id="enter">アカウントを作成</button><button id="switchMode" type="button">ログイン</button>
+</form></section>
+<div id="work" hidden><section>
+<p id="progress"></p><button id="refresh" type="button">最新の状態を表示</button><button id="exit" type="button">閉じる</button>
+</section><nav aria-label="ワーク画面"><button id="listView" aria-pressed="true">ワーク一覧</button><button id="reviewView" aria-pressed="false">ワークの振り返り</button></nav><section id="chatPrompt" hidden><h2 id="reportHeading" tabindex="-1">サポートチャットに報告する</h2><p>下のメッセージをコピーして、サポートチャットに貼り付けて送ってください。</p><p><strong id="chatText"></strong></p><button id="copyChat" type="button">メッセージをコピー</button><p id="copyStatus" role="status"></p></section><div id="days"></div><section id="review" hidden><h2>ワークの振り返り</h2><div id="answers"></div></section></div>
+</main><script>
+const by = id => document.getElementById(id);
+let resume = true;
+let email = '';
+let secret = '';
+let pending = false;
+let showingReview = false;
+function showView(review) {
+  showingReview = review;
+  by('days').hidden = review;
+  by('review').hidden = !review;
+  by('listView').setAttribute('aria-pressed', String(!review));
+  by('reviewView').setAttribute('aria-pressed', String(review));
+}
+function mode(value) {
+  resume = value;
+  by('nameLabel').hidden = resume;
+  by('name').required = !resume;
+  by('entryTitle').textContent = by('enter').textContent = resume ? 'ログイン' : 'アカウントを作成';
+  by('switchMode').textContent = resume ? 'はじめての方はこちら' : 'ログイン';
+}
+function request(action, args, success) {
+  if (pending) return;
+  pending = true;
+  by('message').textContent = '';
+  document.querySelectorAll('button').forEach(button => button.disabled = true);
+  function finish() {
+    pending = false;
+    document.querySelectorAll('button').forEach(button => button.disabled = false);
+  }
+  fetch("https://script.google.com/macros/s/AKfycbz0gCOpOaur83sQjDGfw-1rT_nEw420qml0c7vD7Kp2dZUs46UBxZIBa8qY0EdUZnIJ/exec", {
+    method: 'POST',
+    credentials: 'omit',
+    headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
+    body: JSON.stringify({ action, args })
+  }).then(async response => {
+    if (!response.ok) throw new Error('接続に失敗しました。時間をおいて再度お試しください。');
+    const type = response.headers.get('content-type') || '';
+    if (!type.includes('application/json')) throw new Error('新しいページは準備中です。');
+    const result = await response.json();
+    if (!result.ok) throw new Error(result.message);
+    return result.data;
+  }).then(data => {
+    finish();
+    success(data);
+  }).catch(error => {
+    finish();
+    by('message').textContent = error instanceof TypeError
+      ? '接続に失敗しました。時間をおいて再度お試しください。' : error.message;
+  });
+}
+function add(parent, tag, value) {
+  const element = document.createElement(tag);
+  element.textContent = value;
+  parent.append(element);
+  return element;
+}
+function render(data) {
+  by('entry').hidden = true;
+  by('work').hidden = false;
+  const days = by('days');
+  const review = by('answers');
+  days.replaceChildren();
+  review.replaceChildren();
+  const count = data.entries.filter(day => day.submitted).length;
+  showView(showingReview);
+  if (!count) add(review, 'p', 'ワークを提出すると、ここに質問とあなたの回答が表示されます。');
+  by('progress').textContent = count + ' / 14日 提出済み';
+  data.entries.forEach((day, index) => {
+    const number = index + 1;
+    const block = add(days, 'details', '');
+    const label = 'Day ' + number + ' ｜ ' + day.title;
+    if (day.submitted) {
+      add(block, 'summary', '✓ 提出済み　' + label).className = 'submitted';
+      const saved = add(block, 'div', '');
+      saved.className = 'saved-copy';
+      add(saved, 'h3', 'あなたが提出した回答');
+      const group = add(review, 'article', '');
+      add(group, 'h3', label);
+      day.questions.forEach((question, i) => {
+        [saved, group].forEach(container => {
+          add(container, 'strong', question);
+          add(container, 'pre', day.answers[i]);
+        });
+      });
+    } else if (number === data.next && data.available) {
+      add(block, 'summary', label);
+      block.open = true;
+      const copy = add(block, 'div', '');
+      copy.className = 'source-copy';
+      for (const line of day.body.flatMap(paragraph => paragraph.split('\n'))) {
+        for (const sentence of line.split(/(?<=。)(?![」』）】]|$)|(?<=。[」』）】])(?!$)/)) {
+          if (!sentence.trim()) continue;
+          const element = add(copy, 'p', sentence);
+          if (/。[」』）】]*$/.test(sentence.trim())) element.classList.add('sentence');
+          if (/^(【|[①②③④])/.test(sentence.trim())) element.classList.add('key');
+        }
+      }
+      const form = add(block, 'form', '');
+      const fields = day.questions.map(question => {
+        const input = add(add(form, 'label', question), 'textarea', '');
+        input.required = true;
+        input.maxLength = 3000;
+        return input;
+      });
+      add(form, 'button', '提出する');
+      form.onsubmit = event => {
+        event.preventDefault();
+        request('submitWork', [email, secret, number, fields.map(field => field.value)], updated => {
+          render(updated);
+          if (!updated.entries[index]?.submitted) return;
+          by('chatText').textContent = 'Day ' + number + 'のワークができました！';
+          by('copyStatus').textContent = '';
+          by('chatPrompt').hidden = false;
+          by('reportHeading').focus();
+        });
+      };
+    } else {
+      add(block, 'summary', label);
+      add(block, 'p', number === data.next
+        ? new Intl.DateTimeFormat('ja-JP', {timeZone:'Asia/Tokyo', month:'long', day:'numeric'}).format(data.unlockAt) + ' 0:00から回答できます'
+        : '前日のワークを提出した翌日から回答できます。');
+    }
+  });
+}
+by('listView').onclick = () => showView(false);
+by('reviewView').onclick = () => showView(true);
+by('copyChat').onclick = async () => {
+  try {
+    await navigator.clipboard.writeText(by('chatText').textContent);
+    by('copyStatus').textContent = 'コピーしました。';
+  } catch {
+    by('copyStatus').textContent = '上のメッセージを選択してコピーしてください。';
+  }
+};
+by('switchMode').onclick = () => mode(!resume);
+by('refresh').onclick = () => request('loadWork', [email, secret], render);
+by('exit').onclick = () => {
+  secret = '';
+  email = '';
+  showingReview = false;
+  by('chatPrompt').hidden = true;
+  by('chatText').textContent = '';
+  by('pin').value = '';
+  by('work').hidden = true;
+  by('entry').hidden = false;
+  by('message').textContent = '';
+  by('answers').replaceChildren();
+  by('days').replaceChildren();
+  mode(true);
+};
+by('access').onsubmit = event => {
+  event.preventDefault();
+  const pin = by('pin').value;
+  const address = by('email').value.trim();
+  request(resume ? 'loadWork' : 'start', resume ? [address,pin] : [by('name').value,address,pin], data => {
+    email = address;
+    secret = pin;
+    by('pin').value = '';
+    render(data);
+  });
+};
+mode(true);
+</script></body></html>
