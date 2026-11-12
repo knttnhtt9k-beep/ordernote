@@ -53,6 +53,18 @@ function add(parent, tag, value) {
   parent.append(element);
   return element;
 }
+function renderBody(parent, day) {
+  const copy = add(parent, 'div', '');
+  copy.className = 'source-copy';
+  for (const line of day.body.flatMap(paragraph => paragraph.split('\n'))) {
+    for (const sentence of line.split(/(?<=。)(?![」』）】]|$)|(?<=。[」』）】])(?!$)/)) {
+      if (!sentence.trim()) continue;
+      const element = add(copy, 'p', sentence);
+      if (/。[」』）】]*$/.test(sentence.trim())) element.classList.add('sentence');
+      if (/^(【|[①②③④])/.test(sentence.trim())) element.classList.add('key');
+    }
+  }
+}
 function render(data) {
   by('entry').hidden = true;
   by('work').hidden = false;
@@ -70,13 +82,19 @@ function render(data) {
     const label = 'Day ' + number + ' ｜ ' + day.title;
     if (day.submitted) {
       add(block, 'summary', '✓ 提出済み　' + label).className = 'submitted';
+      renderBody(block, day);
       const saved = add(block, 'div', '');
       saved.className = 'saved-copy';
       add(saved, 'h3', 'あなたが提出した回答');
       const group = add(review, 'article', '');
-      add(group, 'h3', label);
+      const historyDay = add(group, 'details', '');
+      add(historyDay, 'summary', label);
+      renderBody(historyDay, day);
+      const historyAnswers = add(historyDay, 'div', '');
+      historyAnswers.className = 'saved-copy';
+      add(historyAnswers, 'h3', 'あなたが提出した回答');
       day.questions.forEach((question, i) => {
-        [saved, group].forEach(container => {
+        [saved, historyAnswers].forEach(container => {
           add(container, 'strong', question);
           add(container, 'pre', day.answers[i]);
         });
@@ -84,16 +102,7 @@ function render(data) {
     } else if (number === data.next && data.available) {
       add(block, 'summary', label);
       block.open = true;
-      const copy = add(block, 'div', '');
-      copy.className = 'source-copy';
-      for (const line of day.body.flatMap(paragraph => paragraph.split('\n'))) {
-        for (const sentence of line.split(/(?<=。)(?![」』）】]|$)|(?<=。[」』）】])(?!$)/)) {
-          if (!sentence.trim()) continue;
-          const element = add(copy, 'p', sentence);
-          if (/。[」』）】]*$/.test(sentence.trim())) element.classList.add('sentence');
-          if (/^(【|[①②③④])/.test(sentence.trim())) element.classList.add('key');
-        }
-      }
+      renderBody(block, day);
       const form = add(block, 'form', '');
       const fields = day.questions.map(question => {
         const input = add(add(form, 'label', question), 'textarea', '');
