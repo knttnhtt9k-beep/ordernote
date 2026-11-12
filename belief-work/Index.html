@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="ja"><head><base target="_top"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>
 *{box-sizing:border-box}body{margin:0;background:#f8f4f8;color:#392638;font:16px/1.75 system-ui,sans-serif}main{max-width:780px;margin:auto;padding:40px 18px}header{border-bottom:1px solid #dacbdc;margin-bottom:24px}h1,h2{line-height:1.35}h1{font-family:serif;font-size:clamp(26px,5vw,42px)}section,details{background:white;border:1px solid #e3d7e4;border-radius:14px;padding:18px;margin:12px 0}label{display:block;margin:14px 0}input,textarea{display:block;width:100%;font:inherit;padding:9px;border:1px solid #a890ad;border-radius:7px;color:inherit}textarea{min-height:110px}button{font:inherit;background:#68466d;color:white;border:0;border-radius:8px;padding:9px 16px;cursor:pointer;margin:4px 6px 4px 0}button:disabled{opacity:.55}summary{cursor:pointer;font-weight:bold}.submitted{color:#27614e}.copy{overflow-wrap:anywhere}pre{white-space:pre-wrap;font:inherit}#message{color:#982540}[hidden]{display:none!important}
-</style></head><body><main>
+.source-copy p{white-space:pre-wrap;margin:0;line-height:1.65}.source-copy .sentence{margin-bottom:.42em}.source-copy .key{color:#a52138;font-weight:700;margin-top:.65em}.saved-copy{background:#f6f0f6;padding:12px;border-radius:8px;margin-top:12px}pre{overflow-wrap:anywhere}nav{display:flex;flex-wrap:wrap}nav button[aria-pressed=false]{background:#eee3ef;color:#392638}</style></head><body><main>
 <header><p>恋愛オーダー</p><h1>思い込みを手放す14日ワーク</h1></header>
 <p id="message" role="alert"></p>
 <section id="entry"><form id="access">
@@ -13,13 +13,21 @@
 </form></section>
 <div id="work" hidden><section>
 <p id="progress"></p><button id="refresh" type="button">最新の状態を表示</button><button id="exit" type="button">閉じる</button>
-</section><div id="days"></div><section id="review" hidden><h2>ワークの振り返り</h2><div id="answers"></div></section></div>
+</section><nav aria-label="ワーク画面"><button id="listView" aria-pressed="true">ワーク一覧</button><button id="reviewView" aria-pressed="false">ワークの振り返り</button></nav><section id="chatPrompt" hidden><h2 id="reportHeading" tabindex="-1">サポートチャットに報告する</h2><p>下のメッセージをコピーして、サポートチャットに貼り付けて送ってください。</p><p><strong id="chatText"></strong></p><button id="copyChat" type="button">メッセージをコピー</button><p id="copyStatus" role="status"></p></section><div id="days"></div><section id="review" hidden><h2>ワークの振り返り</h2><div id="answers"></div></section></div>
 </main><script>
 const by = id => document.getElementById(id);
 let resume = true;
 let email = '';
 let secret = '';
 let pending = false;
+let showingReview = false;
+function showView(review) {
+  showingReview = review;
+  by('days').hidden = review;
+  by('review').hidden = !review;
+  by('listView').setAttribute('aria-pressed', String(!review));
+  by('reviewView').setAttribute('aria-pressed', String(review));
+}
 function mode(value) {
   resume = value;
   by('nameLabel').hidden = resume;
@@ -53,7 +61,8 @@ function render(data) {
   days.replaceChildren();
   review.replaceChildren();
   const count = data.entries.filter(day => day.submitted).length;
-  by('review').hidden = count === 0;
+  showView(showingReview);
+  if (!count) add(review, 'p', 'ワークを提出すると、ここに質問とあなたの回答が表示されます。');
   by('progress').textContent = count + ' / 14日 提出済み';
   data.entries.forEach((day, index) => {
     const number = index + 1;
@@ -61,10 +70,13 @@ function render(data) {
     const label = 'Day ' + number + ' ｜ ' + day.title;
     if (day.submitted) {
       add(block, 'summary', '✓ 提出済み　' + label).className = 'submitted';
+      const saved = add(block, 'div', '');
+      saved.className = 'saved-copy';
+      add(saved, 'h3', 'あなたが提出した回答');
       const group = add(review, 'article', '');
       add(group, 'h3', label);
       day.questions.forEach((question, i) => {
-        [block, group].forEach(container => {
+        [saved, group].forEach(container => {
           add(container, 'strong', question);
           add(container, 'pre', day.answers[i]);
         });
@@ -72,7 +84,16 @@ function render(data) {
     } else if (number === data.next && data.available) {
       add(block, 'summary', label);
       block.open = true;
-      day.body.forEach(paragraph => add(block, 'pre', paragraph));
+      const copy = add(block, 'div', '');
+      copy.className = 'source-copy';
+      for (const line of day.body.flatMap(paragraph => paragraph.split('\n'))) {
+        for (const sentence of line.split(/(?<=。)(?![」』）】]|$)|(?<=。[」』）】])(?!$)/)) {
+          if (!sentence.trim()) continue;
+          const element = add(copy, 'p', sentence);
+          if (/。[」』）】]*$/.test(sentence.trim())) element.classList.add('sentence');
+          if (/^(【|[①②③④])/.test(sentence.trim())) element.classList.add('key');
+        }
+      }
       const form = add(block, 'form', '');
       const fields = day.questions.map(question => {
         const input = add(add(form, 'label', question), 'textarea', '');
@@ -83,7 +104,14 @@ function render(data) {
       add(form, 'button', '提出する');
       form.onsubmit = event => {
         event.preventDefault();
-        request('submitWork', [email, secret, number, fields.map(field => field.value)], render);
+        request('submitWork', [email, secret, number, fields.map(field => field.value)], updated => {
+          render(updated);
+          if (!updated.entries[index]?.submitted) return;
+          by('chatText').textContent = 'Day ' + number + 'のワークができました！';
+          by('copyStatus').textContent = '';
+          by('chatPrompt').hidden = false;
+          by('reportHeading').focus();
+        });
       };
     } else {
       add(block, 'summary', label);
@@ -93,10 +121,24 @@ function render(data) {
     }
   });
 }
+by('listView').onclick = () => showView(false);
+by('reviewView').onclick = () => showView(true);
+by('copyChat').onclick = async () => {
+  try {
+    await navigator.clipboard.writeText(by('chatText').textContent);
+    by('copyStatus').textContent = 'コピーしました。';
+  } catch {
+    by('copyStatus').textContent = '上のメッセージを選択してコピーしてください。';
+  }
+};
 by('switchMode').onclick = () => mode(!resume);
 by('refresh').onclick = () => request('loadWork', [email, secret], render);
 by('exit').onclick = () => {
   secret = '';
+  email = '';
+  showingReview = false;
+  by('chatPrompt').hidden = true;
+  by('chatText').textContent = '';
   by('pin').value = '';
   by('work').hidden = true;
   by('entry').hidden = false;
