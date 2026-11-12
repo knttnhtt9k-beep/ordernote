@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="ja"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>思い込みを手放す14日ワーク｜講師用デモ</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#faf6fa;color:#392638;font:16px/1.75 system-ui,sans-serif}main{max-width:750px;margin:auto;padding:40px 18px}h1,h2{line-height:1.35}h1{font-family:serif;font-size:clamp(25px,5vw,40px)}header{border-bottom:1px solid #dacbdc;margin-bottom:20px}section,details{background:white;border:1px solid #e3d7e4;border-radius:14px;padding:18px;margin:12px 0}label{display:block;margin:14px 0}textarea{display:block;width:100%;font:inherit;padding:9px;border:1px solid #a890ad;border-radius:7px;color:inherit;min-height:90px}button{font:inherit;background:#68466d;color:white;border:0;border-radius:8px;padding:9px 16px;cursor:pointer;margin:4px 6px 4px 0}button.secondary{background:#efe5ef;color:#392638}summary{cursor:pointer;font-weight:bold}.submitted{color:#27614e}.answer{white-space:pre-wrap}article+article{border-top:1px solid #e3d7e4}button:focus-visible,summary:focus-visible,textarea:focus-visible{outline:3px solid #835686;outline-offset:3px}
+</style>
+<main><header><p>恋愛オーダー ｜ 講師用デモ</p><h1>思い込みを手放す14日ワーク</h1><p>サンプル回答で最初の2日間を体験できます。入力はこのページを閉じると消えます。</p></header>
+<section aria-label="デモ操作"><p id="progress" aria-live="polite"></p><button id="next" hidden>翌日0:00を体験する</button><button id="reset" class="secondary">最初から試す</button></section>
+<div id="days"></div><section id="review" hidden><h2>ワークの振り返り</h2><div id="history"></div></section></main>
+<script>
+const examples = [
+  {title:'最近、気持ちが動いたのはどんなとき？', questions:['どんな場面だった？','そのとき、何を考えた？','そのあと、どう行動した？'], sample:['メッセージの返信が夜まで来なかった。','何か気に障ることを言ったかもしれないと思った。','何度かスマホを確認した。']},
+  {title:'そのとき、本当はどうなってほしかった？', questions:['そのとき、どんな気持ちだった？','本当はどうなってほしかった？','その気持ちをどう伝えられそう？'], sample:['不安で、少し寂しかった。','落ち着いたときに一言もらえるとうれしい。','忙しいときは後で話せると安心すると伝えてみる。']}
+];
+const by = id => document.getElementById(id);
+let answers = [];
+let dayTwoOpen = false;
+function add(parent, tag, value) {
+  const node = document.createElement(tag);
+  node.textContent = value;
+  parent.append(node);
+  return node;
+}
+function showAnswers(parent, day, values) {
+  day.questions.forEach((question, index) => {
+    add(parent, 'strong', question);
+    add(parent, 'p', values[index]).className = 'answer';
+  });
+}
+function render() {
+  by('days').replaceChildren();
+  by('history').replaceChildren();
+  by('progress').textContent = answers.length + ' / 14日 提出済み（デモはDay 2まで）';
+  by('next').hidden = answers.length !== 1 || dayTwoOpen;
+  by('review').hidden = answers.length === 0;
+  examples.forEach((day, index) => {
+    const title = 'Day ' + (index + 1) + ' ｜ ' + day.title;
+    const card = add(by('days'), 'details', '');
+    const heading = add(card, 'summary', answers[index] ? '✓ 提出済み　' + title : title);
+    if (answers[index]) {
+      heading.className = 'submitted';
+      showAnswers(card, day, answers[index]);
+      const article = add(by('history'), 'article', '');
+      add(article, 'h3', title);
+      showAnswers(article, day, answers[index]);
+      return;
+    }
+    if (index === 1 && !dayTwoOpen) {
+      card.open = true;
+      add(card, 'p', 'Day 1を提出した翌日の0:00から回答できます。');
+      return;
+    }
+    card.open = true;
+    const form = add(card, 'form', '');
+    const fields = day.questions.map(question => {
+      const field = add(add(form, 'label', question), 'textarea', '');
+      field.required = true;
+      field.maxLength = 3000;
+      return field;
+    });
+    const fill = add(form, 'button', 'サンプルを入力');
+    fill.type = 'button';
+    fill.className = 'secondary';
+    fill.onclick = () => fields.forEach((field, i) => field.value = day.sample[i]);
+    add(form, 'button', '提出する');
+    form.onsubmit = event => {
+      event.preventDefault();
+      const values = fields.map(field => field.value.trim());
+      const blank = values.indexOf('');
+      if (blank >= 0) { fields[blank].value = ''; fields[blank].reportValidity(); return; }
+      answers[index] = values;
+      render();
+      (by('next').hidden ? by('review').querySelector('h2') : by('next')).scrollIntoView({block:'nearest'});
+    };
+  });
+}
+by('next').onclick = () => { dayTwoOpen = true; render(); by('days').querySelector('textarea').focus(); };
+by('reset').onclick = () => { answers = []; dayTwoOpen = false; render(); };
+render();
+</script></html>
