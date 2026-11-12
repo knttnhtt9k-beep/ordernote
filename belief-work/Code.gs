@@ -656,7 +656,7 @@ function start(name, email, pin) {
     const sheet = book.getSheetByName('参加者');
     if (account_(sheet, email)) throw new Error('このメールアドレスでは作成できません。登録済みの方はログインしてください。');
     const id = Utilities.getUuid();
-    const state = state_(book, id);
+    const state = workState_(days_(), []);
     sheet.appendRow([id, literal_(name), literal_(pin), new Date(), literal_(email)]);
     return state;
   });
@@ -684,8 +684,12 @@ function submitWork(email, pin, day, answers) {
         answers.some(value => typeof value !== 'string' || !value.trim() || value.length > 3000)) {
       throw new Error('各回答を1〜3000文字で入力してください。');
     }
-    book.getSheetByName('Day ' + day).appendRow([id, literal_(name), new Date(), ...answers.map(literal_)]);
-    const updated = state_(book, id);
+    const submitted = new Date();
+    book.getSheetByName('Day ' + day).appendRow([id, literal_(name), submitted, ...answers.map(literal_)]);
+    const days = days_();
+    const completed = state.entries.slice(0, day - 1);
+    completed.push({ ...days[day - 1], submitted: submitted.toISOString(), answers });
+    const updated = workState_(days, completed);
     summarize_(book, id, name, updated);
     return updated;
   });
@@ -745,23 +749,25 @@ function authenticate_(book, email, pin) {
   return { id, name };
 }
 function state_(book, id) {
-  let unlockAt = 0;
-  let next = null;
   const days = days_();
-  const entries = days.map((day, index) => {
+  const completed = [];
+  for (const [index, day] of days.entries()) {
     const sheet = book.getSheetByName('Day ' + (index + 1));
     const row = row_(sheet, id);
-    if (row) {
-      const [submitted, ...answers] = sheet.getRange(row.getRow(), 3, 1, 1 + day.questions.length).getValues()[0];
-      const date = Utilities.formatDate(submitted, 'Asia/Tokyo', 'yyyy-MM-dd');
-      unlockAt = Date.parse(date + 'T00:00:00+09:00') + 86400000;
-      return { ...day, submitted: submitted.toISOString(), answers };
-    }
-    if (next === null) next = index + 1;
-    return { title: day.title };
-  });
+    if (!row) break;
+    const [submitted, ...answers] = sheet.getRange(row.getRow(), 3, 1, 1 + day.questions.length).getValues()[0];
+    completed.push({ ...day, submitted: submitted.toISOString(), answers });
+  }
+  return workState_(days, completed);
+}
+function workState_(days, completed) {
+  const last = completed[completed.length - 1];
+  const date = last ? Utilities.formatDate(new Date(last.submitted), 'Asia/Tokyo', 'yyyy-MM-dd') : '';
+  const unlockAt = date ? Date.parse(date + 'T00:00:00+09:00') + 86400000 : 0;
+  const next = completed.length < days.length ? completed.length + 1 : null;
   const available = next !== null && Date.now() >= unlockAt;
-  if (available) entries[next - 1] = days[next - 1];
+  const entries = days.map((day, index) => completed[index] ||
+    (available && index + 1 === next ? day : { title: day.title }));
   return { entries, next, available, unlockAt };
 }
 function summarize_(book, id, name, state) {
