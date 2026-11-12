@@ -766,8 +766,7 @@ function workState_(days, completed) {
   const unlockAt = date ? Date.parse(date + 'T00:00:00+09:00') + 86400000 : 0;
   const next = completed.length < days.length ? completed.length + 1 : null;
   const available = next !== null && Date.now() >= unlockAt;
-  const entries = days.map((day, index) => completed[index] ||
-    (available && index + 1 === next ? day : { title: day.title }));
+  const entries = days.map((day, index) => completed[index] || day);
   return { entries, next, available, unlockAt };
 }
 function summarize_(book, id, name, state) {
