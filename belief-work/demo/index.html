@@ -3,7 +3,7 @@
 <title>思い込みを手放す14日ワーク｜講師用デモ</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:#faf6fa;color:#392638;font:16px/1.75 system-ui,sans-serif}main{max-width:750px;margin:auto;padding:40px 18px}h1,h2{line-height:1.35}h1{font-family:serif;font-size:clamp(25px,5vw,40px)}header{border-bottom:1px solid #dacbdc;margin-bottom:20px}section,details{background:white;border:1px solid #e3d7e4;border-radius:14px;padding:18px;margin:12px 0}label{display:block;margin:14px 0}textarea{display:block;width:100%;font:inherit;padding:9px;border:1px solid #a890ad;border-radius:7px;color:inherit;min-height:90px}button{font:inherit;background:#68466d;color:white;border:0;border-radius:8px;padding:9px 16px;cursor:pointer;margin:4px 6px 4px 0}button.secondary{background:#efe5ef;color:#392638}summary{cursor:pointer;font-weight:bold}.submitted{color:#27614e}.answer{white-space:pre-wrap}article+article{border-top:1px solid #e3d7e4}button:focus-visible,summary:focus-visible,textarea:focus-visible{outline:3px solid #835686;outline-offset:3px}
-.source-copy p{white-space:pre-wrap;margin:0 0 .8em}.source-copy{margin-top:16px}</style>
+.source-copy{margin-top:12px;line-height:1.65;overflow-wrap:anywhere}.source-copy p{white-space:pre-wrap;margin:0}.source-copy .copy-block + .copy-block{margin-top:12px}.source-copy .copy-heading{margin:0;font-size:1.06rem;color:#a52138}.source-copy .copy-question,.source-copy strong{color:#a52138;font-weight:700}.source-copy .copy-example{padding:6px 10px;border-left:3px solid #d3b9d1;background:#faf5fa}.source-copy .copy-list{padding-left:.5em}.source-copy .copy-heading + p{margin-top:4px}</style>
 <main><header><p>恋愛オーダー ｜ 講師用デモ</p><h1>思い込みを手放す14日ワーク</h1><p>Day 1〜14の見出しを開いて、本文と設問を確認できます。提出を試すときは、各日のフォームを使ってください。</p></header>
 <section aria-label="デモ操作"><p id="progress" aria-live="polite"></p><button id="next" hidden>翌日0:00を体験する</button><button id="reset" class="secondary">最初から試す</button></section>
 <div id="days"></div><section id="review" hidden><h2>ワークの振り返り</h2><div id="history"></div></section></main>
@@ -26,6 +26,43 @@ function showAnswers(parent, day, values) {
     add(parent, 'p', values[index]).className = 'answer';
   });
 }
+function renderCopy(parent, paragraphs, dayIndex) {
+  const dayOneBreaks = new Set(['このワークでは、','友だちから結婚の報告を聞いたとき、','このように同じ出来事でも、','ただ、自分がそのとき何を考えていたのかは、','なので本日のワークでは、']);
+  const emphasis = /毎日1つずつ|何を考えて|どんな気持ちになって|どんな行動をしているのか|気持ちが動いた場面を1つ|実際に起きたこと|自分が考えたこと|本当はどうなってほしかった|これからの私/g;
+  let block;
+  let kind;
+  for (const line of paragraphs.flatMap(paragraph => paragraph.split('\n'))) {
+    const value = line.trim();
+    if (!value) { block = null; continue; }
+    const heading = /^【.+】$/.test(value);
+    const question = /^[①②③④]/.test(value);
+    const example = /^例[）):：]/.test(value);
+    const list = /^・/.test(value);
+    const newExample = dayIndex === 0 && value === '友だちから結婚の報告を聞いたとき、';
+    const nextKind = example || newExample || (kind === 'example' && !/^(このように|このことから|ここで|ただ、|大切なのは)/.test(value) && !heading && !question && !list)
+      ? 'example' : list ? 'list' : 'text';
+    if (!block || kind !== nextKind || heading || question || (dayIndex === 0 && dayOneBreaks.has(value))) {
+      kind = nextKind;
+      block = add(parent, 'div', '');
+      block.className = 'copy-block copy-' + kind;
+    }
+    const element = add(block, heading ? 'h3' : 'p', '');
+    if (heading || question) {
+      element.className = heading ? 'copy-heading' : 'copy-question';
+      element.textContent = line;
+    } else if (kind === 'example') {
+      element.textContent = line;
+    } else {
+      let cursor = 0;
+      for (const match of line.matchAll(emphasis)) {
+        element.append(line.slice(cursor, match.index));
+        add(element, 'strong', match[0]);
+        cursor = match.index + match[0].length;
+      }
+      element.append(line.slice(cursor));
+    }
+  }
+}
 function render() {
   by('days').replaceChildren();
   by('history').replaceChildren();
@@ -40,7 +77,7 @@ function render() {
     card.ontoggle = () => { if (card.open) expanded.add(index); else expanded.delete(index); };
     const copy = add(card, 'div', '');
     copy.className = 'source-copy';
-    day.body.forEach(paragraph => add(copy, 'p', paragraph));
+    renderCopy(copy, day.body, index);
     if (answers[index]) {
       heading.className = 'submitted';
       showAnswers(card, day, answers[index]);
