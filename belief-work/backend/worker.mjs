@@ -62,6 +62,7 @@ export default {
         const digest = await hash(pin,salt,env.PIN_PEPPER);
         const inserted = await db.prepare('INSERT INTO participants(id,email,name,pin_hash,pin_salt,registered_at) VALUES(?,?,?,?,?,?) ON CONFLICT(email) DO NOTHING').bind(id,email,name.trim(),digest,salt,Date.now()).run();
         if (!inserted.meta.changes) return reject('登録済みの方はログインしてください。');
+        return response({ok:true,data:{next:1,unlockAt:0,available:true,entries:days}},200,origin);
       } else {
         const now = Date.now();
         const account = await db.prepare('SELECT id,pin_hash,pin_salt FROM participants WHERE email = ?').bind(email).first();
