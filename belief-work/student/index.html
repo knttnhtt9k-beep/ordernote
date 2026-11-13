@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>
+<html lang="ja"><head><link rel="preconnect" crossorigin href="https://ordernote-belief-work-api.quaintmango5.chatgpt.site"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>
 *{box-sizing:border-box}body{margin:0;background:#f8f4f8;color:#392638;font:16px/1.75 system-ui,sans-serif}main{max-width:780px;margin:auto;padding:40px 18px}header{border-bottom:1px solid #dacbdc;margin-bottom:24px}h1,h2{line-height:1.35}h1{font-family:serif;font-size:clamp(26px,5vw,42px)}section,details{background:white;border:1px solid #e3d7e4;border-radius:14px;padding:18px;margin:12px 0}label{display:block;margin:14px 0}input,textarea{display:block;width:100%;font:inherit;padding:9px;border:1px solid #a890ad;border-radius:7px;color:inherit}textarea{min-height:110px}button{font:inherit;background:#68466d;color:white;border:0;border-radius:8px;padding:9px 16px;cursor:pointer;margin:4px 6px 4px 0}button:disabled{opacity:.55}summary{cursor:pointer;font-weight:bold}.submitted{color:#27614e}.copy{overflow-wrap:anywhere}pre{white-space:pre-wrap;font:inherit}#message{color:#982540}[hidden]{display:none!important}
 .source-copy p{white-space:pre-wrap;margin:0;line-height:1.65}.source-copy .sentence{margin-bottom:.42em}.source-copy .key{color:#a52138;font-weight:700;margin-top:.65em}.saved-copy{background:#f6f0f6;padding:12px;border-radius:8px;margin-top:12px}pre{overflow-wrap:anywhere}nav{display:flex;flex-wrap:wrap}nav button[aria-pressed=false]{background:#eee3ef;color:#392638}</style></head><body><main>
 <header><p>恋愛オーダー</p><h1>思い込みを手放す14日ワーク</h1></header>
@@ -48,7 +48,7 @@ function request(action, args, success) {
     by('pending').hidden = true;
     document.querySelectorAll('button').forEach(button => button.disabled = false);
   }
-  fetch("https://script.google.com/macros/s/AKfycbz0gCOpOaur83sQjDGfw-1rT_nEw420qml0c7vD7Kp2dZUs46UBxZIBa8qY0EdUZnIJ/exec", {
+  fetch("https://ordernote-belief-work-api.quaintmango5.chatgpt.site/api/work", {
     method: 'POST',
     credentials: 'omit',
     headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
